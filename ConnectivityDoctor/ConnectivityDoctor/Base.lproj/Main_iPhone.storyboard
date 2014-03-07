@@ -60,13 +60,14 @@
                     <navigationItem key="navigationItem" title="Master" id="tQt-TN-PWz">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="mnU-b7-yhx">
                             <connections>
-                                <segue destination="geM-I4-SdL" kind="modal" id="egq-rt-HY4"/>
+                                <segue destination="bsx-Yq-MWb" kind="unwind" unwindAction="unwindToWelcome:" id="ggU-99-ogp"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="5j7-RI-Buq"/>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Cn-md-YlS" sceneMemberID="firstResponder"/>
+                <exit id="bsx-Yq-MWb" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="770" y="513"/>
         </scene>
