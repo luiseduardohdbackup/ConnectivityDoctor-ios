@@ -29,6 +29,7 @@
 		2316ED6E18C5349200A9577E /* Icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = 2316ED6D18C5349200A9577E /* Icon-114.png */; };
 		2316ED7018C5373300A9577E /* green.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 2316ED6F18C5373300A9577E /* green.jpeg */; };
 		2316ED7318C53DB100A9577E /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2316ED7218C53DB100A9577E /* WelcomeViewController.m */; };
+		23A0200C18CE59DC00ADB7B2 /* JSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A0200B18CE59DC00ADB7B2 /* JSONParser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,8 @@
 		2316ED6F18C5373300A9577E /* green.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = green.jpeg; sourceTree = "<group>"; };
 		2316ED7118C53DB100A9577E /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
 		2316ED7218C53DB100A9577E /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
+		23A0200A18CE59DC00ADB7B2 /* JSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONParser.h; sourceTree = "<group>"; };
+		23A0200B18CE59DC00ADB7B2 /* JSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONParser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +140,8 @@
 				2316ED3D18C52F6800A9577E /* AppDelegate.m */,
 				2316ED7118C53DB100A9577E /* WelcomeViewController.h */,
 				2316ED7218C53DB100A9577E /* WelcomeViewController.m */,
+				23A0200A18CE59DC00ADB7B2 /* JSONParser.h */,
+				23A0200B18CE59DC00ADB7B2 /* JSONParser.m */,
 				2316ED3F18C52F6800A9577E /* Main_iPhone.storyboard */,
 				2316ED4218C52F6800A9577E /* Main_iPad.storyboard */,
 				2316ED4818C52F6800A9577E /* MasterViewController.h */,
@@ -288,6 +293,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23A0200C18CE59DC00ADB7B2 /* JSONParser.m in Sources */,
 				2316ED4D18C52F6800A9577E /* DetailViewController.m in Sources */,
 				2316ED4A18C52F6800A9577E /* MasterViewController.m in Sources */,
 				2316ED3E18C52F6800A9577E /* AppDelegate.m in Sources */,
@@ -512,6 +518,7 @@
 				2316ED6818C52F6800A9577E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2316ED6918C52F6800A9577E /* Build configuration list for PBXNativeTarget "ConnectivityDoctorTests" */ = {
 			isa = XCConfigurationList;
@@ -520,6 +527,7 @@
 				2316ED6B18C52F6800A9577E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

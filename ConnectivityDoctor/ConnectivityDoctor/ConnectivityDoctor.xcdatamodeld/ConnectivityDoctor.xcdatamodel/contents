@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13C64" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="DiagnosticGroup" syncable="YES">
-        <attribute name="checkedAt" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <relationship name="component" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Host" inverseName="component" inverseEntity="Host" syncable="YES"/>
-    </entity>
     <entity name="Host" syncable="YES">
         <attribute name="checkedAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="connected" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="port" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="component" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DiagnosticGroup" inverseName="component" inverseEntity="DiagnosticGroup" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Protocol" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="port" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="urlPath" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Server" syncable="YES">
+        <attribute name="checkedAt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="genericURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="protocol" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Protocol" syncable="YES"/>
+        <relationship name="url" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Host" syncable="YES"/>
     </entity>
     <elements>
-        <element name="DiagnosticGroup" positionX="-81" positionY="-34" width="128" height="103"/>
-        <element name="Host" positionX="-351" positionY="215" width="128" height="118"/>
+        <element name="Server" positionX="-81" positionY="-34" width="128" height="118"/>
+        <element name="Host" positionX="-477" positionY="176" width="128" height="103"/>
+        <element name="Protocol" positionX="-99" positionY="182" width="128" height="88"/>
     </elements>
 </model>
