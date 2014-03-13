@@ -26,8 +26,6 @@
 		2316ED5918C52F6800A9577E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2316ED3118C52F6800A9577E /* CoreData.framework */; };
 		2316ED6118C52F6800A9577E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2316ED5F18C52F6800A9577E /* InfoPlist.strings */; };
 		2316ED6318C52F6800A9577E /* ConnectivityDoctorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2316ED6218C52F6800A9577E /* ConnectivityDoctorTests.m */; };
-		2316ED6E18C5349200A9577E /* Icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = 2316ED6D18C5349200A9577E /* Icon-114.png */; };
-		2316ED7018C5373300A9577E /* green.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 2316ED6F18C5373300A9577E /* green.jpeg */; };
 		2316ED7318C53DB100A9577E /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2316ED7218C53DB100A9577E /* WelcomeViewController.m */; };
 		23A0200C18CE59DC00ADB7B2 /* JSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A0200B18CE59DC00ADB7B2 /* JSONParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
@@ -67,8 +65,6 @@
 		2316ED5E18C52F6800A9577E /* ConnectivityDoctorTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ConnectivityDoctorTests-Info.plist"; sourceTree = "<group>"; };
 		2316ED6018C52F6800A9577E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2316ED6218C52F6800A9577E /* ConnectivityDoctorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConnectivityDoctorTests.m; sourceTree = "<group>"; };
-		2316ED6D18C5349200A9577E /* Icon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-114.png"; sourceTree = "<group>"; };
-		2316ED6F18C5373300A9577E /* green.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = green.jpeg; sourceTree = "<group>"; };
 		2316ED7118C53DB100A9577E /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
 		2316ED7218C53DB100A9577E /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
 		23A0200A18CE59DC00ADB7B2 /* JSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONParser.h; sourceTree = "<group>"; };
@@ -135,7 +131,6 @@
 		2316ED3318C52F6800A9577E /* ConnectivityDoctor */ = {
 			isa = PBXGroup;
 			children = (
-				2316ED6C18C5347B00A9577E /* Resources */,
 				2316ED3C18C52F6800A9577E /* AppDelegate.h */,
 				2316ED3D18C52F6800A9577E /* AppDelegate.m */,
 				2316ED7118C53DB100A9577E /* WelcomeViewController.h */,
@@ -182,15 +177,6 @@
 				2316ED5F18C52F6800A9577E /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		2316ED6C18C5347B00A9577E /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				2316ED6F18C5373300A9577E /* green.jpeg */,
-				2316ED6D18C5349200A9577E /* Icon-114.png */,
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,10 +256,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2316ED4418C52F6800A9577E /* Main_iPad.storyboard in Resources */,
-				2316ED7018C5373300A9577E /* green.jpeg in Resources */,
 				2316ED4F18C52F6800A9577E /* Images.xcassets in Resources */,
 				2316ED4118C52F6800A9577E /* Main_iPhone.storyboard in Resources */,
-				2316ED6E18C5349200A9577E /* Icon-114.png in Resources */,
 				2316ED3818C52F6800A9577E /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
