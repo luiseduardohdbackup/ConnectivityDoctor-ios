@@ -28,7 +28,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[JSONParser new] loadServersListFromScratch];
+
+    JSONParser * parser = [JSONParser new];
+    [parser serversList];
+    NSLog(@"%@",[parser report]);
+  
 
 }
 - (void)didReceiveMemoryWarning

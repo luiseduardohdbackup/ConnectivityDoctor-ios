@@ -29,7 +29,7 @@
 		2316ED6E18C5349200A9577E /* Icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = 2316ED6D18C5349200A9577E /* Icon-114.png */; };
 		2316ED7018C5373300A9577E /* green.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 2316ED6F18C5373300A9577E /* green.jpeg */; };
 		2316ED7318C53DB100A9577E /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2316ED7218C53DB100A9577E /* WelcomeViewController.m */; };
-		23A0200C18CE59DC00ADB7B2 /* JSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A0200B18CE59DC00ADB7B2 /* JSONParser.m */; };
+		23A0200C18CE59DC00ADB7B2 /* JSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A0200B18CE59DC00ADB7B2 /* JSONParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
