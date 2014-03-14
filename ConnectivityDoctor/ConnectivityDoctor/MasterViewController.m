@@ -33,7 +33,7 @@
     [super viewDidLoad];
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    self.managedObjectContext = appDelegate.managedObjectContext;
+    self.managedObjectContext = appDelegate.uiManagedObjectContext;
 
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 }
@@ -136,7 +136,7 @@
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc]
                                                              initWithFetchRequest:fetchRequest
                                                              managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil
-                                                                          cacheName:@"Master"];
+                                                                          cacheName:nil];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
     

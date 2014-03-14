@@ -9,6 +9,9 @@
 #import "JSONParser.h"
 #import "AppDelegate.h"
 
+
+
+
 static NSString * kServerListGetURL = @"http://sup301-sat.tokbox.com/dynamicTestConfig.json";
 
 NSString * const kGroupEntity = @"Group";
@@ -38,7 +41,7 @@ static NSString * const kProtocolEntity_Port = @"port";
     self = [super init];
     if (self) {
         self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        self.managedObjectContext = self.appDelegate.managedObjectContext;
+        self.managedObjectContext = self.appDelegate.bgManagedObjectContext;
         
     }
     
@@ -95,8 +98,8 @@ static NSString * const kProtocolEntity_Port = @"port";
 -(void) scratchOffAllManagedObjects
 {
     [self scratchOffAllObjectsIn:kGroupEntity];
-    [self scratchOffAllObjectsIn:kHostEntity];
-    [self scratchOffAllObjectsIn:kProtocolEntity];
+//    [self scratchOffAllObjectsIn:kHostEntity];
+//    [self scratchOffAllObjectsIn:kProtocolEntity];
  
 }
 
@@ -115,72 +118,76 @@ static NSString * const kProtocolEntity_Port = @"port";
     
     [NSURLConnection sendAsynchronousRequest:urlRequest queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
      {
+         
          if ([data length] > 0 && error == nil) {
              
-            [self scratchOffAllManagedObjects];
-            
-             
-             NSDictionary * info = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-             NSDictionary * groups = [info objectForKey:@"servers"];
-             
-             //iterate through all groups
-             for (NSString* group in groups) {
+        
+            [self.managedObjectContext performBlock:^{
                 
-                  NSManagedObject * groupManagedObject = [NSEntityDescription insertNewObjectForEntityForName:kGroupEntity
-                                                                  inManagedObjectContext:self.managedObjectContext];
+            
+                [self scratchOffAllManagedObjects];
+                
                  
-                 [groupManagedObject setValue:group forKey:kGroupEntity_Name];
+                 NSDictionary * info = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                 NSDictionary * groups = [info objectForKey:@"servers"];
                  
-                 //groupInfo object
-                 NSDictionary * groupInfo = [groups objectForKey:group];
- 
-                 
-                 NSArray * tests = [groupInfo objectForKey:@"tests"];
-                 NSMutableSet * protocolSet = [NSMutableSet new];
-                 
-                 for (NSDictionary * test in tests) {
-                     //loop thru ports list
-                     NSArray *ports = [[test objectForKey:@"range"] componentsSeparatedByString:@","];
-                     for (NSString * port in ports) {
-                         //now fill up the Protocol Object
-                         NSManagedObject* p = [NSEntityDescription insertNewObjectForEntityForName:kProtocolEntity
-                                                                            inManagedObjectContext:self.managedObjectContext];
+                 //iterate through all groups
+                 for (NSString* group in groups) {
+                    
+                      NSManagedObject * groupManagedObject = [NSEntityDescription insertNewObjectForEntityForName:kGroupEntity
+                                                                      inManagedObjectContext:self.managedObjectContext];
+                     
+                     [groupManagedObject setValue:group forKey:kGroupEntity_Name];
+                     
+                     //groupInfo object
+                     NSDictionary * groupInfo = [groups objectForKey:group];
+     
+                     
+                     NSArray * tests = [groupInfo objectForKey:@"tests"];
+                     NSMutableSet * protocolSet = [NSMutableSet new];
+                     
+                     for (NSDictionary * test in tests) {
+                         //loop thru ports list
+                         NSArray *ports = [[test objectForKey:@"range"] componentsSeparatedByString:@","];
+                         for (NSString * port in ports) {
+                             //now fill up the Protocol Object
+                             NSManagedObject* p = [NSEntityDescription insertNewObjectForEntityForName:kProtocolEntity
+                                                                                inManagedObjectContext:self.managedObjectContext];
+                             
+                             [p setValue:[test objectForKey:@"protocol"] forKey:kProtocolEntity_Name];
+                             [p setValue:port forKey:kProtocolEntity_Port];
+                             [p setValue:[test objectForKey:@"path"] forKey:kProtocolEntity_UrlPathExtension];
+                             [protocolSet addObject:p];
+                         }
                          
-                         [p setValue:[test objectForKey:@"protocol"] forKey:kProtocolEntity_Name];
-                         [p setValue:port forKey:kProtocolEntity_Port];
-                         [p setValue:[test objectForKey:@"path"] forKey:kProtocolEntity_UrlPathExtension];
-                         [protocolSet addObject:p];
                      }
-                     
-                 }
-                 //link to server managed object
-                 [groupManagedObject setValue:protocolSet forKey:kGroupEntity_Relationship_Protocol];
+                     //link to server managed object
+                     [groupManagedObject setValue:protocolSet forKey:kGroupEntity_Relationship_Protocol];
 
-                 // now fill up Host
-                 NSMutableSet * hostSet = [NSMutableSet new];
- 
-                 NSArray * hosts = [groupInfo objectForKey:@"urls"];
-                 
-                 for (NSString * host in hosts) {
-                     NSManagedObject * h = [NSEntityDescription insertNewObjectForEntityForName:kHostEntity inManagedObjectContext:self.managedObjectContext];
-                     [h setValue:host forKey:kHostEntity_URL];
-                     [h setValue: @"Yes" forKey:kHostEntity_connected];
-                     [h setValue:[groupInfo objectForKey:@"generic_url"] forKey:kHostEntity_GenericURL];
-                     [hostSet addObject:h];
+                     // now fill up Host
+                     NSMutableSet * hostSet = [NSMutableSet new];
+     
+                     NSArray * hosts = [groupInfo objectForKey:@"urls"];
                      
-                     }
+                     for (NSString * host in hosts) {
+                         NSManagedObject * h = [NSEntityDescription insertNewObjectForEntityForName:kHostEntity inManagedObjectContext:self.managedObjectContext];
+                         [h setValue:host forKey:kHostEntity_URL];
+                         [h setValue: @"Yes" forKey:kHostEntity_connected];
+                         [h setValue:[groupInfo objectForKey:@"generic_url"] forKey:kHostEntity_GenericURL];
+                         [hostSet addObject:h];
+                         
+                         }
+                     
+                     //link all hosts to Server
+                     [groupManagedObject setValue:hostSet forKey:kGroupEntity_Relationship_Host];
+                 }
                  
-                 //link all hosts to Server
-                 [groupManagedObject setValue:hostSet forKey:kGroupEntity_Relationship_Host];
-             }
-             
-             //save
-             [self.appDelegate saveContext];
+                 //save
+                [self.appDelegate saveContext];
+                [self printAllManagedObjects];
+            }];
              //input print
               //NSLog(@"%@",groups);
-             
-             //print created coredata
-             [self printAllManagedObjects];
          }
          
          else if ([data length] == 0 && error == nil)

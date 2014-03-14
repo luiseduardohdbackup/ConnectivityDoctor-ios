@@ -7,12 +7,17 @@
 //
 
 #import "AppDelegate.h"
-
 #import "MasterViewController.h"
+@interface AppDelegate()
+@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
+@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+- (NSURL *)applicationDocumentsDirectory;
+@end
 
 @implementation AppDelegate
 
-@synthesize managedObjectContext = _managedObjectContext;
+@synthesize uiManagedObjectContext = _uiManagedObjectContext;
+@synthesize bgManagedObjectContext = _bgManagedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
@@ -51,34 +56,47 @@
 
 - (void)saveContext
 {
-    NSError *error = nil;
-    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
-    if (managedObjectContext != nil) {
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-             // Replace this implementation with code to handle the error appropriately.
-             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        } 
+    // main thread block on main thread is ok without performBlock
+     if (self.uiManagedObjectContext != nil) {
+        if ([self.uiManagedObjectContext hasChanges] && ![self.uiManagedObjectContext save:nil]) {
+
+            [NSException raise:@"Core data save failed" format:@"Core data save failed", nil];
+            
+        }
     }
+    [self.bgManagedObjectContext performBlock:^{
+        if ([self.bgManagedObjectContext hasChanges] && ![self.bgManagedObjectContext save:nil]) {
+            
+            [NSException raise:@"Core data save failed" format:@"Core data save failed", nil];
+            
+        }
+    }];
+    
 }
 
 #pragma mark - Core Data stack
-
+-(NSManagedObjectContext *) bgManagedObjectContext
+{
+    if(_bgManagedObjectContext != nil)
+    {
+        return _bgManagedObjectContext;
+    }
+    _bgManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    [_bgManagedObjectContext setPersistentStoreCoordinator:[self persistentStoreCoordinator]];
+    return _bgManagedObjectContext;
+    
+}
 // Returns the managed object context for the application.
 // If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
-- (NSManagedObjectContext *)managedObjectContext
+- (NSManagedObjectContext *)uiManagedObjectContext
 {
-    if (_managedObjectContext != nil) {
-        return _managedObjectContext;
+    if (_uiManagedObjectContext != nil) {
+        return _uiManagedObjectContext;
     }
     
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (coordinator != nil) {
-        _managedObjectContext = [[NSManagedObjectContext alloc] init];
-        [_managedObjectContext setPersistentStoreCoordinator:coordinator];
-    }
-    return _managedObjectContext;
+    _uiManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    _uiManagedObjectContext.parentContext = self.bgManagedObjectContext;
+    return _uiManagedObjectContext;
 }
 
 // Returns the managed object model for the application.
