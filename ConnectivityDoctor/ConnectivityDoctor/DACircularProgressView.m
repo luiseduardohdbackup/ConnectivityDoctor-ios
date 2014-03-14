@@ -128,6 +128,7 @@
     if (self == [DACircularProgressView class]) {
         DACircularProgressView *circularProgressViewAppearance = [DACircularProgressView appearance];
         [circularProgressViewAppearance setTrackTintColor:[[UIColor whiteColor] colorWithAlphaComponent:0.3f]];
+       // [circularProgressViewAppearance setTrackTintColor:[[UIColor brownColor] colorWithAlphaComponent:0.3f]];
         [circularProgressViewAppearance setProgressTintColor:[UIColor whiteColor]];
         [circularProgressViewAppearance setBackgroundColor:[UIColor clearColor]];
         [circularProgressViewAppearance setThicknessRatio:0.3f];

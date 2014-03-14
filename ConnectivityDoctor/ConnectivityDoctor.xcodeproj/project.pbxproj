@@ -29,6 +29,8 @@
 		2316ED7318C53DB100A9577E /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2316ED7218C53DB100A9577E /* WelcomeViewController.m */; };
 		23A0200C18CE59DC00ADB7B2 /* JSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A0200B18CE59DC00ADB7B2 /* JSONParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		23A0205918D2673800ADB7B2 /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A0205818D2673800ADB7B2 /* DACircularProgressView.m */; };
+		23A0205C18D3938F00ADB7B2 /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A0205B18D3938F00ADB7B2 /* GroupCell.m */; };
+		23A0205E18D3B09E00ADB7B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A0205D18D3B09E00ADB7B2 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +74,9 @@
 		23A0200B18CE59DC00ADB7B2 /* JSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONParser.m; sourceTree = "<group>"; };
 		23A0205718D2673800ADB7B2 /* DACircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DACircularProgressView.h; sourceTree = "<group>"; };
 		23A0205818D2673800ADB7B2 /* DACircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DACircularProgressView.m; sourceTree = "<group>"; };
+		23A0205A18D3938F00ADB7B2 /* GroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCell.h; sourceTree = "<group>"; };
+		23A0205B18D3938F00ADB7B2 /* GroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCell.m; sourceTree = "<group>"; };
+		23A0205D18D3B09E00ADB7B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23A0205E18D3B09E00ADB7B2 /* QuartzCore.framework in Frameworks */,
 				2316ED2E18C52F6800A9577E /* CoreGraphics.framework in Frameworks */,
 				2316ED3218C52F6800A9577E /* CoreData.framework in Frameworks */,
 				2316ED3018C52F6800A9577E /* UIKit.framework in Frameworks */,
@@ -122,6 +128,7 @@
 		2316ED2A18C52F6800A9577E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				23A0205D18D3B09E00ADB7B2 /* QuartzCore.framework */,
 				2316ED2B18C52F6800A9577E /* Foundation.framework */,
 				2316ED2D18C52F6800A9577E /* CoreGraphics.framework */,
 				2316ED2F18C52F6800A9577E /* UIKit.framework */,
@@ -137,6 +144,8 @@
 				23A0205518D2671200ADB7B2 /* ThirdParty */,
 				2316ED3C18C52F6800A9577E /* AppDelegate.h */,
 				2316ED3D18C52F6800A9577E /* AppDelegate.m */,
+				23A0205A18D3938F00ADB7B2 /* GroupCell.h */,
+				23A0205B18D3938F00ADB7B2 /* GroupCell.m */,
 				2316ED7118C53DB100A9577E /* WelcomeViewController.h */,
 				2316ED7218C53DB100A9577E /* WelcomeViewController.m */,
 				23A0200A18CE59DC00ADB7B2 /* JSONParser.h */,
@@ -304,6 +313,7 @@
 				2316ED3E18C52F6800A9577E /* AppDelegate.m in Sources */,
 				2316ED3A18C52F6800A9577E /* main.m in Sources */,
 				23A0205918D2673800ADB7B2 /* DACircularProgressView.m in Sources */,
+				23A0205C18D3938F00ADB7B2 /* GroupCell.m in Sources */,
 				2316ED4718C52F6800A9577E /* ConnectivityDoctor.xcdatamodeld in Sources */,
 				2316ED7318C53DB100A9577E /* WelcomeViewController.m in Sources */,
 			);
