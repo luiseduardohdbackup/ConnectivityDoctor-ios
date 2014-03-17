@@ -16,6 +16,8 @@ static NSString * kServerListGetURL = @"http://sup301-sat.tokbox.com/dynamicTest
 
 NSString * const kGroupEntity = @"Group";
 NSString * const kGroupEntity_Name = @"name";
+NSString * const kGroupEntity_HostCount = @"hostCount";
+NSString * const kGroupEntity_HostCheckedCount = @"hostCheckedCount";
 static NSString * const kGroupEntity_Relationship_Protocol = @"protocol";
 static NSString * const kGroupEntity_Relationship_Host = @"url";
 
@@ -168,6 +170,8 @@ static NSString * const kProtocolEntity_Port = @"port";
                      NSMutableSet * hostSet = [NSMutableSet new];
      
                      NSArray * hosts = [groupInfo objectForKey:@"urls"];
+                     [groupManagedObject setValue:[NSString stringWithFormat:@"%d",hosts.count] forKey:kGroupEntity_HostCount];
+                     [groupManagedObject setValue:@"0" forKey:kGroupEntity_HostCheckedCount];
                      
                      for (NSString * host in hosts) {
                          NSManagedObject * h = [NSEntityDescription insertNewObjectForEntityForName:kHostEntity inManagedObjectContext:self.managedObjectContext];

@@ -216,6 +216,8 @@
 - (void)configureCell:(GroupCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [object addObserver:cell forKeyPath:kGroupEntity_HostCheckedCount options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+    cell.managedObject = object;
     cell.nameLabel.text = [[object valueForKey:@"name"] description];
    
 

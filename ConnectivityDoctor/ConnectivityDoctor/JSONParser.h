@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 extern NSString * const kGroupEntity ;
 extern NSString * const kGroupEntity_Name ;
-
+extern NSString * const kGroupEntity_HostCount ;
+extern NSString * const kGroupEntity_HostCheckedCount ;
 @interface JSONParser : NSObject
 
 // Gets the server list in JSON from tokbox server, parses it and stores it in Core data.

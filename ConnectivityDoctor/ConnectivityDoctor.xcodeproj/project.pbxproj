@@ -141,23 +141,17 @@
 		2316ED3318C52F6800A9577E /* ConnectivityDoctor */ = {
 			isa = PBXGroup;
 			children = (
+				23A0208718D767F500ADB7B2 /* CoreData */,
 				23A0205518D2671200ADB7B2 /* ThirdParty */,
-				2316ED3C18C52F6800A9577E /* AppDelegate.h */,
-				2316ED3D18C52F6800A9577E /* AppDelegate.m */,
-				23A0205A18D3938F00ADB7B2 /* GroupCell.h */,
-				23A0205B18D3938F00ADB7B2 /* GroupCell.m */,
-				2316ED7118C53DB100A9577E /* WelcomeViewController.h */,
-				2316ED7218C53DB100A9577E /* WelcomeViewController.m */,
+				23A0208618D767C100ADB7B2 /* Storyboard */,
 				23A0200A18CE59DC00ADB7B2 /* JSONParser.h */,
 				23A0200B18CE59DC00ADB7B2 /* JSONParser.m */,
-				2316ED3F18C52F6800A9577E /* Main_iPhone.storyboard */,
-				2316ED4218C52F6800A9577E /* Main_iPad.storyboard */,
 				2316ED4818C52F6800A9577E /* MasterViewController.h */,
 				2316ED4918C52F6800A9577E /* MasterViewController.m */,
 				2316ED4B18C52F6800A9577E /* DetailViewController.h */,
 				2316ED4C18C52F6800A9577E /* DetailViewController.m */,
-				2316ED4E18C52F6800A9577E /* Images.xcassets */,
-				2316ED4518C52F6800A9577E /* ConnectivityDoctor.xcdatamodeld */,
+				2316ED3C18C52F6800A9577E /* AppDelegate.h */,
+				2316ED3D18C52F6800A9577E /* AppDelegate.m */,
 				2316ED3418C52F6800A9577E /* Supporting Files */,
 			);
 			path = ConnectivityDoctor;
@@ -207,6 +201,28 @@
 				23A0205818D2673800ADB7B2 /* DACircularProgressView.m */,
 			);
 			name = DACircular;
+			sourceTree = "<group>";
+		};
+		23A0208618D767C100ADB7B2 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				23A0205A18D3938F00ADB7B2 /* GroupCell.h */,
+				23A0205B18D3938F00ADB7B2 /* GroupCell.m */,
+				2316ED7118C53DB100A9577E /* WelcomeViewController.h */,
+				2316ED7218C53DB100A9577E /* WelcomeViewController.m */,
+				2316ED3F18C52F6800A9577E /* Main_iPhone.storyboard */,
+				2316ED4218C52F6800A9577E /* Main_iPad.storyboard */,
+				2316ED4E18C52F6800A9577E /* Images.xcassets */,
+			);
+			name = Storyboard;
+			sourceTree = "<group>";
+		};
+		23A0208718D767F500ADB7B2 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				2316ED4518C52F6800A9577E /* ConnectivityDoctor.xcdatamodeld */,
+			);
+			name = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
