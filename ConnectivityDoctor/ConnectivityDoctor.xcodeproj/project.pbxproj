@@ -10,13 +10,11 @@
 		2316ED2C18C52F6800A9577E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2316ED2B18C52F6800A9577E /* Foundation.framework */; };
 		2316ED2E18C52F6800A9577E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2316ED2D18C52F6800A9577E /* CoreGraphics.framework */; };
 		2316ED3018C52F6800A9577E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2316ED2F18C52F6800A9577E /* UIKit.framework */; };
-		2316ED3218C52F6800A9577E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2316ED3118C52F6800A9577E /* CoreData.framework */; };
 		2316ED3818C52F6800A9577E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2316ED3618C52F6800A9577E /* InfoPlist.strings */; };
 		2316ED3A18C52F6800A9577E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2316ED3918C52F6800A9577E /* main.m */; };
 		2316ED3E18C52F6800A9577E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2316ED3D18C52F6800A9577E /* AppDelegate.m */; };
 		2316ED4118C52F6800A9577E /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2316ED3F18C52F6800A9577E /* Main_iPhone.storyboard */; };
 		2316ED4418C52F6800A9577E /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2316ED4218C52F6800A9577E /* Main_iPad.storyboard */; };
-		2316ED4718C52F6800A9577E /* ConnectivityDoctor.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2316ED4518C52F6800A9577E /* ConnectivityDoctor.xcdatamodeld */; };
 		2316ED4A18C52F6800A9577E /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2316ED4918C52F6800A9577E /* MasterViewController.m */; };
 		2316ED4D18C52F6800A9577E /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2316ED4C18C52F6800A9577E /* DetailViewController.m */; };
 		2316ED4F18C52F6800A9577E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2316ED4E18C52F6800A9577E /* Images.xcassets */; };
@@ -27,7 +25,8 @@
 		2316ED6118C52F6800A9577E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2316ED5F18C52F6800A9577E /* InfoPlist.strings */; };
 		2316ED6318C52F6800A9577E /* ConnectivityDoctorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2316ED6218C52F6800A9577E /* ConnectivityDoctorTests.m */; };
 		2316ED7318C53DB100A9577E /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2316ED7218C53DB100A9577E /* WelcomeViewController.m */; };
-		23A0200C18CE59DC00ADB7B2 /* JSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A0200B18CE59DC00ADB7B2 /* JSONParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		2393457C18D7BE7F007EEAEE /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393457B18D7BE7F007EEAEE /* ContainerViewController.m */; };
+		2393457F18D8B611007EEAEE /* ServerGroups.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393457E18D8B611007EEAEE /* ServerGroups.m */; };
 		23A0205918D2673800ADB7B2 /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A0205818D2673800ADB7B2 /* DACircularProgressView.m */; };
 		23A0205C18D3938F00ADB7B2 /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A0205B18D3938F00ADB7B2 /* GroupCell.m */; };
 		23A0205E18D3B09E00ADB7B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A0205D18D3B09E00ADB7B2 /* QuartzCore.framework */; };
@@ -57,7 +56,6 @@
 		2316ED3D18C52F6800A9577E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		2316ED4018C52F6800A9577E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		2316ED4318C52F6800A9577E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		2316ED4618C52F6800A9577E /* ConnectivityDoctor.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ConnectivityDoctor.xcdatamodel; sourceTree = "<group>"; };
 		2316ED4818C52F6800A9577E /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
 		2316ED4918C52F6800A9577E /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
 		2316ED4B18C52F6800A9577E /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
@@ -70,8 +68,10 @@
 		2316ED6218C52F6800A9577E /* ConnectivityDoctorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConnectivityDoctorTests.m; sourceTree = "<group>"; };
 		2316ED7118C53DB100A9577E /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
 		2316ED7218C53DB100A9577E /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
-		23A0200A18CE59DC00ADB7B2 /* JSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONParser.h; sourceTree = "<group>"; };
-		23A0200B18CE59DC00ADB7B2 /* JSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONParser.m; sourceTree = "<group>"; };
+		2393457A18D7BE7F007EEAEE /* ContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerViewController.h; sourceTree = "<group>"; };
+		2393457B18D7BE7F007EEAEE /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerViewController.m; sourceTree = "<group>"; };
+		2393457D18D8B611007EEAEE /* ServerGroups.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerGroups.h; sourceTree = "<group>"; };
+		2393457E18D8B611007EEAEE /* ServerGroups.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerGroups.m; sourceTree = "<group>"; };
 		23A0205718D2673800ADB7B2 /* DACircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DACircularProgressView.h; sourceTree = "<group>"; };
 		23A0205818D2673800ADB7B2 /* DACircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DACircularProgressView.m; sourceTree = "<group>"; };
 		23A0205A18D3938F00ADB7B2 /* GroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCell.h; sourceTree = "<group>"; };
@@ -86,7 +86,6 @@
 			files = (
 				23A0205E18D3B09E00ADB7B2 /* QuartzCore.framework in Frameworks */,
 				2316ED2E18C52F6800A9577E /* CoreGraphics.framework in Frameworks */,
-				2316ED3218C52F6800A9577E /* CoreData.framework in Frameworks */,
 				2316ED3018C52F6800A9577E /* UIKit.framework in Frameworks */,
 				2316ED2C18C52F6800A9577E /* Foundation.framework in Frameworks */,
 			);
@@ -141,15 +140,10 @@
 		2316ED3318C52F6800A9577E /* ConnectivityDoctor */ = {
 			isa = PBXGroup;
 			children = (
-				23A0208718D767F500ADB7B2 /* CoreData */,
 				23A0205518D2671200ADB7B2 /* ThirdParty */,
+				2393457E18D8B611007EEAEE /* ServerGroups.m */,
+				2393457D18D8B611007EEAEE /* ServerGroups.h */,
 				23A0208618D767C100ADB7B2 /* Storyboard */,
-				23A0200A18CE59DC00ADB7B2 /* JSONParser.h */,
-				23A0200B18CE59DC00ADB7B2 /* JSONParser.m */,
-				2316ED4818C52F6800A9577E /* MasterViewController.h */,
-				2316ED4918C52F6800A9577E /* MasterViewController.m */,
-				2316ED4B18C52F6800A9577E /* DetailViewController.h */,
-				2316ED4C18C52F6800A9577E /* DetailViewController.m */,
 				2316ED3C18C52F6800A9577E /* AppDelegate.h */,
 				2316ED3D18C52F6800A9577E /* AppDelegate.m */,
 				2316ED3418C52F6800A9577E /* Supporting Files */,
@@ -206,23 +200,21 @@
 		23A0208618D767C100ADB7B2 /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
+				2316ED3F18C52F6800A9577E /* Main_iPhone.storyboard */,
+				2393457A18D7BE7F007EEAEE /* ContainerViewController.h */,
+				2393457B18D7BE7F007EEAEE /* ContainerViewController.m */,
+				2316ED4818C52F6800A9577E /* MasterViewController.h */,
+				2316ED4918C52F6800A9577E /* MasterViewController.m */,
+				2316ED4B18C52F6800A9577E /* DetailViewController.h */,
+				2316ED4C18C52F6800A9577E /* DetailViewController.m */,
 				23A0205A18D3938F00ADB7B2 /* GroupCell.h */,
 				23A0205B18D3938F00ADB7B2 /* GroupCell.m */,
 				2316ED7118C53DB100A9577E /* WelcomeViewController.h */,
 				2316ED7218C53DB100A9577E /* WelcomeViewController.m */,
-				2316ED3F18C52F6800A9577E /* Main_iPhone.storyboard */,
 				2316ED4218C52F6800A9577E /* Main_iPad.storyboard */,
 				2316ED4E18C52F6800A9577E /* Images.xcassets */,
 			);
 			name = Storyboard;
-			sourceTree = "<group>";
-		};
-		23A0208718D767F500ADB7B2 /* CoreData */ = {
-			isa = PBXGroup;
-			children = (
-				2316ED4518C52F6800A9577E /* ConnectivityDoctor.xcdatamodeld */,
-			);
-			name = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -323,14 +315,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23A0200C18CE59DC00ADB7B2 /* JSONParser.m in Sources */,
 				2316ED4D18C52F6800A9577E /* DetailViewController.m in Sources */,
+				2393457F18D8B611007EEAEE /* ServerGroups.m in Sources */,
 				2316ED4A18C52F6800A9577E /* MasterViewController.m in Sources */,
 				2316ED3E18C52F6800A9577E /* AppDelegate.m in Sources */,
+				2393457C18D7BE7F007EEAEE /* ContainerViewController.m in Sources */,
 				2316ED3A18C52F6800A9577E /* main.m in Sources */,
 				23A0205918D2673800ADB7B2 /* DACircularProgressView.m in Sources */,
 				23A0205C18D3938F00ADB7B2 /* GroupCell.m in Sources */,
-				2316ED4718C52F6800A9577E /* ConnectivityDoctor.xcdatamodeld in Sources */,
 				2316ED7318C53DB100A9577E /* WelcomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -562,19 +554,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		2316ED4518C52F6800A9577E /* ConnectivityDoctor.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				2316ED4618C52F6800A9577E /* ConnectivityDoctor.xcdatamodel */,
-			);
-			currentVersion = 2316ED4618C52F6800A9577E /* ConnectivityDoctor.xcdatamodel */;
-			path = ConnectivityDoctor.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 2316ED2018C52F6800A9577E /* Project object */;
 }

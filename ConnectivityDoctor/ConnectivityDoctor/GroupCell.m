@@ -7,7 +7,7 @@
 //
 
 #import "GroupCell.h"
-#import "JSONParser.h"
+
 
 @interface GroupCell()
 @property (strong, nonatomic) NSTimer *timer;
@@ -45,7 +45,7 @@
 #pragma mark TimerChecks
 -(void) incrementHostCheckedCount
 {
-        [self.managedObject setValue:[NSString stringWithFormat:@"%f",self.hostCheckedCount++] forKey:kGroupEntity_HostCheckedCount];
+//        [self.managedObject setValue:[NSString stringWithFormat:@"%f",self.hostCheckedCount++] forKey:kGroupEntity_HostCheckedCount];
     
 }
 - (void)progressChange
@@ -62,10 +62,11 @@
     self.progressView.clockwiseProgress = YES;
 
 
-    self.hostTotalCount = [[self.managedObject valueForKey:kGroupEntity_HostCount] floatValue];
+  //  self.hostTotalCount = [[self.managedObject valueForKey:kGroupEntity_HostCount] floatValue];
     
 
     self.progressView.progress = self.hostCheckedCount/self.hostTotalCount;
+    self.progressLabel.text = [NSString stringWithFormat:@"%2.0f%%", self.progressView.progress * 100];
     
 //    if(self.progress >= 1.0) self.progress = 0.0f;
 //    else self.progress += 0.1;

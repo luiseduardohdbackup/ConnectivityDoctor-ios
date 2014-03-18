@@ -13,5 +13,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *nameLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *completionImage;
 @property (nonatomic, weak) IBOutlet DACircularProgressView *progressView;
-@property (nonatomic) NSManagedObject * managedObject;
+@property (nonatomic, weak) IBOutlet UILabel *progressLabel;
+
+
 @end

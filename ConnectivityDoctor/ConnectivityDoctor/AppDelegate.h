@@ -12,11 +12,5 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (readonly, strong, nonatomic) NSManagedObjectContext *uiManagedObjectContext;
-@property (readonly, strong, nonatomic) NSManagedObjectContext *bgManagedObjectContext;
-
-
-- (void)saveContext;
-
 
 @end
