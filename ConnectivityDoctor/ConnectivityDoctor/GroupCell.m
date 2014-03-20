@@ -7,45 +7,43 @@
 //
 
 #import "GroupCell.h"
+#import "DACircularProgressView.h"
+#import "ServerGroups.h"
+#import "OTConnectivityBaseOperation.h"
+#import "OTTCPOperation.h"
+#import "OTSTUNOperation.h"
+#import "OTWebSocketOperation.h"
 
 
 @interface GroupCell()
 @property (strong, nonatomic) NSTimer *timer;
 @property float progress;
 @property float hostTotalCount;
-@property float hostCheckedCount;
+@property float hostConnectedCount;
+@property float hostCheckedSoFarCount;
+@property (nonatomic) ServerGroups * servers;
+@property (nonatomic, strong) NSOperationQueue * queue;
 @end
 
 @implementation GroupCell
 -(void) awakeFromNib
 {
-    self.hostCheckedCount = 0.0f;
-
-
-    [self startAnimation];
-    
+    self.hostConnectedCount = 0;
+    self.hostCheckedSoFarCount = 0;
+    self.servers = [ServerGroups sharedInstance];
+    self.queue = [NSOperationQueue new];
+    self.finishedView.hidden = YES;
+    //throttle so the user experience is slow
+    [self.queue setMaxConcurrentOperationCount:3];
 }
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
 
-    }
-    return self;
-}
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
 #pragma mark TimerChecks
 -(void) incrementHostCheckedCount
 {
-//        [self.managedObject setValue:[NSString stringWithFormat:@"%f",self.hostCheckedCount++] forKey:kGroupEntity_HostCheckedCount];
+    self.hostConnectedCount++;
+    [self progressChange];
     
 }
 - (void)progressChange
@@ -61,16 +59,20 @@
     self.progressView.thicknessRatio = 1.0f;
     self.progressView.clockwiseProgress = YES;
 
-
-  //  self.hostTotalCount = [[self.managedObject valueForKey:kGroupEntity_HostCount] floatValue];
-    
-
-    self.progressView.progress = self.hostCheckedCount/self.hostTotalCount;
+    self.progressView.progress = self.hostConnectedCount/self.hostTotalCount;
     self.progressLabel.text = [NSString stringWithFormat:@"%2.0f%%", self.progressView.progress * 100];
-    
-//    if(self.progress >= 1.0) self.progress = 0.0f;
-//    else self.progress += 0.1;
-//    [self.progressView setProgress:self.progress];
+    if(self.hostTotalCount == self.hostCheckedSoFarCount)
+    {
+        if(self.hostTotalCount == self.hostConnectedCount)
+        {
+            [self.finishedView setImage:[UIImage imageNamed:@"connected"]];
+        } else {
+            [self.finishedView setImage:[UIImage imageNamed:@"notConnected"]];
+            
+        }
+        self.finishedView.hidden = NO;
+        self.progressView.hidden = YES;
+    }
 
     
 }
@@ -85,8 +87,98 @@
 }
 
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+
+- (OTConnectivityBaseOperation *) operationForProtocolList : (NSString *) protocols host:(NSString*) url port:(int) port
 {
-    [self progressChange];
+    OTConnectivityBaseOperation * operation = nil;
+    NSArray * protocol = [protocols componentsSeparatedByString:@"/"];
+   
+    NSString * p1 = protocol[0];
+    NSString * p2 = (protocol.count == 2)? protocol[1]:nil;
+    
+    if (([p1 isEqualToString:@"tcp"] && (p2 == nil)) || (p1 && [p2 isEqualToString:@"tcp"]))
+    {
+        operation = [[OTTCPOperation alloc] initWithHost:url port:port timeout:10];
+    }
+    else if([p1 isEqualToString:@"ws"])
+    {
+        operation = [[OTWebSocketOperation alloc] initWithHost:url port:port timeout:10];
+        
+    }
+    else if([p1 isEqualToString:@"wss"])
+    {
+        //TODO make it secure
+        operation = [[OTWebSocketOperation alloc] initWithHost:url port:port timeout:10];
+    }
+    else if ([p1 isEqualToString:@"stun"] &&  [p2 isEqualToString:@"udp"] )
+    {
+        operation = [[OTSTUNOperation alloc] initWithHost:url port:port timeout:10];
+        
+    }
+   // NSLog(@"operation = %@ protocols = %@ url=%@ port=%d",[operation class], protocols, url,port);
+    return operation;
+
+    
+}
+-(void) networkTestForGroup : (NSString *) name
+{
+    NSArray * hosts = [self.servers hostsForGroup:name];
+    if(hosts.count == 0) return;
+    
+    self.hostTotalCount = hosts.count;
+    self.hostConnectedCount = 0;
+    self.hostCheckedSoFarCount = 0;
+    self.finishedView.hidden = YES;
+    self.progressView.hidden = NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self progressChange];
+    });
+
+ 
+    [hosts enumerateObjectsUsingBlock:^(NSDictionary * host, NSUInteger idx, BOOL *stop) {
+        
+        OTConnectivityBaseOperation * operation = [self operationForProtocolList:[host objectForKey:kProtocol]
+                                                                            host:[host objectForKey:kURL]
+                                                                            port:[[host objectForKey:kPort] intValue]];
+        [self.servers markConnectedStatusOfGroup:name hostURL:[host objectForKey:kURL]
+                                            port:[host objectForKey:kPort] flag:NO];
+        
+        __block __weak OTConnectivityBaseOperation * weakOperation = operation;
+        operation.completionBlock = ^{
+            self.hostCheckedSoFarCount++;
+            if(weakOperation.isCancelled == NO)
+            {
+
+                
+                [self.servers markConnectedStatusOfGroup:name hostURL:[host objectForKey:kURL]
+                                                    port:[host objectForKey:kPort] flag:weakOperation.connected];
+                
+                
+                
+                if(weakOperation.connected) {
+                  //  NSLog(@"ok  host = %@ port = %d protocol=%@", [host objectForKey:kURL],[[host objectForKey:kPort] intValue],[host objectForKey:kProtocol]);
+
+                    self.hostConnectedCount++;
+                } else {
+                    // NSLog(@"NOT connected  host = %@ port = %d protocol=%@", [host objectForKey:kURL],[[host objectForKey:kPort] intValue],[host objectForKey:kProtocol]);
+                }
+                weakOperation = nil;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self progressChange];
+                });
+                
+            } else {
+                NSLog(@"OPERATION +CANCELLED");
+            }
+            
+        };
+        
+        
+        [self.queue addOperation:operation];
+
+
+        
+        
+    }];
 }
 @end

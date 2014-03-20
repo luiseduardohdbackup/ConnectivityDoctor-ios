@@ -7,10 +7,12 @@
 //
 
 #import "ContainerViewController.h"
-
+#import "MasterViewController.h"
+#import "ServerGroups.h"
 
 @interface ContainerViewController ()
-
+@property (nonatomic) ServerGroups * servers;
+@property (nonatomic) MasterViewController * masterController;
 @end
 
 @implementation ContainerViewController
@@ -24,11 +26,60 @@
     return self;
 }
 
+-(void) fetchServerListFromNetworkAndStore
+{
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://sup301-sat.tokbox.com/dynamicTestConfig.json"]
+                                                              cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                          timeoutInterval:10];
+    [urlRequest setHTTPMethod: @"GET"];
+    
+    [NSURLConnection sendAsynchronousRequest:urlRequest queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         
+         if ([data length] > 0 && error == nil) {
+             [self.servers initWithJSON:data];
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self.masterController.tableView reloadData];
+                 [self.masterController.tableView setNeedsDisplay];
+             });
+
+             
+         }
+         else if ([data length] == 0 && error == nil)
+             NSLog(@"NTWK:got no data");
+         else if (error != nil && error.code == NSURLErrorTimedOut)
+             NSLog(@"NTWK:timeout");
+         else if (error != nil)
+             NSLog(@"NTWK:error %@",error.description);
+     }];
+    
+ 
+}
+-(MasterViewController *) masterController
+{
+    if(_masterController == nil)
+    {
+ 
+        if([self.childViewControllers[0] isKindOfClass:[MasterViewController class]])
+        {
+            _masterController = (MasterViewController *) self.childViewControllers[0];
+            
+        } else {
+            assert(0);
+        }
+
+        
+    }
+    return _masterController;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.servers = [ServerGroups sharedInstance];
 
+    [self fetchServerListFromNetworkAndStore];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -38,6 +89,7 @@
 }
 
 - (IBAction)refresh:(id)sender {
+        [self fetchServerListFromNetworkAndStore];
 }
 
 @end

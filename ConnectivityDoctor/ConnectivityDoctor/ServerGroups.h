@@ -7,6 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+extern NSString * const kConnected ;
+extern NSString * const kURL ;
+extern NSString * const kGenericURL ;
+extern NSString * const kPort ;
+extern NSString * const kProtocol ;
+extern NSString * const kHostCount ;
+extern NSString * const kHostCheckedCount;
 
 @interface ServerGroups : NSObject
 

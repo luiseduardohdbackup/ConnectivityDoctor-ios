@@ -8,11 +8,13 @@
 
 #import "ServerGroups.h"
 
-static NSString * const kConnected = @"connected";
-static NSString * const kURL = @"url";
-static NSString * const kGenericURL = @"generic_url";
-static NSString * const kPort = @"port";
-static NSString * const kProtocol = @"protocol";
+NSString * const kConnected = @"connected";
+NSString * const kURL = @"url";
+NSString * const kGenericURL = @"generic_url";
+NSString * const kPort = @"port";
+NSString * const kProtocol = @"protocol";
+NSString * const kHostCount = @"hostCount";
+NSString * const kHostCheckedCount = @"hostCheckedCount";
 
 
 
@@ -45,6 +47,7 @@ static NSString * const kProtocol = @"protocol";
 #pragma mark JSON
 -(void) initWithJSON : (NSData  *) data
 {
+    self.serversGroupStore = [NSMutableDictionary new];
     NSDictionary * info = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
     NSDictionary * groupsJSON = [info objectForKey:@"servers"];
     
@@ -58,7 +61,7 @@ static NSString * const kProtocol = @"protocol";
         NSArray * urls = [groupInfo objectForKey:@"urls"];
         NSMutableArray * hostList = [NSMutableArray new];
   
-        for (NSDictionary * url in urls) {
+        for (NSString * url in urls) {
             for (NSDictionary * test in tests) {
                 
                 NSArray *ports = [[test objectForKey:@"range"] componentsSeparatedByString:@","];
@@ -66,7 +69,13 @@ static NSString * const kProtocol = @"protocol";
                 for (NSString * port in ports) {
                     NSMutableDictionary * hostToBeAdded = [NSMutableDictionary new];
                     NSString * genericURL = [groupInfo objectForKey:kGenericURL];
-                    [hostToBeAdded setObject:genericURL?genericURL:url forKey:kURL];
+                    NSString * urlToAdd ;
+                    if ([url rangeOfString:@".tokbox.com"].length > 0) {
+                        urlToAdd = url;
+                    } else {
+                        urlToAdd = [url stringByAppendingString:@".tokbox.com"];
+                    }
+                    [hostToBeAdded setObject:genericURL?genericURL:urlToAdd forKey:kURL];
                     [hostToBeAdded setObject:@"NO" forKey:kConnected];
                     [hostToBeAdded setObject:port forKey:kPort];
                     [hostToBeAdded setObject:[test objectForKey:@"protocol"] forKey:kProtocol];
@@ -94,18 +103,19 @@ static NSString * const kProtocol = @"protocol";
 //array of NSDictionary with host info
 -(NSArray *) hostsForGroup : (NSString *) groupName
 {
-    return [self.serversGroupStore objectForKey:groupName];
+    return [[self.serversGroupStore objectForKey:groupName]copy] ;
 }
 //set connected flag
 -(void) markConnectedStatusOfGroup : (NSString *) groupName hostURL:(NSString *)hosturl port:(NSString*) p flag:(BOOL) f
 {
     NSArray * hosts = [self.serversGroupStore objectForKey:groupName];
     for (NSDictionary * host in hosts) {
-        NSString * url = [host objectForKey:kURL];
-        NSString * port = [host objectForKey:kPort];
-        if([url isEqualToString:hosturl] && [port isEqualToString:p])
+
+        if([[host objectForKey:kURL] isEqualToString:hosturl] && [[host objectForKey:kPort] isEqualToString:p])
         {
+            [host willChangeValueForKey:kConnected];
             [host setValue:f?@"YES":@"NO" forKey:kConnected];
+            [host didChangeValueForKey:kConnected];
         }
     }
 }

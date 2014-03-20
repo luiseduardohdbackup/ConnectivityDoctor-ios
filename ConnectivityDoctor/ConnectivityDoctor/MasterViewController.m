@@ -85,10 +85,13 @@
 - (void)configureCell:(GroupCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     NSArray * groupNames = [self.serverGroupStore groupNames];
-
-//    [object addObserver:cell forKeyPath:kGroupEntity_HostCheckedCount options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
-//
-    cell.nameLabel.text = groupNames[indexPath.row];
+    NSString* groupName = groupNames[indexPath.row];
+    
+    cell.nameLabel.text = groupName;
+    [cell networkTestForGroup:groupName];
+   
+    // if([groupName isEqualToString:@"turn"]){}
+    
    
 
 }

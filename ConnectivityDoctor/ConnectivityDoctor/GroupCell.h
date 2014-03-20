@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DACircularProgressView.h"
+@class DACircularProgressView;
+
 
 @interface GroupCell : UITableViewCell
 @property (nonatomic, weak) IBOutlet UILabel *nameLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *completionImage;
 @property (nonatomic, weak) IBOutlet DACircularProgressView *progressView;
 @property (nonatomic, weak) IBOutlet UILabel *progressLabel;
+@property (nonatomic, weak) IBOutlet UIImageView *finishedView;
 
-
+-(void) networkTestForGroup : (NSString *) name;
 @end

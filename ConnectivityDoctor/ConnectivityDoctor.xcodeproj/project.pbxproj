@@ -27,6 +27,19 @@
 		2316ED7318C53DB100A9577E /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2316ED7218C53DB100A9577E /* WelcomeViewController.m */; };
 		2393457C18D7BE7F007EEAEE /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393457B18D7BE7F007EEAEE /* ContainerViewController.m */; };
 		2393457F18D8B611007EEAEE /* ServerGroups.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393457E18D8B611007EEAEE /* ServerGroups.m */; };
+		2393459718DA4605007EEAEE /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393458A18DA4604007EEAEE /* GCDAsyncSocket.m */; };
+		2393459818DA4605007EEAEE /* OTConnectivityBaseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393458D18DA4605007EEAEE /* OTConnectivityBaseOperation.m */; };
+		2393459918DA4605007EEAEE /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393458E18DA4605007EEAEE /* GCDAsyncUdpSocket.m */; };
+		2393459A18DA4605007EEAEE /* STUNClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393459018DA4605007EEAEE /* STUNClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		2393459B18DA4605007EEAEE /* OTSTUNOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393459218DA4605007EEAEE /* OTSTUNOperation.m */; };
+		2393459C18DA4605007EEAEE /* OTTCPOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393459418DA4605007EEAEE /* OTTCPOperation.m */; };
+		2393459D18DA4605007EEAEE /* OTWebSocketOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393459618DA4605007EEAEE /* OTWebSocketOperation.m */; };
+		239345A518DA4674007EEAEE /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = 2393459F18DA4674007EEAEE /* base64.c */; };
+		239345A618DA4674007EEAEE /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 239345A218DA4674007EEAEE /* SRWebSocket.m */; };
+		239345A718DA4674007EEAEE /* NSData+SRB64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 239345A418DA4674007EEAEE /* NSData+SRB64Additions.m */; };
+		239345A918DA46C0007EEAEE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 239345A818DA46C0007EEAEE /* CFNetwork.framework */; };
+		239345AB18DA46CD007EEAEE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 239345AA18DA46CD007EEAEE /* Security.framework */; };
+		239345AD18DA47D1007EEAEE /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 239345AC18DA47D1007EEAEE /* libicucore.dylib */; };
 		23A0205918D2673800ADB7B2 /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A0205818D2673800ADB7B2 /* DACircularProgressView.m */; };
 		23A0205C18D3938F00ADB7B2 /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A0205B18D3938F00ADB7B2 /* GroupCell.m */; };
 		23A0205E18D3B09E00ADB7B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A0205D18D3B09E00ADB7B2 /* QuartzCore.framework */; };
@@ -72,6 +85,29 @@
 		2393457B18D7BE7F007EEAEE /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerViewController.m; sourceTree = "<group>"; };
 		2393457D18D8B611007EEAEE /* ServerGroups.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerGroups.h; sourceTree = "<group>"; };
 		2393457E18D8B611007EEAEE /* ServerGroups.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerGroups.m; sourceTree = "<group>"; };
+		2393458918DA4604007EEAEE /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
+		2393458A18DA4604007EEAEE /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
+		2393458B18DA4604007EEAEE /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
+		2393458C18DA4604007EEAEE /* OTConnectivityBaseOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTConnectivityBaseOperation.h; sourceTree = "<group>"; };
+		2393458D18DA4605007EEAEE /* OTConnectivityBaseOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTConnectivityBaseOperation.m; sourceTree = "<group>"; };
+		2393458E18DA4605007EEAEE /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
+		2393458F18DA4605007EEAEE /* STUNClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STUNClient.h; sourceTree = "<group>"; };
+		2393459018DA4605007EEAEE /* STUNClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STUNClient.m; sourceTree = "<group>"; };
+		2393459118DA4605007EEAEE /* OTSTUNOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTSTUNOperation.h; sourceTree = "<group>"; };
+		2393459218DA4605007EEAEE /* OTSTUNOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTSTUNOperation.m; sourceTree = "<group>"; };
+		2393459318DA4605007EEAEE /* OTTCPOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTCPOperation.h; sourceTree = "<group>"; };
+		2393459418DA4605007EEAEE /* OTTCPOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTCPOperation.m; sourceTree = "<group>"; };
+		2393459518DA4605007EEAEE /* OTWebSocketOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTWebSocketOperation.h; sourceTree = "<group>"; };
+		2393459618DA4605007EEAEE /* OTWebSocketOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTWebSocketOperation.m; sourceTree = "<group>"; };
+		2393459F18DA4674007EEAEE /* base64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = base64.c; sourceTree = "<group>"; };
+		239345A018DA4674007EEAEE /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
+		239345A118DA4674007EEAEE /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
+		239345A218DA4674007EEAEE /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
+		239345A318DA4674007EEAEE /* NSData+SRB64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SRB64Additions.h"; sourceTree = "<group>"; };
+		239345A418DA4674007EEAEE /* NSData+SRB64Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SRB64Additions.m"; sourceTree = "<group>"; };
+		239345A818DA46C0007EEAEE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		239345AA18DA46CD007EEAEE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		239345AC18DA47D1007EEAEE /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		23A0205718D2673800ADB7B2 /* DACircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DACircularProgressView.h; sourceTree = "<group>"; };
 		23A0205818D2673800ADB7B2 /* DACircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DACircularProgressView.m; sourceTree = "<group>"; };
 		23A0205A18D3938F00ADB7B2 /* GroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCell.h; sourceTree = "<group>"; };
@@ -84,6 +120,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				239345AD18DA47D1007EEAEE /* libicucore.dylib in Frameworks */,
+				239345AB18DA46CD007EEAEE /* Security.framework in Frameworks */,
+				239345A918DA46C0007EEAEE /* CFNetwork.framework in Frameworks */,
 				23A0205E18D3B09E00ADB7B2 /* QuartzCore.framework in Frameworks */,
 				2316ED2E18C52F6800A9577E /* CoreGraphics.framework in Frameworks */,
 				2316ED3018C52F6800A9577E /* UIKit.framework in Frameworks */,
@@ -127,6 +166,9 @@
 		2316ED2A18C52F6800A9577E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				239345AC18DA47D1007EEAEE /* libicucore.dylib */,
+				239345AA18DA46CD007EEAEE /* Security.framework */,
+				239345A818DA46C0007EEAEE /* CFNetwork.framework */,
 				23A0205D18D3B09E00ADB7B2 /* QuartzCore.framework */,
 				2316ED2B18C52F6800A9577E /* Foundation.framework */,
 				2316ED2D18C52F6800A9577E /* CoreGraphics.framework */,
@@ -140,6 +182,7 @@
 		2316ED3318C52F6800A9577E /* ConnectivityDoctor */ = {
 			isa = PBXGroup;
 			children = (
+				2393458818DA45EE007EEAEE /* SocketsCode */,
 				23A0205518D2671200ADB7B2 /* ThirdParty */,
 				2393457E18D8B611007EEAEE /* ServerGroups.m */,
 				2393457D18D8B611007EEAEE /* ServerGroups.h */,
@@ -178,6 +221,41 @@
 				2316ED5F18C52F6800A9577E /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2393458818DA45EE007EEAEE /* SocketsCode */ = {
+			isa = PBXGroup;
+			children = (
+				2393459E18DA4655007EEAEE /* WebSocketsHeaders */,
+				2393458918DA4604007EEAEE /* GCDAsyncSocket.h */,
+				2393458A18DA4604007EEAEE /* GCDAsyncSocket.m */,
+				2393458B18DA4604007EEAEE /* GCDAsyncUdpSocket.h */,
+				2393458C18DA4604007EEAEE /* OTConnectivityBaseOperation.h */,
+				2393458D18DA4605007EEAEE /* OTConnectivityBaseOperation.m */,
+				2393458E18DA4605007EEAEE /* GCDAsyncUdpSocket.m */,
+				2393458F18DA4605007EEAEE /* STUNClient.h */,
+				2393459018DA4605007EEAEE /* STUNClient.m */,
+				2393459118DA4605007EEAEE /* OTSTUNOperation.h */,
+				2393459218DA4605007EEAEE /* OTSTUNOperation.m */,
+				2393459318DA4605007EEAEE /* OTTCPOperation.h */,
+				2393459418DA4605007EEAEE /* OTTCPOperation.m */,
+				2393459518DA4605007EEAEE /* OTWebSocketOperation.h */,
+				2393459618DA4605007EEAEE /* OTWebSocketOperation.m */,
+			);
+			name = SocketsCode;
+			sourceTree = "<group>";
+		};
+		2393459E18DA4655007EEAEE /* WebSocketsHeaders */ = {
+			isa = PBXGroup;
+			children = (
+				2393459F18DA4674007EEAEE /* base64.c */,
+				239345A018DA4674007EEAEE /* base64.h */,
+				239345A118DA4674007EEAEE /* SRWebSocket.h */,
+				239345A218DA4674007EEAEE /* SRWebSocket.m */,
+				239345A318DA4674007EEAEE /* NSData+SRB64Additions.h */,
+				239345A418DA4674007EEAEE /* NSData+SRB64Additions.m */,
+			);
+			name = WebSocketsHeaders;
 			sourceTree = "<group>";
 		};
 		23A0205518D2671200ADB7B2 /* ThirdParty */ = {
@@ -319,11 +397,21 @@
 				2393457F18D8B611007EEAEE /* ServerGroups.m in Sources */,
 				2316ED4A18C52F6800A9577E /* MasterViewController.m in Sources */,
 				2316ED3E18C52F6800A9577E /* AppDelegate.m in Sources */,
+				2393459C18DA4605007EEAEE /* OTTCPOperation.m in Sources */,
+				2393459918DA4605007EEAEE /* GCDAsyncUdpSocket.m in Sources */,
+				239345A618DA4674007EEAEE /* SRWebSocket.m in Sources */,
 				2393457C18D7BE7F007EEAEE /* ContainerViewController.m in Sources */,
 				2316ED3A18C52F6800A9577E /* main.m in Sources */,
+				2393459718DA4605007EEAEE /* GCDAsyncSocket.m in Sources */,
 				23A0205918D2673800ADB7B2 /* DACircularProgressView.m in Sources */,
+				2393459A18DA4605007EEAEE /* STUNClient.m in Sources */,
+				2393459818DA4605007EEAEE /* OTConnectivityBaseOperation.m in Sources */,
+				2393459D18DA4605007EEAEE /* OTWebSocketOperation.m in Sources */,
+				239345A518DA4674007EEAEE /* base64.c in Sources */,
 				23A0205C18D3938F00ADB7B2 /* GroupCell.m in Sources */,
+				2393459B18DA4605007EEAEE /* OTSTUNOperation.m in Sources */,
 				2316ED7318C53DB100A9577E /* WelcomeViewController.m in Sources */,
+				239345A718DA4674007EEAEE /* NSData+SRB64Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
