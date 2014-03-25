@@ -70,6 +70,7 @@
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
 
     }
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -77,7 +78,7 @@
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
        
-        [[segue destinationViewController] setDetailItem:@"hi"];
+        [[segue destinationViewController] setDetailItem:[self.serverGroupStore groupNames][indexPath.row]];
     }
 }
 

@@ -22,8 +22,7 @@
     if (_detailItem != newDetailItem) {
         _detailItem = newDetailItem;
         
-        // Update the view.
-        [self configureView];
+
     }
 
     if (self.masterPopoverController != nil) {
@@ -31,20 +30,32 @@
     }        
 }
 
-- (void)configureView
+- (void)configureViewWithPath : (NSString *) path
 {
     // Update the user interface for the detail item.
+   
+    NSURL *targetURL = [NSURL fileURLWithPath:path];
+    NSURLRequest *request = [NSURLRequest requestWithURL:targetURL];
 
-    if (self.detailItem) {
-        self.detailDescriptionLabel.text = @"some text here";
-    }
+    [self.webView loadRequest:request];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    [self configureView];
+    NSString * title = self.detailItem;
+    
+    [[self navigationItem] setTitle:[title uppercaseString]];
+    NSString * path;
+    if([title isEqualToString:@"turn"])
+    {
+        path = [[NSBundle mainBundle] pathForResource:@"connectivity" ofType:@"pdf"];
+    } else {
+        path =[[NSBundle mainBundle] pathForResource:@"portsDiagram" ofType:@"pdf"];
+    }
+    
+    [self configureViewWithPath:path];
 }
 
 - (void)didReceiveMemoryWarning
