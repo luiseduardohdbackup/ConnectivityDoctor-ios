@@ -91,7 +91,11 @@
     cell.nameLabel.text = groupName;
     [cell networkTestForGroup:groupName];
    
-    // if([groupName isEqualToString:@"turn"]){}
+    //TEST
+//    if([groupName isEqualToString:@"anvil"]){
+//        cell.nameLabel.text = groupName;
+//        [cell networkTestForGroup:groupName];
+//    }
     
    
 

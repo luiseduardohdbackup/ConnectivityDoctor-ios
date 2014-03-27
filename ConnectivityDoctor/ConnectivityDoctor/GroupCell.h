@@ -19,3 +19,11 @@
 
 -(void) networkTestForGroup : (NSString *) name;
 @end
+
+@protocol GroupCellDelegate <NSObject>
+
+
+
+@end
+
+

@@ -10,4 +10,7 @@
 
 @interface ContainerViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *testCompleteLabel;
+@property (weak, nonatomic) IBOutlet UIButton *runTestAgain;
+
 @end

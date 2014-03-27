@@ -53,10 +53,10 @@
     self.progressView.roundedCorners = NO;
  
    
-    self.progressView.trackTintColor = [UIColor redColor];
+    self.progressView.trackTintColor = [UIColor grayColor];
     self.progressView.progressTintColor = [UIColor greenColor];
     self.progressView.backgroundColor = [UIColor clearColor];
-    self.progressView.thicknessRatio = 1.0f;
+    self.progressView.thicknessRatio = 0.2f;
     self.progressView.clockwiseProgress = YES;
 
     self.progressView.progress = self.hostConnectedCount/self.hostTotalCount;
@@ -140,9 +140,6 @@
         OTConnectivityBaseOperation * operation = [self operationForProtocolList:[host objectForKey:kProtocol]
                                                                             host:[host objectForKey:kURL]
                                                                             port:[[host objectForKey:kPort] intValue]];
-        [self.servers markConnectedStatusOfGroup:name hostURL:[host objectForKey:kURL]
-                                            port:[host objectForKey:kPort] flag:NO];
-        
         __block __weak OTConnectivityBaseOperation * weakOperation = operation;
         operation.completionBlock = ^{
             self.hostCheckedSoFarCount++;

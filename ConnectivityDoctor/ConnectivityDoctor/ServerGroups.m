@@ -10,11 +10,12 @@
 
 NSString * const kConnected = @"connected";
 NSString * const kURL = @"url";
-NSString * const kGenericURL = @"generic_url";
 NSString * const kPort = @"port";
 NSString * const kProtocol = @"protocol";
-NSString * const kHostCount = @"hostCount";
-NSString * const kHostCheckedCount = @"hostCheckedCount";
+
+static NSString * const kGenericURL = @"generic_url";
+// YES if connectivity test was done. NO if no test were done
+static NSString * const kHostChecked = @"hostChecked";
 
 
 
@@ -24,6 +25,7 @@ NSString * const kHostCheckedCount = @"hostCheckedCount";
 @end
 
 @implementation ServerGroups
+
 
 +(ServerGroups *) sharedInstance
 {
@@ -40,7 +42,6 @@ NSString * const kHostCheckedCount = @"hostCheckedCount";
     self = [super init];
     if (self) {
         self.serversGroupStore = [NSMutableDictionary new];
-        
     }
     return self;
 }
@@ -48,6 +49,7 @@ NSString * const kHostCheckedCount = @"hostCheckedCount";
 -(void) initWithJSON : (NSData  *) data
 {
     self.serversGroupStore = [NSMutableDictionary new];
+
     NSDictionary * info = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
     NSDictionary * groupsJSON = [info objectForKey:@"servers"];
     
@@ -56,38 +58,46 @@ NSString * const kHostCheckedCount = @"hostCheckedCount";
     
     for (NSString* group in groupsJSON) {
  
+        //localized test - REMOVE
+        //if([group isEqualToString:@"anvil"] == NO) continue;
+        //end localized test
+        
         NSDictionary * groupInfo = [groupsJSON objectForKey:group];
         NSArray * tests = [groupInfo objectForKey:@"tests"];
         NSArray * urls = [groupInfo objectForKey:@"urls"];
         NSMutableArray * hostList = [NSMutableArray new];
-  
+        NSString * genericURL = [groupInfo objectForKey:kGenericURL];
+        BOOL avoidURLIfGenericURLPresent = NO;
+        
         for (NSString * url in urls) {
+            if(avoidURLIfGenericURLPresent) continue;
             for (NSDictionary * test in tests) {
                 
                 NSArray *ports = [[test objectForKey:@"range"] componentsSeparatedByString:@","];
                 
                 for (NSString * port in ports) {
                     NSMutableDictionary * hostToBeAdded = [NSMutableDictionary new];
-                    NSString * genericURL = [groupInfo objectForKey:kGenericURL];
+                    
                     NSString * urlToAdd ;
                     if ([url rangeOfString:@".tokbox.com"].length > 0) {
                         urlToAdd = url;
                     } else {
                         urlToAdd = [url stringByAppendingString:@".tokbox.com"];
                     }
+                    [hostToBeAdded setValue:@"NO" forKey:kConnected];
+                    [hostToBeAdded setValue:@"NO" forKeyPath:kHostChecked];
                     [hostToBeAdded setObject:genericURL?genericURL:urlToAdd forKey:kURL];
-                    [hostToBeAdded setObject:@"NO" forKey:kConnected];
                     [hostToBeAdded setObject:port forKey:kPort];
                     [hostToBeAdded setObject:[test objectForKey:@"protocol"] forKey:kProtocol];
                     [hostList addObject:hostToBeAdded];
                 }
             }
-            
+            avoidURLIfGenericURLPresent = (genericURL != nil);
         }
-        
+        avoidURLIfGenericURLPresent = NO;
         [self.serversGroupStore setObject:hostList forKey:group];
     }
-
+    self.areAllHostsChecked = NO;
 }
 
 #pragma mark Public
@@ -105,29 +115,35 @@ NSString * const kHostCheckedCount = @"hostCheckedCount";
 {
     return [[self.serversGroupStore objectForKey:groupName]copy] ;
 }
+-(BOOL) allHostsChecked
+{
+    for (NSString * groupName in [self groupNames]) {
+        
+        NSArray * hosts = [self.serversGroupStore objectForKey:groupName];
+        for (NSDictionary * host in hosts) {
+            NSString * val = [host objectForKey:kHostChecked];
+            
+            if([val isEqualToString:@"NO"]) return NO;
+        }
+        
+    }
+ 
+    return YES;
+}
 //set connected flag
 -(void) markConnectedStatusOfGroup : (NSString *) groupName hostURL:(NSString *)hosturl port:(NSString*) p flag:(BOOL) f
 {
+
     NSArray * hosts = [self.serversGroupStore objectForKey:groupName];
     for (NSDictionary * host in hosts) {
 
         if([[host objectForKey:kURL] isEqualToString:hosturl] && [[host objectForKey:kPort] isEqualToString:p])
         {
-            [host willChangeValueForKey:kConnected];
-            [host setValue:f?@"YES":@"NO" forKey:kConnected];
-            [host didChangeValueForKey:kConnected];
-        }
-    }
-}
--(void) resetAllConnections
-{
-    for (NSDictionary * group in self.serversGroupStore) {
-        NSArray * hosts = [self.serversGroupStore objectForKey:group];
-        for (NSDictionary * host in hosts) {
-            [host setValue:@"NO" forKey:kConnected];
-        }
 
+            [host setValue:f?@"YES":@"NO" forKey:kConnected];
+            [host setValue:@"YES" forKey:kHostChecked];
+            self.areAllHostsChecked = [self allHostsChecked];
+        }
     }
-    
 }
 @end

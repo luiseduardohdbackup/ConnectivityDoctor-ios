@@ -76,12 +76,36 @@
 {
     [super viewDidLoad];
     
+    self.testCompleteLabel.hidden = YES;
+    
     self.servers = [ServerGroups sharedInstance];
 
-    [self fetchServerListFromNetworkAndStore];
+    [self refresh:nil];
+    
+   
     
 }
+-(void) viewDidAppear:(BOOL)animated
+{
+    [self.servers addObserver:self
+               forKeyPath:@"areAllHostsChecked"
+                  options:NSKeyValueObservingOptionNew
+                  context:nil];
+}
+-(void) viewDidDisappear:(BOOL)animated
+{
+    [self.servers removeObserver:self forKeyPath:@"areAllHostsChecked"];
+}
+-(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    NSLog(@"observe %hhd",self.servers.areAllHostsChecked);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.testCompleteLabel.hidden = !self.servers.areAllHostsChecked;
+        self.runTestAgain.enabled = self.servers.areAllHostsChecked;
 
+    });
+   
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -89,7 +113,10 @@
 }
 
 - (IBAction)refresh:(id)sender {
-        [self fetchServerListFromNetworkAndStore];
+    self.testCompleteLabel.hidden = YES;
+    self.runTestAgain.enabled = NO;
+   
+    [self fetchServerListFromNetworkAndStore];
 }
 
 @end

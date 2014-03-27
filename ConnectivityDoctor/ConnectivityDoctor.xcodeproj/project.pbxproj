@@ -189,8 +189,6 @@
 		2316ED3318C52F6800A9577E /* ConnectivityDoctor */ = {
 			isa = PBXGroup;
 			children = (
-				23A3486618E2185C00B1587C /* connectivity.pdf */,
-				23A3486D18E2421D00B1587C /* portsDiagram.pdf */,
 				23A3486818E2189A00B1587C /* Resources */,
 				2393458818DA45EE007EEAEE /* SocketsCode */,
 				23A0205518D2671200ADB7B2 /* ThirdParty */,
@@ -310,6 +308,8 @@
 		23A3486818E2189A00B1587C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				23A3486618E2185C00B1587C /* connectivity.pdf */,
+				23A3486D18E2421D00B1587C /* portsDiagram.pdf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
