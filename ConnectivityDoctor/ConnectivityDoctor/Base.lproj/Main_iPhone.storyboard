@@ -68,7 +68,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="AXx-CT-CCn">
                             <connections>
-                                <segue destination="X8t-sG-pDd" kind="push" id="uPZ-sM-1Ef"/>
+                                <segue destination="X8t-sG-pDd" kind="modal" id="uPZ-sM-1Ef"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -82,10 +82,10 @@
             </objects>
             <point key="canvasLocation" x="-615" y="-314"/>
         </scene>
-        <!--View Controller - Send Report-->
+        <!--Mail View Controller - Send Report-->
         <scene sceneID="NK9-1a-8aO">
             <objects>
-                <viewController id="X8t-sG-pDd" sceneMemberID="viewController">
+                <viewController id="X8t-sG-pDd" customClass="MailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uDq-OH-6M9"/>
                         <viewControllerLayoutGuide type="bottom" id="1iA-VC-KYc"/>
@@ -93,15 +93,6 @@
                     <view key="view" contentMode="scaleToFill" id="dMH-Je-u0p">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Who do you want to send the detailed connectivity report to?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="awO-Rg-UXO">
-                                <rect key="frame" x="20" y="127" width="280" height="65"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Send Report" id="aY5-vv-MFx"/>
@@ -141,7 +132,7 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mTV-Uv-Im2">
-                                            <rect key="frame" x="68" y="24" width="177" height="21"/>
+                                            <rect key="frame" x="68" y="24" width="167" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="highlightedColor"/>
@@ -150,10 +141,19 @@
                                             <rect key="frame" x="10" y="4" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
+                                        <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vrb-jj-zbt" customClass="MKNumberBadgeView">
+                                            <rect key="frame" x="250" y="17" width="30" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="shadow" value="NO"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
+                                    <outlet property="badgeView" destination="vrb-jj-zbt" id="byx-82-FTv"/>
                                     <outlet property="finishedView" destination="0SB-79-SJJ" id="xr1-K1-2yL"/>
                                     <outlet property="nameLabel" destination="mTV-Uv-Im2" id="fB6-DW-Fho"/>
                                     <outlet property="progressLabel" destination="OUg-Mj-Egd" id="bEp-hv-y41"/>

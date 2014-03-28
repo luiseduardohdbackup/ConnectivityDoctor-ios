@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class DACircularProgressView;
+@class MKNumberBadgeView;
 
 
 @interface GroupCell : UITableViewCell
@@ -16,6 +17,8 @@
 @property (nonatomic, weak) IBOutlet DACircularProgressView *progressView;
 @property (nonatomic, weak) IBOutlet UILabel *progressLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *finishedView;
+
+@property (weak, nonatomic) IBOutlet MKNumberBadgeView *badgeView;
 
 -(void) networkTestForGroup : (NSString *) name;
 @end

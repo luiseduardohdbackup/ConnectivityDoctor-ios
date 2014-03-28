@@ -13,7 +13,7 @@
 #import "OTTCPOperation.h"
 #import "OTSTUNOperation.h"
 #import "OTWebSocketOperation.h"
-
+#import "MKNumberBadgeView.h"
 
 @interface GroupCell()
 @property (strong, nonatomic) NSTimer *timer;
@@ -33,6 +33,7 @@
     self.servers = [ServerGroups sharedInstance];
     self.queue = [NSOperationQueue new];
     self.finishedView.hidden = YES;
+    self.badgeView.hidden = YES;
     //throttle so the user experience is slow
     [self.queue setMaxConcurrentOperationCount:3];
 }
@@ -61,6 +62,8 @@
 
     self.progressView.progress = self.hostConnectedCount/self.hostTotalCount;
     self.progressLabel.text = [NSString stringWithFormat:@"%2.0f%%", self.progressView.progress * 100];
+    self.badgeView.hidden = YES;
+    
     if(self.hostTotalCount == self.hostCheckedSoFarCount)
     {
         if(self.hostTotalCount == self.hostConnectedCount)
@@ -68,6 +71,8 @@
             [self.finishedView setImage:[UIImage imageNamed:@"connected"]];
         } else {
             [self.finishedView setImage:[UIImage imageNamed:@"notConnected"]];
+            self.badgeView.value = self.hostTotalCount - self.hostConnectedCount;
+            self.badgeView.hidden = NO;
             
         }
         self.finishedView.hidden = NO;

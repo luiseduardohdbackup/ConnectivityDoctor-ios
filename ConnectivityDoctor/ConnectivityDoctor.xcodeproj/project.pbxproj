@@ -46,6 +46,9 @@
 		23A0205E18D3B09E00ADB7B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A0205D18D3B09E00ADB7B2 /* QuartzCore.framework */; };
 		23A3486718E2185C00B1587C /* connectivity.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 23A3486618E2185C00B1587C /* connectivity.pdf */; };
 		23A3486E18E2421D00B1587C /* portsDiagram.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 23A3486D18E2421D00B1587C /* portsDiagram.pdf */; };
+		23A348A818E5F4BA00B1587C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A348A718E5F4BA00B1587C /* MessageUI.framework */; };
+		23A348AB18E5F57600B1587C /* MailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A348AA18E5F57600B1587C /* MailViewController.m */; };
+		23A348AF18E60A4E00B1587C /* MKNumberBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A348AE18E60A4E00B1587C /* MKNumberBadgeView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +123,11 @@
 		23A0205D18D3B09E00ADB7B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		23A3486618E2185C00B1587C /* connectivity.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = connectivity.pdf; sourceTree = "<group>"; };
 		23A3486D18E2421D00B1587C /* portsDiagram.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = portsDiagram.pdf; sourceTree = "<group>"; };
+		23A348A718E5F4BA00B1587C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		23A348A918E5F57600B1587C /* MailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailViewController.h; sourceTree = "<group>"; };
+		23A348AA18E5F57600B1587C /* MailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailViewController.m; sourceTree = "<group>"; };
+		23A348AD18E60A4E00B1587C /* MKNumberBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNumberBadgeView.h; sourceTree = "<group>"; };
+		23A348AE18E60A4E00B1587C /* MKNumberBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKNumberBadgeView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +135,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23A348A818E5F4BA00B1587C /* MessageUI.framework in Frameworks */,
 				239345AD18DA47D1007EEAEE /* libicucore.dylib in Frameworks */,
 				239345AB18DA46CD007EEAEE /* Security.framework in Frameworks */,
 				239345A918DA46C0007EEAEE /* CFNetwork.framework in Frameworks */,
@@ -173,6 +182,7 @@
 		2316ED2A18C52F6800A9577E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				23A348A718E5F4BA00B1587C /* MessageUI.framework */,
 				239345AC18DA47D1007EEAEE /* libicucore.dylib */,
 				239345AA18DA46CD007EEAEE /* Security.framework */,
 				239345A818DA46C0007EEAEE /* CFNetwork.framework */,
@@ -269,6 +279,7 @@
 		23A0205518D2671200ADB7B2 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				23A348AC18E607E100B1587C /* MKNumberBadgeView */,
 				23A0205618D2671E00ADB7B2 /* DACircular */,
 			);
 			name = ThirdParty;
@@ -287,6 +298,8 @@
 			isa = PBXGroup;
 			children = (
 				2316ED3F18C52F6800A9577E /* Main_iPhone.storyboard */,
+				23A348A918E5F57600B1587C /* MailViewController.h */,
+				23A348AA18E5F57600B1587C /* MailViewController.m */,
 				2393457A18D7BE7F007EEAEE /* ContainerViewController.h */,
 				2393457B18D7BE7F007EEAEE /* ContainerViewController.m */,
 				2316ED4818C52F6800A9577E /* MasterViewController.h */,
@@ -312,6 +325,15 @@
 				23A3486D18E2421D00B1587C /* portsDiagram.pdf */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		23A348AC18E607E100B1587C /* MKNumberBadgeView */ = {
+			isa = PBXGroup;
+			children = (
+				23A348AD18E60A4E00B1587C /* MKNumberBadgeView.h */,
+				23A348AE18E60A4E00B1587C /* MKNumberBadgeView.m */,
+			);
+			name = MKNumberBadgeView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -419,6 +441,7 @@
 				2316ED4A18C52F6800A9577E /* MasterViewController.m in Sources */,
 				2316ED3E18C52F6800A9577E /* AppDelegate.m in Sources */,
 				2393459C18DA4605007EEAEE /* OTTCPOperation.m in Sources */,
+				23A348AB18E5F57600B1587C /* MailViewController.m in Sources */,
 				2393459918DA4605007EEAEE /* GCDAsyncUdpSocket.m in Sources */,
 				239345B018DB9594007EEAEE /* SendReportViewController.m in Sources */,
 				239345A618DA4674007EEAEE /* SRWebSocket.m in Sources */,
@@ -426,6 +449,7 @@
 				2316ED3A18C52F6800A9577E /* main.m in Sources */,
 				2393459718DA4605007EEAEE /* GCDAsyncSocket.m in Sources */,
 				23A0205918D2673800ADB7B2 /* DACircularProgressView.m in Sources */,
+				23A348AF18E60A4E00B1587C /* MKNumberBadgeView.m in Sources */,
 				2393459A18DA4605007EEAEE /* STUNClient.m in Sources */,
 				2393459818DA4605007EEAEE /* OTConnectivityBaseOperation.m in Sources */,
 				2393459D18DA4605007EEAEE /* OTWebSocketOperation.m in Sources */,

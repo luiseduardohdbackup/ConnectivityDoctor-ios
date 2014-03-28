@@ -31,5 +31,4 @@ extern NSString * const kProtocol ;
 //set connected flag.
 -(void) markConnectedStatusOfGroup : (NSString *) groupName hostURL:(NSString *)hosturl port:(NSString*) p flag:(BOOL) f;
 
-
 @end
