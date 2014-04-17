@@ -199,12 +199,11 @@
 		2316ED3318C52F6800A9577E /* ConnectivityDoctor */ = {
 			isa = PBXGroup;
 			children = (
-				23A3486818E2189A00B1587C /* Resources */,
-				2393458818DA45EE007EEAEE /* SocketsCode */,
-				23A0205518D2671200ADB7B2 /* ThirdParty */,
-				2393457E18D8B611007EEAEE /* ServerGroups.m */,
-				2393457D18D8B611007EEAEE /* ServerGroups.h */,
 				23A0208618D767C100ADB7B2 /* Storyboard */,
+				23A348B018E6226500B1587C /* Model */,
+				2393458818DA45EE007EEAEE /* SocketsCode */,
+				23A0205518D2671200ADB7B2 /* ThirdPartyUI */,
+				23A3486818E2189A00B1587C /* Resources */,
 				2316ED3C18C52F6800A9577E /* AppDelegate.h */,
 				2316ED3D18C52F6800A9577E /* AppDelegate.m */,
 				2316ED3418C52F6800A9577E /* Supporting Files */,
@@ -276,13 +275,13 @@
 			name = WebSocketsHeaders;
 			sourceTree = "<group>";
 		};
-		23A0205518D2671200ADB7B2 /* ThirdParty */ = {
+		23A0205518D2671200ADB7B2 /* ThirdPartyUI */ = {
 			isa = PBXGroup;
 			children = (
 				23A348AC18E607E100B1587C /* MKNumberBadgeView */,
 				23A0205618D2671E00ADB7B2 /* DACircular */,
 			);
-			name = ThirdParty;
+			name = ThirdPartyUI;
 			sourceTree = "<group>";
 		};
 		23A0205618D2671E00ADB7B2 /* DACircular */ = {
@@ -334,6 +333,15 @@
 				23A348AE18E60A4E00B1587C /* MKNumberBadgeView.m */,
 			);
 			name = MKNumberBadgeView;
+			sourceTree = "<group>";
+		};
+		23A348B018E6226500B1587C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2393457E18D8B611007EEAEE /* ServerGroups.m */,
+				2393457D18D8B611007EEAEE /* ServerGroups.h */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -594,10 +602,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jaideep Shah (5QVW7EMFEQ)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ConnectivityDoctor/ConnectivityDoctor-Prefix.pch";
 				INFOPLIST_FILE = "ConnectivityDoctor/ConnectivityDoctor-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "FCBB22A7-B6C8-44ED-82AC-5552D5CC0F5F";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -607,10 +617,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jaideep Shah (5QVW7EMFEQ)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ConnectivityDoctor/ConnectivityDoctor-Prefix.pch";
 				INFOPLIST_FILE = "ConnectivityDoctor/ConnectivityDoctor-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "FCBB22A7-B6C8-44ED-82AC-5552D5CC0F5F";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

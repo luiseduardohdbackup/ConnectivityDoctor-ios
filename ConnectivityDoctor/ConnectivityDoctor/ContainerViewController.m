@@ -28,9 +28,11 @@
 
 -(void) fetchServerListFromNetworkAndStore
 {
-    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://sup301-sat.tokbox.com/dynamicTestConfig.json"]
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://dashboard-dev.tokbox.com/get_server_list"]
                                                               cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                           timeoutInterval:10];
+
+    
     [urlRequest setHTTPMethod: @"GET"];
     
     [NSURLConnection sendAsynchronousRequest:urlRequest queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
@@ -98,7 +100,10 @@
 }
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    NSLog(@"observe %hhd",self.servers.areAllHostsChecked);
+    if(self.servers.areAllHostsChecked)
+    {
+        [self resultsPost];
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
         self.testCompleteLabel.hidden = !self.servers.areAllHostsChecked;
         self.runTestAgain.enabled = self.servers.areAllHostsChecked;
@@ -118,5 +123,40 @@
    
     [self fetchServerListFromNetworkAndStore];
 }
+#pragma mark POST results
+-(void) resultsPost
+{
+    // post string creation
+    
+    NSString * data = [NSString stringWithFormat:@"report=%@",[self.servers jsonString]];
+    
+    data = (NSString *) CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL,
+                                                                                  (CFStringRef) data,
+                                                                                  NULL,
+                                                                                  (CFStringRef) @"!*'();@+$,/?%#[]_",
+                                                                                  kCFStringEncodingUTF8));
+    //printf("%s\n",[data UTF8String]);
+    
+    //url creation
+    NSURL *url = [NSURL URLWithString:@"https://dashboard-dev.tokbox.com/send_reports"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[url standardizedURL]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"Basic aW9zdXNlckB0b2tib3guY29tOnQwa2IweCEh" forHTTPHeaderField:@"Authorization"];
+    [request setHTTPBody:[data dataUsingEncoding:NSUTF8StringEncoding]];
+    
 
+
+    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         NSHTTPURLResponse * r = (NSHTTPURLResponse*) response;
+         
+         NSLog(@"POST response=%ld",(long)r.statusCode);
+         NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+     }];
+     
+
+    
+    
+}
 @end

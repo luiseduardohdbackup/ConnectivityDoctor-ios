@@ -54,10 +54,10 @@
     self.progressView.roundedCorners = NO;
  
    
-    self.progressView.trackTintColor = [UIColor grayColor];
+    self.progressView.trackTintColor = [UIColor redColor];
     self.progressView.progressTintColor = [UIColor greenColor];
     self.progressView.backgroundColor = [UIColor clearColor];
-    self.progressView.thicknessRatio = 0.2f;
+    self.progressView.thicknessRatio = 1.0f;
     self.progressView.clockwiseProgress = YES;
 
     self.progressView.progress = self.hostConnectedCount/self.hostTotalCount;

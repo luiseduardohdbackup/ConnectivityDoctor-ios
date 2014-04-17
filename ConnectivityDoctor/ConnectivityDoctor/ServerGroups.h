@@ -24,6 +24,8 @@ extern NSString * const kProtocol ;
 //If you want to retry , start with this method again , for now
 -(void) initWithJSON : (NSData  *) data;
 
+-(NSString *) jsonString;
+
 //name of groups in no particular order
 -(NSArray *) groupNames;
 //array of NSDictionary with host info

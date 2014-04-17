@@ -44,6 +44,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+
     NSString * title = self.detailItem;
     
     [[self navigationItem] setTitle:[title uppercaseString]];
@@ -56,6 +57,7 @@
     }
     
     [self configureViewWithPath:path];
+
 }
 
 - (void)didReceiveMemoryWarning

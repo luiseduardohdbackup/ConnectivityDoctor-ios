@@ -99,7 +99,74 @@ static NSString * const kHostChecked = @"hostChecked";
     }
     self.areAllHostsChecked = NO;
 }
+- (NSString *) jsonString
+{
+    
+    
+    NSString * jsonString = @"{\"ConnectivityDoctorServerCheckedReport\":{\"servers\":{";
+    for (NSString * group in self.serversGroupStore) {
+        jsonString = [[[jsonString  stringByAppendingString:@"\""]
+                       stringByAppendingString:group]
+                      stringByAppendingString:@"\":["];
+        
+        //protcol outer loop
+        //protocols
+        NSArray * hostList = [self.serversGroupStore objectForKey:group];
+        for(NSDictionary* host in hostList)
+        {
+            jsonString = [jsonString stringByAppendingString:@"{\"protocol\":\""];
+            jsonString = [[jsonString stringByAppendingString:[host objectForKey:kProtocol]]
+                          stringByAppendingString:@"\","];
+            jsonString = [[[jsonString  stringByAppendingString:@"\"port\":\""]
+                           stringByAppendingString:[host objectForKey:kPort]]
+                          stringByAppendingString:@"\","];
+            jsonString = [[[jsonString  stringByAppendingString:@"\"url\":\""]
+                           stringByAppendingString:[host objectForKey:kURL]]
+                          stringByAppendingString:@"\","];
+            
+            
+            jsonString = [[[jsonString  stringByAppendingString:@"\"status\":\""]
+                           stringByAppendingString:[host objectForKey:kConnected]]
+                          stringByAppendingString:@"\"},"];
+            
 
+            
+        }
+        //remove the last comma
+        jsonString = [jsonString substringToIndex:[jsonString length]-1];
+        jsonString = [jsonString stringByAppendingString:@"],"];
+        
+    }
+    //remove the last comma
+    jsonString = [jsonString substringToIndex:[jsonString length]-1];
+    // put check date and end everything
+    jsonString = [jsonString stringByAppendingString:@"},\"checkedAt\":\""];
+    
+//    NSString * date =  [NSDateFormatter localizedStringFromDate:[NSDate date]
+//                                                      dateStyle:NSDateFormatterShortStyle
+//                                                      timeStyle:NSDateFormatterLongStyle];
+    jsonString = [jsonString stringByAppendingString:[self getUTCFormateCurrentDate]];
+    jsonString = [jsonString stringByAppendingString:@"\","];
+    
+    //mail recipients
+     jsonString = [jsonString stringByAppendingString:@"\"emails\":["];
+    jsonString = [jsonString stringByAppendingString:@"\"a@b.com\""];
+     jsonString = [jsonString stringByAppendingString:@"]"];
+    
+    jsonString = [jsonString stringByAppendingString:@"}}"];
+    
+    
+    return jsonString;
+}
+
+
+-(NSString *)getUTCFormateCurrentDate
+{
+    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:SS.SSS'Z'"];
+    return [dateFormatter stringFromDate:[NSDate date]];
+
+}
 #pragma mark Public
 //name of groups in no particular order
 -(NSArray *) groupNames
