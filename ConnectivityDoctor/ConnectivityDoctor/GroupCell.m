@@ -13,6 +13,7 @@
 #import "OTTCPOperation.h"
 #import "OTSTUNOperation.h"
 #import "OTWebSocketOperation.h"
+#import "OTHTTPOperation.h"
 #import "MKNumberBadgeView.h"
 
 @interface GroupCell()
@@ -103,7 +104,16 @@
     
     if (([p1 isEqualToString:@"tcp"] && (p2 == nil)) || (p1 && [p2 isEqualToString:@"tcp"]))
     {
-        operation = [[OTTCPOperation alloc] initWithHost:url port:port timeout:10];
+        if([url isEqualToString:@"hlg.tokbox.com"])
+        {
+            operation = [[OTHTTPOperation alloc] initWithHost:url port:port timeout:10 https:NO];
+        } else if ([url isEqualToString:@"anvil.opentok.com"])
+        {
+             operation = [[OTHTTPOperation alloc] initWithHost:url port:port timeout:10 https:YES];
+        } else {
+            operation = [[OTTCPOperation alloc] initWithHost:url port:port timeout:10];
+        }
+        
     }
     else if([p1 isEqualToString:@"ws"])
     {

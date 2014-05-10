@@ -89,13 +89,13 @@
     NSString* groupName = groupNames[indexPath.row];
     
     cell.nameLabel.text = groupName;
-    [cell networkTestForGroup:groupName];
+  // [cell networkTestForGroup:groupName];
    
     //TEST
-//    if([groupName isEqualToString:@"anvil"]){
-//        cell.nameLabel.text = groupName;
-//        [cell networkTestForGroup:groupName];
-//    }
+    if([groupName isEqualToString:@"anvil"]){
+        cell.nameLabel.text = groupName;
+        [cell networkTestForGroup:groupName];
+    }
     
    
 

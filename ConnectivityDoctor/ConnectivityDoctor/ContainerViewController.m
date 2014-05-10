@@ -25,10 +25,11 @@
     }
     return self;
 }
-
+// https://dashboard.tokbox.com/get_server_list
+// http://sup301-sat.tokbox.com/dynamicTestConfig.json
 -(void) fetchServerListFromNetworkAndStore
 {
-    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://dashboard-dev.tokbox.com/get_server_list"]
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://dashboard.tokbox.com/get_server_list"]
                                                               cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                           timeoutInterval:10];
 
@@ -39,7 +40,10 @@
      {
          
          if ([data length] > 0 && error == nil) {
+             
+             //NSString* newStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
              [self.servers initWithJSON:data];
+             NSLog(@"%@", data);
              dispatch_async(dispatch_get_main_queue(), ^{
                  [self.masterController.tableView reloadData];
                  [self.masterController.tableView setNeedsDisplay];

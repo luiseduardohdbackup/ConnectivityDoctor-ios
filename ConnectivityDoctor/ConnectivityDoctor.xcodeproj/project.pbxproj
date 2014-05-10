@@ -44,6 +44,7 @@
 		23A0205918D2673800ADB7B2 /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A0205818D2673800ADB7B2 /* DACircularProgressView.m */; };
 		23A0205C18D3938F00ADB7B2 /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A0205B18D3938F00ADB7B2 /* GroupCell.m */; };
 		23A0205E18D3B09E00ADB7B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A0205D18D3B09E00ADB7B2 /* QuartzCore.framework */; };
+		23A16478191C3C9E0010DFAE /* OTHTTPOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A16477191C3C9E0010DFAE /* OTHTTPOperation.m */; };
 		23A3486718E2185C00B1587C /* connectivity.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 23A3486618E2185C00B1587C /* connectivity.pdf */; };
 		23A3486E18E2421D00B1587C /* portsDiagram.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 23A3486D18E2421D00B1587C /* portsDiagram.pdf */; };
 		23A348A818E5F4BA00B1587C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A348A718E5F4BA00B1587C /* MessageUI.framework */; };
@@ -121,6 +122,8 @@
 		23A0205A18D3938F00ADB7B2 /* GroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCell.h; sourceTree = "<group>"; };
 		23A0205B18D3938F00ADB7B2 /* GroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCell.m; sourceTree = "<group>"; };
 		23A0205D18D3B09E00ADB7B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		23A16476191C3C9E0010DFAE /* OTHTTPOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTHTTPOperation.h; sourceTree = "<group>"; };
+		23A16477191C3C9E0010DFAE /* OTHTTPOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTHTTPOperation.m; sourceTree = "<group>"; };
 		23A3486618E2185C00B1587C /* connectivity.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = connectivity.pdf; sourceTree = "<group>"; };
 		23A3486D18E2421D00B1587C /* portsDiagram.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = portsDiagram.pdf; sourceTree = "<group>"; };
 		23A348A718E5F4BA00B1587C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -247,9 +250,9 @@
 				2393458918DA4604007EEAEE /* GCDAsyncSocket.h */,
 				2393458A18DA4604007EEAEE /* GCDAsyncSocket.m */,
 				2393458B18DA4604007EEAEE /* GCDAsyncUdpSocket.h */,
+				2393458E18DA4605007EEAEE /* GCDAsyncUdpSocket.m */,
 				2393458C18DA4604007EEAEE /* OTConnectivityBaseOperation.h */,
 				2393458D18DA4605007EEAEE /* OTConnectivityBaseOperation.m */,
-				2393458E18DA4605007EEAEE /* GCDAsyncUdpSocket.m */,
 				2393458F18DA4605007EEAEE /* STUNClient.h */,
 				2393459018DA4605007EEAEE /* STUNClient.m */,
 				2393459118DA4605007EEAEE /* OTSTUNOperation.h */,
@@ -258,6 +261,8 @@
 				2393459418DA4605007EEAEE /* OTTCPOperation.m */,
 				2393459518DA4605007EEAEE /* OTWebSocketOperation.h */,
 				2393459618DA4605007EEAEE /* OTWebSocketOperation.m */,
+				23A16476191C3C9E0010DFAE /* OTHTTPOperation.h */,
+				23A16477191C3C9E0010DFAE /* OTHTTPOperation.m */,
 			);
 			name = SocketsCode;
 			sourceTree = "<group>";
@@ -391,6 +396,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Jaideep Shah";
 				TargetAttributes = {
+					2316ED2718C52F6800A9577E = {
+						DevelopmentTeam = MGD69Q275W;
+					};
 					2316ED5318C52F6800A9577E = {
 						TestTargetID = 2316ED2718C52F6800A9577E;
 					};
@@ -449,6 +457,7 @@
 				2316ED4A18C52F6800A9577E /* MasterViewController.m in Sources */,
 				2316ED3E18C52F6800A9577E /* AppDelegate.m in Sources */,
 				2393459C18DA4605007EEAEE /* OTTCPOperation.m in Sources */,
+				23A16478191C3C9E0010DFAE /* OTHTTPOperation.m in Sources */,
 				23A348AB18E5F57600B1587C /* MailViewController.m in Sources */,
 				2393459918DA4605007EEAEE /* GCDAsyncUdpSocket.m in Sources */,
 				239345B018DB9594007EEAEE /* SendReportViewController.m in Sources */,
@@ -602,12 +611,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jaideep Shah (5QVW7EMFEQ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ConnectivityDoctor/ConnectivityDoctor-Prefix.pch";
 				INFOPLIST_FILE = "ConnectivityDoctor/ConnectivityDoctor-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "FCBB22A7-B6C8-44ED-82AC-5552D5CC0F5F";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -617,12 +627,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jaideep Shah (5QVW7EMFEQ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ConnectivityDoctor/ConnectivityDoctor-Prefix.pch";
 				INFOPLIST_FILE = "ConnectivityDoctor/ConnectivityDoctor-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "FCBB22A7-B6C8-44ED-82AC-5552D5CC0F5F";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
