@@ -16,7 +16,8 @@
 // This operation is concurrent in nature
 //The timeout interval is time in seconds the operation will wait from the moment it is started,to determine
 // if a succesfull connection has been made or not. If not the property connected is false
--(id) initWithHost:(NSString*) host port:(NSInteger) port timeout:(NSTimeInterval)time;
+// default protocol is UDP if isTCPProtocol is NO
+-(id) initWithHost:(NSString*) host port:(NSInteger) port timeout:(NSTimeInterval)time isTCPProtocol:(BOOL)p;
 
 
 

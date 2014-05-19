@@ -11,9 +11,12 @@
 #import <ifaddrs.h>
 #import <arpa/inet.h>
 
+
+
 @implementation STUNClient {
     NSString * stunServer;
     uint16_t stunPort;
+    NSTimeInterval timeout;
 }
 
 - (id)init{
@@ -23,13 +26,14 @@
     
     return self;
 }
-- (id) initWithHost:(NSString*) host  port:(uint16_t) port
+- (id) initWithHost:(NSString*) host  port:(uint16_t) port timeout:(NSTimeInterval)t
 {
     self = [super init];
     if(self != nil)
     {
         stunServer = host;
         stunPort = port;
+        timeout = t;
         STUNLog(@"STUN server: %@ port:%d", stunServer, stunPort);
     }
     return self;
@@ -37,6 +41,7 @@
 - (void)dealloc{
     delegate = nil;
     udpSocket = nil;
+    tcpSocket = nil;
     
     [msgTypeBindingRequest release];
     [bodyLength release];
@@ -48,9 +53,22 @@
     
     [super dealloc];
 }
+- (void)requestPublicIPandPortWithTCPSocket:(GCDAsyncSocket *)socket delegate:(id<STUNClientDelegate>)d
+{
+     assert(delegate == nil);
+     [socket setDelegate:self];
 
-- (void)requestPublicIPandPortWithUDPSocket:(GCDAsyncUdpSocket *)socket delegate:(id<STUNClientDelegate>)_delegate{
+    // save socket & delegate
+    delegate = d;
+    tcpSocket = socket;
+ 
+    [socket writeData:[self createStunBindingRequest] withTimeout:timeout tag:1004];
+    [socket readDataWithTimeout:timeout tag:1004];
+
+}
+- (void)requestPublicIPandPortWithUDPSocket:(GCDAsyncUdpSocket *)socket delegate:(id<STUNClientDelegate>) d{
     
+    assert(delegate == nil);
     [socket setDelegate:self];
     
     // bind socket
@@ -65,9 +83,16 @@
     }
     
     // save socket & delegate
-    delegate = _delegate;
+    delegate = d;
     udpSocket = socket;
     
+    // Start binding request
+    //
+    [socket sendData:[self createStunBindingRequest] toHost:stunServer port:stunPort withTimeout:timeout tag:1002];
+    
+}
+-(NSMutableData *) createStunBindingRequest
+{
     // Create Binding request
     //
     // All STUN messages MUST start with a 20-byte header followed by zero
@@ -91,11 +116,9 @@
     
     STUNLog(@"STUN Binding Request=%@", stunRequest);
     
-    // Start binding request
-    //
-    [socket sendData:stunRequest toHost:stunServer port:stunPort withTimeout:-1 tag:1002];
+    return stunRequest;
+    
 }
-
 - (void)startSendIndicationMessage{
     if(udpSocket == nil){
         return;
@@ -136,6 +159,7 @@
     // Send Indication message
     //
     [udpSocket sendData:stunIndicationMessage toHost:stunServer port:stunPort withTimeout:-1 tag:1003];
+
 }
 
 - (void)stopSendIndicationMessage{
@@ -200,6 +224,175 @@
 
 
 #pragma mark -
+#pragma mark GCDASynchSocketDelegate
+
+- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
+{
+    
+    if([delegate respondsToSelector:@selector(didReceiveAnError:)]){
+        
+        [tcpSocket setDelegate:delegate];
+        [delegate didReceiveAnError:err];
+    }
+
+}
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
+{
+    
+    //TODO REFACTOR
+    STUNLog(@"STUN didReceiveData = %@", data);
+    
+    // Checks
+    //
+    if([data length] < 20){
+        STUNLog(@"STUN didReceiveData. Length too short (not a STUN response). Please repeat request");
+        return;
+    }
+    //
+    //
+    NSMutableData *magicCookieAndTransactionID = [NSMutableData data];
+    [magicCookieAndTransactionID appendData:magicCookie];
+    [magicCookieAndTransactionID appendData:transactionIdBindingRequest];
+    if(![[data subdataWithRange:NSMakeRange(4, 16)] isEqualToData:magicCookieAndTransactionID]){
+        STUNLog(@"STUN magic cookie and/or transaction id check failed. Please repeat request");
+        return;
+    }
+    //
+    // Success Response: 0x0101
+    // Error Response:   0x0111
+    //
+    if(![[data subdataWithRange:NSMakeRange(0, 2)] isEqualToData:[NSData dataWithBytes:"\x01\x01" length:2]]){
+        STUNLog(@"STUN a non-success STUN response received. Please repeat request");
+        return;
+    }
+    
+    
+    // get responss body length
+    unsigned responseBodyLength = 0;
+    NSScanner *scanner = [NSScanner scannerWithString:[[[data subdataWithRange:NSMakeRange(2, 4)] description] substringWithRange:NSMakeRange(1, 4)]];
+    [scanner scanHexInt:&responseBodyLength];
+    STUNLog(@"STUN response Body Length = %d", responseBodyLength);
+    
+    
+    NSData *maddr = nil;   // mapped ip
+    NSData *mport = nil;   // mapped port
+    //
+    NSData *xmaddr = nil;  // xor mapped ip
+    NSData *xmport = nil;  // xor mapped port
+    
+    int i = 20; // current reading position in the response binary data.  At 20 byte starts STUN Attributes
+    //
+    // STUN Attributes
+    //
+    // After the STUN header are zero or more attributes.  Each attribute
+    // MUST be TLV encoded, with a 16-bit type, 16-bit length, and value.
+    // Each STUN attribute MUST end on a 32-bit boundary.  As mentioned
+    // above, all fields in an attribute are transmitted most significant
+    // bit first.
+    //
+    //
+    while(i < responseBodyLength+20){ // proccessing the response
+        
+        NSData *mappedAddressData = [data subdataWithRange:NSMakeRange(i, 2)];
+        
+        if([mappedAddressData isEqualToData:[NSData dataWithBytes:"\x00\x01" length:2]]){ // MAPPED-ADDRESS
+            int maddrStartPos = i + 2 + 2 + 1 + 1;
+            mport = [data subdataWithRange:NSMakeRange(maddrStartPos, 2)];
+            maddr = [data subdataWithRange:NSMakeRange(maddrStartPos+2, 4)];
+        }
+        if([mappedAddressData isEqualToData:[NSData dataWithBytes:"\x80\x20" length:2]] || // XOR-MAPPED-ADDRESS
+           [mappedAddressData isEqualToData:[NSData dataWithBytes:"\x00\x20" length:2]]){
+            
+            // apparently, all public stun servers tested use 0x8020 (in the Comprehension-optional range) -
+            // as the XOR-MAPPED-ADDRESS Attribute type number instead of 0x0020 specified in RFC5389
+            int xmaddrStartPos = i + 2 + 2 + 1 + 1;
+            xmport=[data subdataWithRange:NSMakeRange(xmaddrStartPos, 2)];
+            xmaddr=[data subdataWithRange:NSMakeRange(xmaddrStartPos+2, 4)];
+        }
+        
+        i += 2;
+        
+        unsigned attribValueLength = 0;
+        NSScanner *scanner = [NSScanner scannerWithString:[[[data subdataWithRange:NSMakeRange(i, 2)] description]
+                                                           substringWithRange:NSMakeRange(1, 4)]];
+        [scanner scanHexInt:&attribValueLength];
+        
+        if(attribValueLength % 4 > 0){
+            attribValueLength += 4 - (attribValueLength % 4); // adds stun attribute value padding
+        }
+        
+        i += 2;
+        i += attribValueLength;
+    }
+    
+    
+    NSString *ip = nil;
+    NSString *port = nil;
+    
+    if(maddr != nil){
+        ip = [self extractIP:maddr];
+        port = [self extractPort:mport];
+        
+        STUNLog(@"MAPPED-ADDRESS: %@", maddr);
+        STUNLog(@"mport: %@", mport);
+    }else{
+        STUNLog(@"STUN No MAPPED-ADDRESS found.");
+    }
+    
+    if(xmaddr != nil){
+        
+        // XOR address
+        int xmaddrInt = [self parseIntFromHexData:xmaddr];
+        int magicCookieInt = [self parseIntFromHexData:magicCookie];
+        //
+        int32_t xoredAddr = CFSwapInt32HostToBig(magicCookieInt ^ xmaddrInt);
+        NSData *xAddr = [NSData dataWithBytes:&xoredAddr length:4];
+        ip = [self extractIP:xAddr];
+        
+        // XOR port
+        int xmportInt = [self parseIntFromHexData:xmport];
+        int magicCookieHighBytesInt = [self parseIntFromHexData:[magicCookie subdataWithRange:NSMakeRange(0, 2)]];
+        //
+        int32_t xoredPort = CFSwapInt16HostToBig(magicCookieHighBytesInt ^ xmportInt);
+        NSData *xPort = [NSData dataWithBytes:&xoredPort length:2];
+        port = [self extractPort:xPort];
+        
+        STUNLog(@"XOR-MAPPED-ADDRESS: %@", xAddr);
+        STUNLog(@"xmport: %@", xPort);
+        
+    }else{
+        STUNLog(@"STUN No XOR-MAPPED-ADDRESS found.");
+    }
+    
+    NSNumber *isNatPortRandom = [NSNumber numberWithBool:[sock localPort] != [port intValue]];
+    
+    STUNLog(@"\n");
+    STUNLog(@"=======STUN========");
+    STUNLog(@"STUN IP: %@", ip);
+    STUNLog(@"STUN Port: %@", port);
+    STUNLog(@"STUN Port randomization: %d", [sock localPort] == [port intValue]);
+    STUNLog(@"===================");
+    STUNLog(@"\n");
+    
+    // notify delegate
+    if([delegate respondsToSelector:@selector(didReceivePublicIPandPort:)]){
+        NSDictionary *result = [NSDictionary dictionaryWithObjectsAndKeys:ip, publicIPKey, port, publicPortKey, isNatPortRandom, isPortRandomization, nil];
+        [tcpSocket setDelegate:delegate];
+        [delegate didReceivePublicIPandPort:result];
+    }
+
+}
+
+/**
+ * Called when a socket has completed writing the requested data. Not called if there is an error.
+ **/
+- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
+{
+    
+    STUNLog(@"STUN didSendDataWithTag=%ld", tag);
+
+}
+
 #pragma mark GCDAsyncUdpSocketDelegate
 
 /**

@@ -18,6 +18,7 @@
 
 #import <Foundation/Foundation.h>
 #import "GCDAsyncUdpSocket.h"
+#import "GCDAsyncSocket.h"
 
 
 // STUN default port
@@ -38,8 +39,9 @@
 
 
 @protocol STUNClientDelegate;
-@interface STUNClient : NSObject <GCDAsyncUdpSocketDelegate>{
+@interface STUNClient : NSObject <GCDAsyncUdpSocketDelegate, GCDAsyncSocketDelegate>{
     GCDAsyncUdpSocket *udpSocket;
+    GCDAsyncSocket * tcpSocket;
     id<STUNClientDelegate>delegate;
     
     // binding request
@@ -54,8 +56,9 @@
     
     NSTimer *retentionTimer;
 }
-- (id) initWithHost:(NSString*) host  port:(uint16_t) port;
+- (id) initWithHost:(NSString*) host  port:(uint16_t) port timeout:(NSTimeInterval)t;
 - (void)requestPublicIPandPortWithUDPSocket:(GCDAsyncUdpSocket *)socket delegate:(id<STUNClientDelegate>)delegate;
+- (void)requestPublicIPandPortWithTCPSocket:(GCDAsyncSocket *)socket delegate:(id<STUNClientDelegate>)delegate;
 - (void)startSendIndicationMessage;
 - (void)stopSendIndicationMessage;
 
@@ -63,4 +66,5 @@
 
 @protocol STUNClientDelegate <NSObject>
 -(void)didReceivePublicIPandPort:(NSDictionary *) data;
+-(void)didReceiveAnError : (NSError *) err;
 @end

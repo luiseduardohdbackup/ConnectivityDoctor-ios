@@ -43,7 +43,7 @@
              
              //NSString* newStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
              [self.servers initWithJSON:data];
-             NSLog(@"%@", data);
+             
              dispatch_async(dispatch_get_main_queue(), ^{
                  [self.masterController.tableView reloadData];
                  [self.masterController.tableView setNeedsDisplay];

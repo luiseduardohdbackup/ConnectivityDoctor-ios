@@ -13,6 +13,7 @@
 // Designated initializer. The host is a DNS name.
 // The default init method is not to be used. Will return an exception, if used.
 // This operation is concurrent in nature
+// If postAction is NO , we default to GET
 -(id) initWithHost:(NSString*) host port:(NSInteger) port timeout:(NSTimeInterval)time https:(BOOL)https;
 
 

@@ -94,40 +94,42 @@
 
 
 
-- (OTConnectivityBaseOperation *) operationForProtocolList : (NSString *) protocols host:(NSString*) url port:(int) port
+- (OTConnectivityBaseOperation *) operationForProtocolList : (NSString *) protocol host:(NSString*) url port:(int) port
 {
-    OTConnectivityBaseOperation * operation = nil;
-    NSArray * protocol = [protocols componentsSeparatedByString:@"/"];
-   
-    NSString * p1 = protocol[0];
-    NSString * p2 = (protocol.count == 2)? protocol[1]:nil;
+    OTConnectivityBaseOperation *  operation = nil;
     
-    if (([p1 isEqualToString:@"tcp"] && (p2 == nil)) || (p1 && [p2 isEqualToString:@"tcp"]))
-    {
-        if([url isEqualToString:@"hlg.tokbox.com"])
-        {
-            operation = [[OTHTTPOperation alloc] initWithHost:url port:port timeout:10 https:NO];
-        } else if ([url isEqualToString:@"anvil.opentok.com"])
-        {
-             operation = [[OTHTTPOperation alloc] initWithHost:url port:port timeout:10 https:YES];
-        } else {
-            operation = [[OTTCPOperation alloc] initWithHost:url port:port timeout:10];
-        }
+    if ([protocol isEqualToString:@"http"]) {
+        operation = [[OTHTTPOperation alloc] initWithHost:url port:port timeout:10 https:NO];
         
     }
-    else if([p1 isEqualToString:@"ws"])
+    else if ([protocol isEqualToString:@"https"])
+    {
+         operation = [[OTHTTPOperation alloc] initWithHost:url port:port timeout:10 https:YES];
+        
+    }
+    else if ([protocol isEqualToString:@"tcp"])
+    {
+        operation = [[OTTCPOperation alloc] initWithHost:url port:port timeout:10];
+        
+    }
+    else if([protocol isEqualToString:@"ws"])
     {
         operation = [[OTWebSocketOperation alloc] initWithHost:url port:port timeout:10];
         
     }
-    else if([p1 isEqualToString:@"wss"])
+    else if([protocol isEqualToString:@"wss"])
     {
         //TODO make it secure
         operation = [[OTWebSocketOperation alloc] initWithHost:url port:port timeout:10];
     }
-    else if ([p1 isEqualToString:@"stun"] &&  [p2 isEqualToString:@"udp"] )
+    else if ([protocol isEqualToString:@"stun/udp"])
     {
-        operation = [[OTSTUNOperation alloc] initWithHost:url port:port timeout:10];
+       operation = [[OTSTUNOperation alloc] initWithHost:url port:port timeout:10 isTCPProtocol:NO];
+        
+    } else if ([protocol isEqualToString:@"stun/tcp"])
+    {
+
+        operation = [[OTSTUNOperation alloc] initWithHost:url port:port timeout:10 isTCPProtocol:YES];
         
     }
    // NSLog(@"operation = %@ protocols = %@ url=%@ port=%d",[operation class], protocols, url,port);

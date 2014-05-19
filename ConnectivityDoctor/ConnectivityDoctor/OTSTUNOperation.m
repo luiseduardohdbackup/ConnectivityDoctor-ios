@@ -8,17 +8,20 @@
 
 #import "OTSTUNOperation.h"
 #import "GCDAsyncUdpSocket.h"
+#import "GCDAsyncSocket.h"
 #import "STUNClient.h"
 
 
-@interface OTSTUNOperation () <STUNClientDelegate>
+@interface OTSTUNOperation () <STUNClientDelegate,GCDAsyncSocketDelegate>
 @property (nonatomic,strong) GCDAsyncUdpSocket * udpSocket;
+@property (nonatomic,strong) GCDAsyncSocket * tcpSocket;
 @property (nonatomic,strong) STUNClient *stunClient;
 @property (nonatomic,strong) NSString * host;
 @property NSUInteger port;
 @property NSTimeInterval timeout;
 @property BOOL finished;
 @property BOOL executing;
+@property BOOL isTCPProtocol;
 @end
 
 @implementation OTSTUNOperation
@@ -30,7 +33,7 @@
     return  nil;
 }
 
--(id) initWithHost:(NSString*) host port:(NSInteger) port timeout:(NSTimeInterval)time
+-(id) initWithHost:(NSString*) host port:(NSInteger) port timeout:(NSTimeInterval)time isTCPProtocol:(BOOL)p
 {
     self = [super init];
     if(self != nil)
@@ -38,6 +41,7 @@
         self.host = host;
         self.port = port;
         self.timeout = time;
+        self.isTCPProtocol = p;
         
         self.finished = NO;
         self.executing = NO;
@@ -72,21 +76,36 @@
 {
     @try {
         @autoreleasepool {
-                self.udpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
-                self.stunClient = [[STUNClient alloc] initWithHost:self.host port:self.port];
+            self.stunClient = [[STUNClient alloc] initWithHost:self.host port:self.port timeout:self.timeout];
+
+            if(!self.isTCPProtocol)
+            {
+                //UDP
+               
+                self.udpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self.stunClient delegateQueue:dispatch_get_main_queue()];
                 [self.stunClient requestPublicIPandPortWithUDPSocket:self.udpSocket delegate:self];
                 
-                NSData *data = [
-                                [NSString stringWithFormat:@"Hello World"]
-                                dataUsingEncoding:NSUTF8StringEncoding
-                                ];
-                
-                
-                
-                [self.udpSocket sendData:data toHost:self.host port:self.port withTimeout:-1 tag:1];
+            } else {
+                self.tcpSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
 
-            
-            
+                
+                NSError *error = nil;
+                if (![self.tcpSocket connectToHost:self.host onPort:self.port withTimeout:self.timeout error:&error]) // Asynchronous!
+                {
+                    // If there was an error, it's likely something like "already connected" or "no delegate set"
+                    NSLog(@"I goofed - already connected or delegate not set: %@", error);
+                } else {
+                    while(!self.isFinished && !self.isCancelled)
+                    {
+                        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+                    }
+ 
+
+                   
+                }
+                
+            }
+             
             //now wait
             double delayInSeconds = self.timeout;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -132,6 +151,30 @@
     
     // make socket nil
     self.udpSocket = nil;
+    self.tcpSocket = nil;
+}
+#pragma matk GCDAsyncSocket
+- (void)socket:(GCDAsyncSocket *)sender didConnectToHost:(NSString *)host port:(UInt16)port
+{
+    if(self.isTCPProtocol)
+    {
+        [self.stunClient requestPublicIPandPortWithTCPSocket:sender delegate:self];
+       
+    }
+    
+}
+- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
+{
+    if(self.isTCPProtocol)
+    {
+        self.connected = NO;
+        
+        [self tearDown];
+    
+        
+    }
+
+
 }
 
 #pragma mark STUN Client Delegate
@@ -148,6 +191,36 @@
 //    [self.stunClient startSendIndicationMessage];
 }
 
+-(void) didReceiveAnError:(NSError *)err
+{
+    if(self.isTCPProtocol)
+    {
+        self.connected = NO;
+        
+        [self tearDown];
+        
+        NSLog(@"socket error stun %@",self.host);
+    }
 
+    
+}
 
 @end
+
+//                    [self.tcpSocket performBlock:^{
+//                        int fd = [self.tcpSocket socketFD];
+//                        int on = 1;
+//                        if (setsockopt(fd, SOL_SOCKET, SO_REUSEPORT, (char*)&on, sizeof(on)) == -1) {
+//                            /* handle error */
+//                            NSLog(@"resuse error");
+//                        }
+//                    }];
+
+
+//                    NSError *err = nil;
+//                    if (![self.tcpSocket acceptOnPort:self.port error:&err])
+//                    {
+//                        NSLog(@"I goofed: %@", err);
+//                    }
+//
+

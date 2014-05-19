@@ -16,6 +16,7 @@
 @property BOOL isHttps;
 @property BOOL finished;
 @property BOOL executing;
+
 @end
 
 
@@ -38,6 +39,7 @@
         self.port = port;
         self.timeout = time;
         self.isHttps = https;
+        
         
         self.finished = NO;
         self.executing = NO;
@@ -74,19 +76,22 @@
     @try {
         @autoreleasepool {
             NSString * protocol = [NSString stringWithFormat:@"%@",self.isHttps?@"https":@"http"];
-            
-            NSString * s = [NSString stringWithFormat:@"%@://%@:%lu",protocol,self.host,(unsigned long)self.port];
+            NSArray * a = [self.host componentsSeparatedByString:@".com"];
+            NSString * s = [NSString stringWithFormat:@"%@://%@.com:%lu%@",protocol,a[0],(unsigned long)self.port,a[1]];
             self.request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:s]
                                                                    cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                                timeoutInterval:self.timeout];
-            self.request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:s]];
-            
+
             [self.request setHTTPMethod:@"GET"];
+           
             self.connection = [[NSURLConnection alloc] initWithRequest:self.request delegate:self startImmediately:YES];
-            while(!self.isFinished)
+            
+            //run run till you get a callback. If you quit you have bad access on callback trigggered
+            while(!self.isFinished && !self.isCancelled)
             {
                 [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
             }
+           
             
            
         }
@@ -127,6 +132,9 @@
 //-(void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 //{
 //    NSLog(@"%s",__PRETTY_FUNCTION__);
+//    NSString* newStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//    NSLog(@"%@",newStr);
+//    
 //}
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
@@ -148,15 +156,16 @@
     [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust] forAuthenticationChallenge:challenge];
 }
 
-//- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
-//{
-//    NSLog(@"%s",__PRETTY_FUNCTION__);
-//}
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    NSLog(@"%s",__PRETTY_FUNCTION__);
-    self.connected = YES;
+    NSHTTPURLResponse * r =  (NSHTTPURLResponse*)response;
+    
+    self.connected = (r.statusCode == 200);
     [self tearDown];
+
+ 
+   // NSLog(@"HTTP RESPONSE CODE = %ld",(long)r.statusCode);
 }
+
 @end

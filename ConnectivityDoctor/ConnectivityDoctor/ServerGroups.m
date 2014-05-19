@@ -46,12 +46,60 @@ static NSString * const kHostChecked = @"hostChecked";
     return self;
 }
 #pragma mark JSON
+-(NSMutableDictionary *) massageToFixRestGETServerListShortComings : (NSMutableDictionary *) groupsJSON
+{
+    //fix anvil protocols tcp to http and https
+    NSMutableDictionary * groupInfo = [[groupsJSON objectForKey:@"anvil"] mutableCopy];
+    NSString * host = [groupInfo objectForKey:@"generic_url"];
+    if([host isEqualToString:@"anvil.opentok.com"])
+    {
+//        [groupInfo setValue:@"anvil.opentok.com/session/2_MX4xMDB-flR1ZSBOb3YgMTkgMTE6MDk6NTggUFNUIDIwMTN-MC4zNzQxNzIxNX4?" forKey:@"generic_url"];
+        [groupInfo setValue:@"anvil.opentok.com/session/some_junk_id_2_MX4xMDB-flR1ZSBOb3YgMTkgMTE6MDk6NTggUFNUIDIwMTN-MC4zNzQxNzIxNX4?" forKey:@"generic_url"];
+
+    }
+    [groupInfo removeObjectForKey:@"tests"];
+    [groupInfo setValue:@[@{@"protocol": @"http", @"range" : @"80"},
+                          @{@"protocol": @"https",@"range" : @"443"}]
+                 forKey:@"tests"];
+    [groupsJSON setValue:groupInfo forKey:@"anvil"];
+    
+   
+
+    
+    //fix hlg logging to http
+    groupInfo = [[groupsJSON objectForKey:@"logging"]mutableCopy] ;
+    host = [groupInfo objectForKey:@"generic_url"];
+    if([host isEqualToString:@"hlg.tokbox.com"])
+    {
+
+        [groupInfo setValue:@"hlg.tokbox.com/heartbeat" forKey:@"generic_url"];
+        
+    }
+
+    [groupInfo removeObjectForKey:@"tests"];
+    [groupInfo setValue:@[@{@"protocol": @"http", @"range" : @"80"},
+                          @{@"protocol": @"https",@"range" : @"443"}]
+                 forKey:@"tests"];
+
+    [groupsJSON setValue:groupInfo forKey:@"logging"];
+    
+    //remove oscar
+    [groupsJSON removeObjectForKey:@"oscar"];
+
+
+    //return
+   
+    return groupsJSON;
+}
 -(void) initWithJSON : (NSData  *) data
 {
     self.serversGroupStore = [NSMutableDictionary new];
 
-    NSDictionary * info = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-    NSDictionary * groupsJSON = [info objectForKey:@"servers"];
+    NSMutableDictionary * info = [[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil] mutableCopy];
+    NSMutableDictionary * groupsJSON = [[info objectForKey:@"servers"] mutableCopy];
+    
+    //massage to correct
+    groupsJSON = [self massageToFixRestGETServerListShortComings:groupsJSON];
     
     //iterate through all groups to fill up group names
 
