@@ -27,6 +27,7 @@
 }
 // https://dashboard.tokbox.com/get_server_list
 // http://sup301-sat.tokbox.com/dynamicTestConfig.json
+
 -(void) fetchServerListFromNetworkAndStore
 {
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://dashboard.tokbox.com/get_server_list"]
@@ -82,7 +83,7 @@
 {
     [super viewDidLoad];
     
-    self.testCompleteLabel.hidden = YES;
+
     
     self.servers = [ServerGroups sharedInstance];
 
@@ -109,7 +110,7 @@
         [self resultsPost];
     }
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.testCompleteLabel.hidden = !self.servers.areAllHostsChecked;
+
         self.runTestAgain.enabled = self.servers.areAllHostsChecked;
 
     });
@@ -122,7 +123,7 @@
 }
 
 - (IBAction)refresh:(id)sender {
-    self.testCompleteLabel.hidden = YES;
+   
     self.runTestAgain.enabled = NO;
    
     [self fetchServerListFromNetworkAndStore];

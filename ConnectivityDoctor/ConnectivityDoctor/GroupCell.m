@@ -14,7 +14,7 @@
 #import "OTSTUNOperation.h"
 #import "OTWebSocketOperation.h"
 #import "OTHTTPOperation.h"
-#import "MKNumberBadgeView.h"
+
 
 @interface GroupCell()
 @property (strong, nonatomic) NSTimer *timer;
@@ -34,9 +34,14 @@
     self.servers = [ServerGroups sharedInstance];
     self.queue = [NSOperationQueue new];
     self.finishedView.hidden = YES;
-    self.badgeView.hidden = YES;
+    
     //throttle so the user experience is slow
     [self.queue setMaxConcurrentOperationCount:3];
+    
+    //fonts for labels
+    [self.nameLabel setFont:[UIFont fontWithName:@"Muli"size:14.0f]];
+    [self.nameDetailLabel setFont:[UIFont fontWithName:@"Muli"size:12.0f]];
+    [self.progressLabel setFont:[UIFont fontWithName:@"Muli"size:12.0f]];
 }
 
 
@@ -52,18 +57,18 @@
 {
 
     
-    self.progressView.roundedCorners = NO;
+    self.progressView.roundedCorners = YES;
  
    
-    self.progressView.trackTintColor = [UIColor redColor];
-    self.progressView.progressTintColor = [UIColor greenColor];
+    self.progressView.trackTintColor = [UIColor lightGrayColor];
+    self.progressView.progressTintColor = [UIColor blackColor];
     self.progressView.backgroundColor = [UIColor clearColor];
-    self.progressView.thicknessRatio = 1.0f;
+    self.progressView.thicknessRatio = 0.1f;
     self.progressView.clockwiseProgress = YES;
 
     self.progressView.progress = self.hostConnectedCount/self.hostTotalCount;
     self.progressLabel.text = [NSString stringWithFormat:@"%2.0f%%", self.progressView.progress * 100];
-    self.badgeView.hidden = YES;
+    
     
     if(self.hostTotalCount == self.hostCheckedSoFarCount)
     {
@@ -72,8 +77,7 @@
             [self.finishedView setImage:[UIImage imageNamed:@"connected"]];
         } else {
             [self.finishedView setImage:[UIImage imageNamed:@"notConnected"]];
-            self.badgeView.value = self.hostTotalCount - self.hostConnectedCount;
-            self.badgeView.hidden = NO;
+            
             
         }
         self.finishedView.hidden = NO;

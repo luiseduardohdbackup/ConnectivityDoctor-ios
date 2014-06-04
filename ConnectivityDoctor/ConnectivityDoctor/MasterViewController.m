@@ -34,6 +34,8 @@
 {
     [super viewDidLoad];
     
+   
+
     self.serverGroupStore = [ServerGroups sharedInstance];
 
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
@@ -54,6 +56,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+
     return [[self.serverGroupStore groupNames] count];
 }
 
@@ -90,7 +93,16 @@
     
     cell.nameLabel.text = groupName;
     [cell networkTestForGroup:groupName];
-   
+    if(indexPath.row % 2 == 0)
+    {
+        //even
+         cell.backgroundColor = [UIColor colorWithRed:242.0/255.0 green:242.0/255.0 blue:242.0/255.0 alpha:1];
+        
+    } else {
+        //odd
+         cell.backgroundColor = [UIColor colorWithRed:249.0/255.0 green:249.0/255.0 blue:249.0/255.0 alpha:1];
+    }
+    
     //TEST
 //    if([groupName isEqualToString:@"logging"]){
 //        cell.nameLabel.text = groupName;

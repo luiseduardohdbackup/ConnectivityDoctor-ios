@@ -24,7 +24,6 @@
 		2316ED5918C52F6800A9577E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2316ED3118C52F6800A9577E /* CoreData.framework */; };
 		2316ED6118C52F6800A9577E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2316ED5F18C52F6800A9577E /* InfoPlist.strings */; };
 		2316ED6318C52F6800A9577E /* ConnectivityDoctorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2316ED6218C52F6800A9577E /* ConnectivityDoctorTests.m */; };
-		2316ED7318C53DB100A9577E /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2316ED7218C53DB100A9577E /* WelcomeViewController.m */; };
 		2393457C18D7BE7F007EEAEE /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393457B18D7BE7F007EEAEE /* ContainerViewController.m */; };
 		2393457F18D8B611007EEAEE /* ServerGroups.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393457E18D8B611007EEAEE /* ServerGroups.m */; };
 		2393459718DA4605007EEAEE /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393458A18DA4604007EEAEE /* GCDAsyncSocket.m */; };
@@ -41,6 +40,8 @@
 		239345AB18DA46CD007EEAEE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 239345AA18DA46CD007EEAEE /* Security.framework */; };
 		239345AD18DA47D1007EEAEE /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 239345AC18DA47D1007EEAEE /* libicucore.dylib */; };
 		239345B018DB9594007EEAEE /* SendReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 239345AF18DB9594007EEAEE /* SendReportViewController.m */; };
+		239FF22F193E87D1008F212C /* Muli.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 239FF22E193E87D1008F212C /* Muli.ttf */; };
+		239FF230193E87D1008F212C /* Muli.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 239FF22E193E87D1008F212C /* Muli.ttf */; };
 		23A0205918D2673800ADB7B2 /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A0205818D2673800ADB7B2 /* DACircularProgressView.m */; };
 		23A0205C18D3938F00ADB7B2 /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A0205B18D3938F00ADB7B2 /* GroupCell.m */; };
 		23A0205E18D3B09E00ADB7B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A0205D18D3B09E00ADB7B2 /* QuartzCore.framework */; };
@@ -49,7 +50,6 @@
 		23A3486E18E2421D00B1587C /* portsDiagram.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 23A3486D18E2421D00B1587C /* portsDiagram.pdf */; };
 		23A348A818E5F4BA00B1587C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A348A718E5F4BA00B1587C /* MessageUI.framework */; };
 		23A348AB18E5F57600B1587C /* MailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A348AA18E5F57600B1587C /* MailViewController.m */; };
-		23A348AF18E60A4E00B1587C /* MKNumberBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A348AE18E60A4E00B1587C /* MKNumberBadgeView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,8 +86,6 @@
 		2316ED5E18C52F6800A9577E /* ConnectivityDoctorTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ConnectivityDoctorTests-Info.plist"; sourceTree = "<group>"; };
 		2316ED6018C52F6800A9577E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2316ED6218C52F6800A9577E /* ConnectivityDoctorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConnectivityDoctorTests.m; sourceTree = "<group>"; };
-		2316ED7118C53DB100A9577E /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
-		2316ED7218C53DB100A9577E /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
 		2393457A18D7BE7F007EEAEE /* ContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerViewController.h; sourceTree = "<group>"; };
 		2393457B18D7BE7F007EEAEE /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerViewController.m; sourceTree = "<group>"; };
 		2393457D18D8B611007EEAEE /* ServerGroups.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerGroups.h; sourceTree = "<group>"; };
@@ -117,6 +115,7 @@
 		239345AC18DA47D1007EEAEE /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		239345AE18DB9594007EEAEE /* SendReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendReportViewController.h; sourceTree = "<group>"; };
 		239345AF18DB9594007EEAEE /* SendReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendReportViewController.m; sourceTree = "<group>"; };
+		239FF22E193E87D1008F212C /* Muli.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Muli.ttf; sourceTree = "<group>"; };
 		23A0205718D2673800ADB7B2 /* DACircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DACircularProgressView.h; sourceTree = "<group>"; };
 		23A0205818D2673800ADB7B2 /* DACircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DACircularProgressView.m; sourceTree = "<group>"; };
 		23A0205A18D3938F00ADB7B2 /* GroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCell.h; sourceTree = "<group>"; };
@@ -129,8 +128,6 @@
 		23A348A718E5F4BA00B1587C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		23A348A918E5F57600B1587C /* MailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailViewController.h; sourceTree = "<group>"; };
 		23A348AA18E5F57600B1587C /* MailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailViewController.m; sourceTree = "<group>"; };
-		23A348AD18E60A4E00B1587C /* MKNumberBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNumberBadgeView.h; sourceTree = "<group>"; };
-		23A348AE18E60A4E00B1587C /* MKNumberBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKNumberBadgeView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,7 +280,6 @@
 		23A0205518D2671200ADB7B2 /* ThirdPartyUI */ = {
 			isa = PBXGroup;
 			children = (
-				23A348AC18E607E100B1587C /* MKNumberBadgeView */,
 				23A0205618D2671E00ADB7B2 /* DACircular */,
 			);
 			name = ThirdPartyUI;
@@ -312,8 +308,6 @@
 				2316ED4C18C52F6800A9577E /* DetailViewController.m */,
 				23A0205A18D3938F00ADB7B2 /* GroupCell.h */,
 				23A0205B18D3938F00ADB7B2 /* GroupCell.m */,
-				2316ED7118C53DB100A9577E /* WelcomeViewController.h */,
-				2316ED7218C53DB100A9577E /* WelcomeViewController.m */,
 				2316ED4218C52F6800A9577E /* Main_iPad.storyboard */,
 				2316ED4E18C52F6800A9577E /* Images.xcassets */,
 				239345AE18DB9594007EEAEE /* SendReportViewController.h */,
@@ -325,19 +319,11 @@
 		23A3486818E2189A00B1587C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				239FF22E193E87D1008F212C /* Muli.ttf */,
 				23A3486618E2185C00B1587C /* connectivity.pdf */,
 				23A3486D18E2421D00B1587C /* portsDiagram.pdf */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		23A348AC18E607E100B1587C /* MKNumberBadgeView */ = {
-			isa = PBXGroup;
-			children = (
-				23A348AD18E60A4E00B1587C /* MKNumberBadgeView.h */,
-				23A348AE18E60A4E00B1587C /* MKNumberBadgeView.m */,
-			);
-			name = MKNumberBadgeView;
 			sourceTree = "<group>";
 		};
 		23A348B018E6226500B1587C /* Model */ = {
@@ -430,6 +416,7 @@
 			files = (
 				2316ED4418C52F6800A9577E /* Main_iPad.storyboard in Resources */,
 				23A3486718E2185C00B1587C /* connectivity.pdf in Resources */,
+				239FF22F193E87D1008F212C /* Muli.ttf in Resources */,
 				2316ED4F18C52F6800A9577E /* Images.xcassets in Resources */,
 				2316ED4118C52F6800A9577E /* Main_iPhone.storyboard in Resources */,
 				2316ED3818C52F6800A9577E /* InfoPlist.strings in Resources */,
@@ -442,6 +429,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2316ED6118C52F6800A9577E /* InfoPlist.strings in Resources */,
+				239FF230193E87D1008F212C /* Muli.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,14 +454,12 @@
 				2316ED3A18C52F6800A9577E /* main.m in Sources */,
 				2393459718DA4605007EEAEE /* GCDAsyncSocket.m in Sources */,
 				23A0205918D2673800ADB7B2 /* DACircularProgressView.m in Sources */,
-				23A348AF18E60A4E00B1587C /* MKNumberBadgeView.m in Sources */,
 				2393459A18DA4605007EEAEE /* STUNClient.m in Sources */,
 				2393459818DA4605007EEAEE /* OTConnectivityBaseOperation.m in Sources */,
 				2393459D18DA4605007EEAEE /* OTWebSocketOperation.m in Sources */,
 				239345A518DA4674007EEAEE /* base64.c in Sources */,
 				23A0205C18D3938F00ADB7B2 /* GroupCell.m in Sources */,
 				2393459B18DA4605007EEAEE /* OTSTUNOperation.m in Sources */,
-				2316ED7318C53DB100A9577E /* WelcomeViewController.m in Sources */,
 				239345A718DA4674007EEAEE /* NSData+SRB64Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

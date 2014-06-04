@@ -13,12 +13,13 @@
 
 @interface GroupCell : UITableViewCell
 @property (nonatomic, weak) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nameDetailLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *completionImage;
 @property (nonatomic, weak) IBOutlet DACircularProgressView *progressView;
 @property (nonatomic, weak) IBOutlet UILabel *progressLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *finishedView;
 
-@property (weak, nonatomic) IBOutlet MKNumberBadgeView *badgeView;
+
 
 -(void) networkTestForGroup : (NSString *) name;
 @end
