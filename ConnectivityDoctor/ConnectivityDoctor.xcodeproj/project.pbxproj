@@ -44,8 +44,6 @@
 		23A0205C18D3938F00ADB7B2 /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A0205B18D3938F00ADB7B2 /* GroupCell.m */; };
 		23A0205E18D3B09E00ADB7B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A0205D18D3B09E00ADB7B2 /* QuartzCore.framework */; };
 		23A16478191C3C9E0010DFAE /* OTHTTPOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A16477191C3C9E0010DFAE /* OTHTTPOperation.m */; };
-		23A3486718E2185C00B1587C /* connectivity.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 23A3486618E2185C00B1587C /* connectivity.pdf */; };
-		23A3486E18E2421D00B1587C /* portsDiagram.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 23A3486D18E2421D00B1587C /* portsDiagram.pdf */; };
 		23A348A818E5F4BA00B1587C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A348A718E5F4BA00B1587C /* MessageUI.framework */; };
 		23A348AB18E5F57600B1587C /* MailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A348AA18E5F57600B1587C /* MailViewController.m */; };
 /* End PBXBuildFile section */
@@ -117,8 +115,6 @@
 		23A0205D18D3B09E00ADB7B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		23A16476191C3C9E0010DFAE /* OTHTTPOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTHTTPOperation.h; sourceTree = "<group>"; };
 		23A16477191C3C9E0010DFAE /* OTHTTPOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTHTTPOperation.m; sourceTree = "<group>"; };
-		23A3486618E2185C00B1587C /* connectivity.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = connectivity.pdf; sourceTree = "<group>"; };
-		23A3486D18E2421D00B1587C /* portsDiagram.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = portsDiagram.pdf; sourceTree = "<group>"; };
 		23A348A718E5F4BA00B1587C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		23A348A918E5F57600B1587C /* MailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailViewController.h; sourceTree = "<group>"; };
 		23A348AA18E5F57600B1587C /* MailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailViewController.m; sourceTree = "<group>"; };
@@ -310,8 +306,6 @@
 			isa = PBXGroup;
 			children = (
 				239FF22E193E87D1008F212C /* Muli.ttf */,
-				23A3486618E2185C00B1587C /* connectivity.pdf */,
-				23A3486D18E2421D00B1587C /* portsDiagram.pdf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -405,12 +399,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				2316ED4418C52F6800A9577E /* Main_iPad.storyboard in Resources */,
-				23A3486718E2185C00B1587C /* connectivity.pdf in Resources */,
 				239FF22F193E87D1008F212C /* Muli.ttf in Resources */,
 				2316ED4F18C52F6800A9577E /* Images.xcassets in Resources */,
 				2316ED4118C52F6800A9577E /* Main_iPhone.storyboard in Resources */,
 				2316ED3818C52F6800A9577E /* InfoPlist.strings in Resources */,
-				23A3486E18E2421D00B1587C /* portsDiagram.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

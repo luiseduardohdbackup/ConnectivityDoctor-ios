@@ -44,7 +44,7 @@
                                 <rect key="frame" x="9" y="419" width="300" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                                <state key="normal" title="Run diagnostic" backgroundImage="Button_Default.png"/>
+                                <state key="normal" title="Run diagnostic" backgroundImage="Button_Green_Default"/>
                                 <connections>
                                     <action selector="refresh:" destination="PMn-0B-bOc" eventType="touchUpInside" id="VhS-hS-Xpg"/>
                                 </connections>
@@ -53,7 +53,7 @@
                                 <rect key="frame" x="9" y="488" width="300" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                                <state key="normal" title="See report" backgroundImage="Button_Default.png">
+                                <state key="normal" title="See report" backgroundImage="Button_Green_Default">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -163,7 +163,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Button_Default.png" width="290" height="62"/>
+        <image name="Button_Green_Default" width="290" height="62"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
