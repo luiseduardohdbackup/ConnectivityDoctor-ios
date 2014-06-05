@@ -40,6 +40,10 @@
 		239345AD18DA47D1007EEAEE /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 239345AC18DA47D1007EEAEE /* libicucore.dylib */; };
 		239FF22F193E87D1008F212C /* Muli.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 239FF22E193E87D1008F212C /* Muli.ttf */; };
 		239FF230193E87D1008F212C /* Muli.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 239FF22E193E87D1008F212C /* Muli.ttf */; };
+		239FF245194103C6008F212C /* ReportTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 239FF244194103C6008F212C /* ReportTableViewController.m */; };
+		239FF246194103C6008F212C /* ReportTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 239FF244194103C6008F212C /* ReportTableViewController.m */; };
+		239FF24A19411575008F212C /* ReportSectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 239FF24919411575008F212C /* ReportSectionTableViewCell.m */; };
+		239FF24B19411575008F212C /* ReportSectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 239FF24919411575008F212C /* ReportSectionTableViewCell.m */; };
 		23A0205918D2673800ADB7B2 /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A0205818D2673800ADB7B2 /* DACircularProgressView.m */; };
 		23A0205C18D3938F00ADB7B2 /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A0205B18D3938F00ADB7B2 /* GroupCell.m */; };
 		23A0205E18D3B09E00ADB7B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A0205D18D3B09E00ADB7B2 /* QuartzCore.framework */; };
@@ -108,6 +112,10 @@
 		239345AA18DA46CD007EEAEE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		239345AC18DA47D1007EEAEE /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		239FF22E193E87D1008F212C /* Muli.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Muli.ttf; sourceTree = "<group>"; };
+		239FF243194103C6008F212C /* ReportTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportTableViewController.h; sourceTree = "<group>"; };
+		239FF244194103C6008F212C /* ReportTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportTableViewController.m; sourceTree = "<group>"; };
+		239FF24819411575008F212C /* ReportSectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportSectionTableViewCell.h; sourceTree = "<group>"; };
+		239FF24919411575008F212C /* ReportSectionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportSectionTableViewCell.m; sourceTree = "<group>"; };
 		23A0205718D2673800ADB7B2 /* DACircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DACircularProgressView.h; sourceTree = "<group>"; };
 		23A0205818D2673800ADB7B2 /* DACircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DACircularProgressView.m; sourceTree = "<group>"; };
 		23A0205A18D3938F00ADB7B2 /* GroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCell.h; sourceTree = "<group>"; };
@@ -267,6 +275,17 @@
 			name = WebSocketsHeaders;
 			sourceTree = "<group>";
 		};
+		239FF2471941154D008F212C /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				23A0205A18D3938F00ADB7B2 /* GroupCell.h */,
+				23A0205B18D3938F00ADB7B2 /* GroupCell.m */,
+				239FF24819411575008F212C /* ReportSectionTableViewCell.h */,
+				239FF24919411575008F212C /* ReportSectionTableViewCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 		23A0205518D2671200ADB7B2 /* ThirdPartyUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -288,14 +307,15 @@
 			isa = PBXGroup;
 			children = (
 				2316ED3F18C52F6800A9577E /* Main_iPhone.storyboard */,
+				239FF2471941154D008F212C /* Cells */,
 				23A348A918E5F57600B1587C /* MailViewController.h */,
 				23A348AA18E5F57600B1587C /* MailViewController.m */,
 				2393457A18D7BE7F007EEAEE /* ContainerViewController.h */,
 				2393457B18D7BE7F007EEAEE /* ContainerViewController.m */,
 				2316ED4818C52F6800A9577E /* MasterViewController.h */,
 				2316ED4918C52F6800A9577E /* MasterViewController.m */,
-				23A0205A18D3938F00ADB7B2 /* GroupCell.h */,
-				23A0205B18D3938F00ADB7B2 /* GroupCell.m */,
+				239FF243194103C6008F212C /* ReportTableViewController.h */,
+				239FF244194103C6008F212C /* ReportTableViewController.m */,
 				2316ED4218C52F6800A9577E /* Main_iPad.storyboard */,
 				2316ED4E18C52F6800A9577E /* Images.xcassets */,
 			);
@@ -435,7 +455,9 @@
 				2393459718DA4605007EEAEE /* GCDAsyncSocket.m in Sources */,
 				23A0205918D2673800ADB7B2 /* DACircularProgressView.m in Sources */,
 				2393459A18DA4605007EEAEE /* STUNClient.m in Sources */,
+				239FF245194103C6008F212C /* ReportTableViewController.m in Sources */,
 				2393459818DA4605007EEAEE /* OTConnectivityBaseOperation.m in Sources */,
+				239FF24A19411575008F212C /* ReportSectionTableViewCell.m in Sources */,
 				2393459D18DA4605007EEAEE /* OTWebSocketOperation.m in Sources */,
 				239345A518DA4674007EEAEE /* base64.c in Sources */,
 				23A0205C18D3938F00ADB7B2 /* GroupCell.m in Sources */,
@@ -448,7 +470,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				239FF24B19411575008F212C /* ReportSectionTableViewCell.m in Sources */,
 				2316ED6318C52F6800A9577E /* ConnectivityDoctorTests.m in Sources */,
+				239FF246194103C6008F212C /* ReportTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
