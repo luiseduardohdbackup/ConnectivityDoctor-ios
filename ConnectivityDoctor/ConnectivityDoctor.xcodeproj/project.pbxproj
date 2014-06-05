@@ -16,7 +16,6 @@
 		2316ED4118C52F6800A9577E /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2316ED3F18C52F6800A9577E /* Main_iPhone.storyboard */; };
 		2316ED4418C52F6800A9577E /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2316ED4218C52F6800A9577E /* Main_iPad.storyboard */; };
 		2316ED4A18C52F6800A9577E /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2316ED4918C52F6800A9577E /* MasterViewController.m */; };
-		2316ED4D18C52F6800A9577E /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2316ED4C18C52F6800A9577E /* DetailViewController.m */; };
 		2316ED4F18C52F6800A9577E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2316ED4E18C52F6800A9577E /* Images.xcassets */; };
 		2316ED5618C52F6800A9577E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2316ED5518C52F6800A9577E /* XCTest.framework */; };
 		2316ED5718C52F6800A9577E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2316ED2B18C52F6800A9577E /* Foundation.framework */; };
@@ -39,7 +38,6 @@
 		239345A918DA46C0007EEAEE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 239345A818DA46C0007EEAEE /* CFNetwork.framework */; };
 		239345AB18DA46CD007EEAEE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 239345AA18DA46CD007EEAEE /* Security.framework */; };
 		239345AD18DA47D1007EEAEE /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 239345AC18DA47D1007EEAEE /* libicucore.dylib */; };
-		239345B018DB9594007EEAEE /* SendReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 239345AF18DB9594007EEAEE /* SendReportViewController.m */; };
 		239FF22F193E87D1008F212C /* Muli.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 239FF22E193E87D1008F212C /* Muli.ttf */; };
 		239FF230193E87D1008F212C /* Muli.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 239FF22E193E87D1008F212C /* Muli.ttf */; };
 		23A0205918D2673800ADB7B2 /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A0205818D2673800ADB7B2 /* DACircularProgressView.m */; };
@@ -78,8 +76,6 @@
 		2316ED4318C52F6800A9577E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		2316ED4818C52F6800A9577E /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
 		2316ED4918C52F6800A9577E /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
-		2316ED4B18C52F6800A9577E /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		2316ED4C18C52F6800A9577E /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		2316ED4E18C52F6800A9577E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2316ED5418C52F6800A9577E /* ConnectivityDoctorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConnectivityDoctorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2316ED5518C52F6800A9577E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -113,8 +109,6 @@
 		239345A818DA46C0007EEAEE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		239345AA18DA46CD007EEAEE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		239345AC18DA47D1007EEAEE /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
-		239345AE18DB9594007EEAEE /* SendReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendReportViewController.h; sourceTree = "<group>"; };
-		239345AF18DB9594007EEAEE /* SendReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendReportViewController.m; sourceTree = "<group>"; };
 		239FF22E193E87D1008F212C /* Muli.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Muli.ttf; sourceTree = "<group>"; };
 		23A0205718D2673800ADB7B2 /* DACircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DACircularProgressView.h; sourceTree = "<group>"; };
 		23A0205818D2673800ADB7B2 /* DACircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DACircularProgressView.m; sourceTree = "<group>"; };
@@ -304,14 +298,10 @@
 				2393457B18D7BE7F007EEAEE /* ContainerViewController.m */,
 				2316ED4818C52F6800A9577E /* MasterViewController.h */,
 				2316ED4918C52F6800A9577E /* MasterViewController.m */,
-				2316ED4B18C52F6800A9577E /* DetailViewController.h */,
-				2316ED4C18C52F6800A9577E /* DetailViewController.m */,
 				23A0205A18D3938F00ADB7B2 /* GroupCell.h */,
 				23A0205B18D3938F00ADB7B2 /* GroupCell.m */,
 				2316ED4218C52F6800A9577E /* Main_iPad.storyboard */,
 				2316ED4E18C52F6800A9577E /* Images.xcassets */,
-				239345AE18DB9594007EEAEE /* SendReportViewController.h */,
-				239345AF18DB9594007EEAEE /* SendReportViewController.m */,
 			);
 			name = Storyboard;
 			sourceTree = "<group>";
@@ -440,7 +430,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2316ED4D18C52F6800A9577E /* DetailViewController.m in Sources */,
 				2393457F18D8B611007EEAEE /* ServerGroups.m in Sources */,
 				2316ED4A18C52F6800A9577E /* MasterViewController.m in Sources */,
 				2316ED3E18C52F6800A9577E /* AppDelegate.m in Sources */,
@@ -448,7 +437,6 @@
 				23A16478191C3C9E0010DFAE /* OTHTTPOperation.m in Sources */,
 				23A348AB18E5F57600B1587C /* MailViewController.m in Sources */,
 				2393459918DA4605007EEAEE /* GCDAsyncUdpSocket.m in Sources */,
-				239345B018DB9594007EEAEE /* SendReportViewController.m in Sources */,
 				239345A618DA4674007EEAEE /* SRWebSocket.m in Sources */,
 				2393457C18D7BE7F007EEAEE /* ContainerViewController.m in Sources */,
 				2316ED3A18C52F6800A9577E /* main.m in Sources */,

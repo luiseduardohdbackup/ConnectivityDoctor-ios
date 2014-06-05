@@ -7,7 +7,6 @@
 //
 
 #import "MasterViewController.h"
-#import "DetailViewController.h"
 #import "ServerGroups.h"
 #import "GroupCell.h"
 
@@ -81,7 +80,7 @@
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
        
-        [[segue destinationViewController] setDetailItem:[self.serverGroupStore groupLabels][indexPath.row]];
+       // [[segue destinationViewController] setDetailItem:[self.serverGroupStore groupLabels][indexPath.row]];
     }
 }
 
