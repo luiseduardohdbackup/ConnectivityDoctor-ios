@@ -110,8 +110,12 @@
         [self resultsPost];
     }
     dispatch_async(dispatch_get_main_queue(), ^{
+        if(self.servers.areAllHostsChecked)
+        {
+            self.runTestAgain.enabled = YES;
+            self.seeReport.enabled = YES;
+        }
 
-        self.runTestAgain.enabled = self.servers.areAllHostsChecked;
 
     });
    
@@ -125,6 +129,7 @@
 - (IBAction)refresh:(id)sender {
    
     self.runTestAgain.enabled = NO;
+    self.seeReport.enabled = NO;
    
     [self fetchServerListFromNetworkAndStore];
 }

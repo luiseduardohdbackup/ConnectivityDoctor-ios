@@ -12,4 +12,5 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *runTestAgain;
 
+@property (weak, nonatomic) IBOutlet UIButton *seeReport;
 @end
