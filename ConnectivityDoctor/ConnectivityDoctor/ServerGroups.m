@@ -17,7 +17,11 @@ static NSString * const kGenericURL = @"generic_url";
 // YES if connectivity test was done. NO if no test were done
 static NSString * const kHostChecked = @"hostChecked";
 
-
+NSString * const SGJSONName = @"jsonName";
+NSString * const SGName = @"name";
+NSString * const SGDescription = @"description";
+NSString * const SGErrorMessage = @"errorMessage";
+NSString * const SGOKMessage = @"okMessage";
 
 
 @interface ServerGroups()
@@ -216,15 +220,66 @@ static NSString * const kHostChecked = @"hostChecked";
 
 }
 #pragma mark Public
-//name of groups in no particular order
--(NSArray *) groupNames
+//Each element of the array is an NSDictionary with keys as follows:
+// name , description , errorMessage, okMessage
+// The display order is maintained in the NSArray
+
+-(NSArray *) groupLabels
 {
-    NSMutableArray * a = [NSMutableArray new];
+    NSMutableArray *a = [[NSMutableArray alloc] init];
+    
+    for (NSInteger i = 0; i < self.serversGroupStore.count; ++i)
+    {
+        [a addObject:[NSNull null]];
+    }
+
+ 
     for (NSString * group in self.serversGroupStore) {
-        [a addObject:group];
+       
+        if([group isEqualToString:@"anvil"])
+        {
+ 
+            a[0] = @{@"order":@"1",
+                     SGJSONName:group,
+                     SGName: @"API Server",
+                     SGDescription:@"Connect to the OpenTok API servers.",
+                     SGErrorMessage:@"Potential issues,info to fix,...",
+                     SGOKMessage:@"Succesful."};
+        }
+        else if([group isEqualToString:@"mantis"])
+        {
+            
+            a[1] = @{@"order":@"2",
+                     SGJSONName:group,
+                     SGName: @"Media Router",
+                     SGDescription:@"Verifying multi-party calls,messaging,and the ability to archive.",
+                     SGErrorMessage:@"Please contact your administrator to grant access to ports 3478,443 and UDP ports 1025-65535.",
+                     SGOKMessage:@"Succesful."};
+        } else if([group isEqualToString:@"turn"])
+        {
+            
+            a[2] = @{@"order":@"3",
+                     SGJSONName:group,
+                     SGName: @"Mesh TURN Server",
+                     SGDescription:@"Mesh calls with relay server fallback.",
+                     SGErrorMessage:@"Potential issues,info to fix,...",
+                     SGOKMessage:@"Succesful."};
+        } else if([group isEqualToString:@"logging"])
+        {
+            
+            a[3] = @{@"order":@"4",
+                     SGJSONName:group,
+                     SGName: @"LoggingServer",
+                     SGDescription:@"Connect to the OpenTok API servers.",
+                     SGErrorMessage:@"Potential issues,info to fix,...",
+                     SGOKMessage:@"Succesful."};
+        }
+
     }
     return a;
 }
+
+
 //array of NSDictionary with host info
 -(NSArray *) hostsForGroup : (NSString *) groupName
 {
@@ -232,8 +287,8 @@ static NSString * const kHostChecked = @"hostChecked";
 }
 -(BOOL) allHostsChecked
 {
-    for (NSString * groupName in [self groupNames]) {
-        
+    for (NSDictionary * dict in [self groupLabels]) {
+        NSString * groupName = [dict objectForKey:SGJSONName];
         NSArray * hosts = [self.serversGroupStore objectForKey:groupName];
         for (NSDictionary * host in hosts) {
             NSString * val = [host objectForKey:kHostChecked];

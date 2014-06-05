@@ -57,7 +57,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-    return [[self.serverGroupStore groupNames] count];
+    return [[self.serverGroupStore groupLabels] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -81,18 +81,22 @@
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
        
-        [[segue destinationViewController] setDetailItem:[self.serverGroupStore groupNames][indexPath.row]];
+        [[segue destinationViewController] setDetailItem:[self.serverGroupStore groupLabels][indexPath.row]];
     }
 }
 
 
 - (void)configureCell:(GroupCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray * groupNames = [self.serverGroupStore groupNames];
-    NSString* groupName = groupNames[indexPath.row];
+    NSArray * groupNames = [self.serverGroupStore groupLabels];
+    
+    NSDictionary * dict = groupNames[indexPath.row];
+    NSString* groupName = [dict objectForKey:SGName];
     
     cell.nameLabel.text = groupName;
-    [cell networkTestForGroup:groupName];
+    [cell networkTestForGroup:[dict objectForKey:SGJSONName]];
+    cell.nameDetailLabel.text = [dict objectForKey:SGDescription];
+    
     if(indexPath.row % 2 == 0)
     {
         //even

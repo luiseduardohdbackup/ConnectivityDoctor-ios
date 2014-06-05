@@ -12,6 +12,12 @@ extern NSString * const kURL ;
 extern NSString * const kPort ;
 extern NSString * const kProtocol ;
 
+extern NSString * const SGJSONName;
+extern NSString * const SGName;
+extern NSString * const SGDescription;
+extern NSString * const SGErrorMessage;
+extern NSString * const SGOKMessage;
+
 
 @interface ServerGroups : NSObject
 
@@ -26,8 +32,10 @@ extern NSString * const kProtocol ;
 
 -(NSString *) jsonString;
 
-//name of groups in no particular order
--(NSArray *) groupNames;
+//Each element of the array is an NSDictionary with keys as follows:
+// name , description , errorMessage, okMessage
+// The display order is maintained in the NSArray
+-(NSArray *) groupLabels;
 //array of NSDictionary with host info
 -(NSArray *) hostsForGroup : (NSString *) groupName;
 //set connected flag.
