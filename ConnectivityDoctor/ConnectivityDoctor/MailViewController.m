@@ -21,7 +21,7 @@
     if ([MFMailComposeViewController canSendMail])
     {
         self.mailComposeDelegate = self;
-        [self setSubject:@"Connectivity Doctor report"];
+        [self setSubject:@"Connectivity Doctor"];
         [self setMessageBody:@"Report goes here" isHTML:NO];
         [self setToRecipients:@[@"jaideep@tokbox.com"]];
     }
