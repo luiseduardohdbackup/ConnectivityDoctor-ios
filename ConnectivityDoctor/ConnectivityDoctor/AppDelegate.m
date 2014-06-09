@@ -51,17 +51,17 @@
 #pragma mark Customize apperance
 -(void) customizeApperance
 {
-  /*
-    for (NSString* family in [UIFont familyNames])
-    {
-        NSLog(@"%@", family);
-        
-        for (NSString* name in [UIFont fontNamesForFamilyName: family])
-        {
-            NSLog(@"  %@", name);
-        }
-    }
-    */
+  
+//    for (NSString* family in [UIFont familyNames])
+//    {
+//        NSLog(@"%@", family);
+//        
+//        for (NSString* name in [UIFont fontNamesForFamilyName: family])
+//        {
+//            NSLog(@"  %@", name);
+//        }
+//    }
+    
 
     UIColor * colorFg = [[UIColor alloc] initWithHue:102.0/256.0 saturation:102.0/256.0 brightness:102.0/256.0 alpha:1.0];
     [[UINavigationBar appearance] setTitleTextAttributes: @{

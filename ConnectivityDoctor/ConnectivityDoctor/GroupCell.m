@@ -170,6 +170,7 @@
                 
                 [self.servers markConnectedStatusOfGroup:name hostURL:[host objectForKey:kURL]
                                                     port:[host objectForKey:kPort] flag:weakOperation.connected];
+               
                 
                 
                 
@@ -199,4 +200,34 @@
         
     }];
 }
+
+-(void) setPath: (NSIndexPath *)indexPath
+{
+    NSArray * groupNames = [self.servers groupLabels];
+    
+    NSDictionary * dict = groupNames[indexPath.row];
+    NSString* groupName = [dict objectForKey:SGName];
+    
+    self.nameLabel.text = groupName;
+    [self networkTestForGroup:[dict objectForKey:SGJSONName]];
+    self.nameDetailLabel.text = [dict objectForKey:SGDescription];
+    
+    if(indexPath.row % 2 == 0)
+    {
+        //even
+        self.backgroundColor = [UIColor colorWithRed:242.0/255.0 green:242.0/255.0 blue:242.0/255.0 alpha:1];
+        
+    } else {
+        //odd
+        self.backgroundColor = [UIColor colorWithRed:249.0/255.0 green:249.0/255.0 blue:249.0/255.0 alpha:1];
+    }
+    //TEST
+    //    if([groupName isEqualToString:@"logging"]){
+    //        cell.nameLabel.text = groupName;
+    //        [cell networkTestForGroup:groupName];
+    //    }
+
+    
+}
+
 @end

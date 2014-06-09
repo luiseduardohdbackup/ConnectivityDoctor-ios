@@ -8,6 +8,8 @@
 
 #import "ReportSectionTableViewCell.h"
 
+
+
 @implementation ReportSectionTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -53,8 +55,8 @@
     NSString* myMinuteString = [NSString stringWithFormat:@"%@",[df stringFromDate:currDate]];
     
     //Second
-    [df setDateFormat:@"ss"];
-    NSString* mySecondString = [NSString stringWithFormat:@"%@", [df stringFromDate:currDate]];
+   // [df setDateFormat:@"ss"];
+   // NSString* mySecondString = [NSString stringWithFormat:@"%@", [df stringFromDate:currDate]];
     
     //am or pm
     [df setDateFormat:@"a"];
@@ -62,7 +64,7 @@
 
     
     self.date.text = [NSString stringWithFormat:@"%@:%@ %@ %@ %@,%@",myHourString,myMinuteString,myAmPm,myMonthString,myDayString,myYearString];
-    NSLog(@"Year: %@, Month: %@, Day: %@, Hour: %@, Minute: %@, Second: %@ ampm:%@", myYearString, myMonthString, myDayString, myHourString, myMinuteString, mySecondString,myAmPm);
+  //  NSLog(@"Year: %@, Month: %@, Day: %@, Hour: %@, Minute: %@, Second: %@ ampm:%@", myYearString, myMonthString, myDayString, myHourString, myMinuteString, mySecondString,myAmPm);
  
     return;
     

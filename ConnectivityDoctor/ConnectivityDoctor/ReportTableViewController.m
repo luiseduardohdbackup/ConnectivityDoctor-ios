@@ -7,9 +7,13 @@
 //
 
 #import "ReportTableViewController.h"
+#import "ReportTableViewCell.h"
+#import "ServerGroups.h"
 
 @interface ReportTableViewController ()
 @property (nonatomic) UIView * sectionView;
+@property (nonatomic) ReportTableViewCell * cell;
+@property (nonatomic) ServerGroups * serverGroupStore;
 @end
 
 @implementation ReportTableViewController
@@ -28,14 +32,11 @@
     [super viewDidLoad];
     
      self.sectionView = [self.tableView dequeueReusableCellWithIdentifier:@"SectionHeader"];
+     self.cell = [self.tableView dequeueReusableCellWithIdentifier:@"ReportCell"];
     
+     self.serverGroupStore = [ServerGroups sharedInstance];
     
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -68,22 +69,22 @@
 {
 
     // Return the number of rows in the section.
-    return 5;
+   return [[self.serverGroupStore groupLabels] count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ReportCell" forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+    ReportTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ReportCell" forIndexPath:indexPath];
+    cell.path = indexPath;
     return cell;
+
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100;
+    return self.cell.frame.size.height;
 }
 
 /*

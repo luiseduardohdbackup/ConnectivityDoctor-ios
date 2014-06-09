@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ReportSectionTableViewCell : UITableViewCell
+//section header
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UILabel *date;
 
