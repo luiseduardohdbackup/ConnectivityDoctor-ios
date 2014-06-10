@@ -57,12 +57,13 @@
     
     self.nameLabel.text = groupName;
     self.nameDetailLabel.text = [dict objectForKey:SGDescription];
+    [self.nameDetailLabel sizeToFit];
     
     [self.finishedView setImage:[UIImage imageNamed:@"connected"]];
     self.messageDetail.text = [dict objectForKey:SGOKMessage];
     
     for (NSDictionary * d in [self.serverGroupStore hostsForGroup:[dict objectForKey:SGJSONName]]) {
-        NSLog(@"Connnnnn =  %@",[d objectForKey:kConnected]);
+       
         if([[d objectForKey:kConnected] isEqualToString:@"NO"])
         {
             [self.finishedView setImage:[UIImage imageNamed:@"notConnected"]];
@@ -71,6 +72,7 @@
         }
         
     }
+    [self.messageDetail sizeToFit];
 
     
 }

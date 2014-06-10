@@ -82,6 +82,7 @@
         }
         self.finishedView.hidden = NO;
         self.progressView.hidden = YES;
+        self.progressLabel.hidden = YES;
     }
 
     
@@ -210,7 +211,11 @@
     
     self.nameLabel.text = groupName;
     [self networkTestForGroup:[dict objectForKey:SGJSONName]];
+    
     self.nameDetailLabel.text = [dict objectForKey:SGDescription];
+    //make sure auto-layout is checked off in IB for this cell
+    [self.nameDetailLabel sizeToFit];
+
     
     if(indexPath.row % 2 == 0)
     {

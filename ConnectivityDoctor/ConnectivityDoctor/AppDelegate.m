@@ -69,7 +69,10 @@
                                                             NSFontAttributeName: [UIFont fontWithName:@"Muli" size:18.0f]
                                                           
                                                             }];
-    //    [self.navigationItem.titleView sizeToFit];
+    
+     [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:249/255.0 green:249/255.0 blue:249/255.0 alpha:1.0]];
+//    [[UINavigationBar appearance] setTintColor: [UIColor colorWithRed:249/255.0 green:249/255.0 blue:249/255.0 alpha:1.0]];
+
 
     
 }

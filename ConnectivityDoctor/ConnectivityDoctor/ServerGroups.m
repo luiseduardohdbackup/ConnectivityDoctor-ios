@@ -243,7 +243,7 @@ NSString * const SGOKMessage = @"okMessage";
                      SGJSONName:group,
                      SGName: @"API Server",
                      SGDescription:@"Connect to the OpenTok API servers.",
-                     SGErrorMessage:@"Potential issues,info to fix,...",
+                     SGErrorMessage:@"Potential issues,info to fix. This is a big issue and you should contact your administrator and fix it otherwise unknown things will happen in your inbox.",
                      SGOKMessage:@"Succesful."};
         }
         else if([group isEqualToString:@"mantis"])
@@ -262,7 +262,7 @@ NSString * const SGOKMessage = @"okMessage";
                      SGJSONName:group,
                      SGName: @"Mesh TURN Server",
                      SGDescription:@"Mesh calls with relay server fallback.",
-                     SGErrorMessage:@"Potential issues,info to fix,...",
+                     SGErrorMessage:@"Potential issues,info to fix. This is a big issue and you should contact your administrator and fix it otherwise unknown things will happen in your inbox.",
                      SGOKMessage:@"Succesful."};
         } else if([group isEqualToString:@"logging"])
         {
@@ -271,7 +271,7 @@ NSString * const SGOKMessage = @"okMessage";
                      SGJSONName:group,
                      SGName: @"LoggingServer",
                      SGDescription:@"Connect to the OpenTok API servers.",
-                     SGErrorMessage:@"Potential issues,info to fix,...",
+                     SGErrorMessage:@"Potential issues,info to fix. This is a big issue and you should contact your administrator and fix it otherwise unknown things will happen in your inbox.",
                      SGOKMessage:@"Succesful."};
         }
 
