@@ -40,22 +40,24 @@
             body = [body stringByAppendingString:[d objectForKey:SGName]];
             body = [body stringByAppendingString:@"</h4>"];
             
-//            body = [body stringByAppendingString:@"<p><span style=\"font-size:10px;\">"];
-//            body = [body stringByAppendingString:[d objectForKey:SGDescription]];
-//            body = [body stringByAppendingString:@"</span></p>"];
+            body = [body stringByAppendingString:@"<p><span style=\"font-size:10px;\">"];
+            body = [body stringByAppendingString:[d objectForKey:SGDescription]];
+            body = [body stringByAppendingString:@"</span></p>"];
             
             body = [body stringByAppendingString:@"<p><span style=\"font-size:10px;\">"];
             body = [body stringByAppendingString:@"Test Result:"];
            
             
-            testResultMessage = @"OK";
+            testResultMessage = @"Success";
             for (NSDictionary * d1 in [self.serverGroupStore hostsForGroup:[d objectForKey:SGJSONName]])
             {
                 
                 if([[d1 objectForKey:kConnected] isEqualToString:@"NO"])
                 {
-                    
-                    testResultMessage = [d objectForKey:SGErrorMessage];
+                    testResultMessage = @"Failed";
+                    testResultMessage = [testResultMessage stringByAppendingString:@"</span></p>"];
+                    testResultMessage = [testResultMessage stringByAppendingString:@"<p><span style=\"font-size:10px;\">"];
+                    testResultMessage = [testResultMessage stringByAppendingString:[d objectForKey:SGErrorMessage]];
                     break;
                 }
             }
@@ -63,10 +65,11 @@
             body = [body stringByAppendingString:testResultMessage];
             body = [body stringByAppendingString:@"</span></p>"];
         }
-        self.mailComposeDelegate = self;
+       
+         self.mailComposeDelegate = self;
         [self setSubject:@"Connectivity Doctor"];
         [self setMessageBody:body isHTML:YES];
-        [self setToRecipients:@[@"jaideep@tokbox.com"]];
+        
     }
 }
 
