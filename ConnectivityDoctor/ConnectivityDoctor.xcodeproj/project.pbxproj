@@ -51,6 +51,7 @@
 		23A348A818E5F4BA00B1587C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A348A718E5F4BA00B1587C /* MessageUI.framework */; };
 		23A348AB18E5F57600B1587C /* MailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A348AA18E5F57600B1587C /* MailViewController.m */; };
 		23A4103219464BA300CB4E19 /* ReportTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A4103119464BA300CB4E19 /* ReportTableViewCell.m */; };
+		23D0B1CE194F8AB400D69385 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D0B1CD194F8AB400D69385 /* Utils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +130,8 @@
 		23A348AA18E5F57600B1587C /* MailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailViewController.m; sourceTree = "<group>"; };
 		23A4103019464BA300CB4E19 /* ReportTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportTableViewCell.h; sourceTree = "<group>"; };
 		23A4103119464BA300CB4E19 /* ReportTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportTableViewCell.m; sourceTree = "<group>"; };
+		23D0B1CC194F8AB400D69385 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		23D0B1CD194F8AB400D69385 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -311,6 +314,8 @@
 		23A0208618D767C100ADB7B2 /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
+				23D0B1CC194F8AB400D69385 /* Utils.h */,
+				23D0B1CD194F8AB400D69385 /* Utils.m */,
 				2316ED3F18C52F6800A9577E /* Main_iPhone.storyboard */,
 				239FF2471941154D008F212C /* Cells */,
 				23A348A918E5F57600B1587C /* MailViewController.h */,
@@ -468,6 +473,7 @@
 				239345A518DA4674007EEAEE /* base64.c in Sources */,
 				23A0205C18D3938F00ADB7B2 /* GroupCell.m in Sources */,
 				2393459B18DA4605007EEAEE /* OTSTUNOperation.m in Sources */,
+				23D0B1CE194F8AB400D69385 /* Utils.m in Sources */,
 				239345A718DA4674007EEAEE /* NSData+SRB64Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

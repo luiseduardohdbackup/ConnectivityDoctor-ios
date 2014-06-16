@@ -3,11 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "Icon-114.png"
+      "filename" : "LaunchIcon_1024x1024.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "LaunchIcon_1024x1024-1.png"
     }
   ],
   "info" : {
