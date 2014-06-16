@@ -66,6 +66,8 @@
             body = [body stringByAppendingString:@"</span></p>"];
         }
        
+        body = [body stringByAppendingString:@"<p>------------------------------------</p>"];
+        body = [body stringByAppendingString:@"<p>If you have any questions, please contact TokBox at support@tokbox.com.</p>"];
          self.mailComposeDelegate = self;
         [self setSubject:@"Connectivity Doctor"];
         [self setMessageBody:body isHTML:YES];
