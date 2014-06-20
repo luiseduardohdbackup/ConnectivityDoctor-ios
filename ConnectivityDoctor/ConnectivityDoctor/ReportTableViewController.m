@@ -61,18 +61,11 @@
         [sharingItems addObject:@"Test Result:"];
         [sharingItems addObject:@"Success"];
         
-        for (NSDictionary * d1 in [self.serverGroupStore hostsForGroup:[d objectForKey:SGJSONName]])
+        if([self.serverGroupStore connectedAnyWithinGroup:[d objectForKey:SGJSONName]] == NO)
         {
-            
-            if([[d1 objectForKey:kConnected] isEqualToString:@"NO"])
-            {
-                sharingItems[sharingItems.count-1]= @"Failed";
-                [sharingItems addObject:[d objectForKey:SGErrorMessage]];
-                break;
-            }
-        }
+            sharingItems[sharingItems.count-1]= @"Failed";
+            [sharingItems addObject:[d objectForKey:SGErrorMessage]];        }
 
-        
         [sharingItems addObject:@"\n"];
 
     }

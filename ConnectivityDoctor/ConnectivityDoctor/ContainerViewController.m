@@ -92,32 +92,41 @@
    
     
 }
+-(void) viewDidDisappear:(BOOL)animated
+{
+    [self.servers removeObserver:self forKeyPath:@"areAllGroupsChecked"];
+}
+
 -(void) viewDidAppear:(BOOL)animated
 {
     [self.servers addObserver:self
-               forKeyPath:@"areAllHostsChecked"
-                  options:NSKeyValueObservingOptionNew
+               forKeyPath:@"areAllGroupsChecked"
+                  options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
                   context:nil];
 }
--(void) viewDidDisappear:(BOOL)animated
-{
-    [self.servers removeObserver:self forKeyPath:@"areAllHostsChecked"];
-}
+
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if(self.servers.areAllHostsChecked)
+    if([keyPath isEqualToString:@"areAllGroupsChecked"])
     {
-        [self resultsPost];
-    }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if(self.servers.areAllHostsChecked)
+        BOOL old = [[change objectForKey:NSKeyValueChangeOldKey] boolValue];
+        BOOL new = [[change objectForKey:NSKeyValueChangeNewKey] boolValue];
+        if(!(old == NO && new == YES)) return;
+
+        if(self.servers.areAllGroupsChecked)
         {
-            self.runTestAgain.enabled = YES;
-            self.seeReport.enabled = YES;
+            [self resultsPost];
         }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(self.servers.areAllGroupsChecked)
+            {
+                self.runTestAgain.enabled = YES;
+                self.seeReport.enabled = YES;
+            }
 
 
-    });
+        });
+    }
    
 }
 - (void)didReceiveMemoryWarning
@@ -162,7 +171,7 @@
          NSHTTPURLResponse * r = (NSHTTPURLResponse*) response;
          
          NSLog(@"POST response=%ld",(long)r.statusCode);
-         NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+         //NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
      }];
      
 

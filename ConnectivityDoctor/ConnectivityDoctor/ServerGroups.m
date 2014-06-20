@@ -150,6 +150,7 @@ NSString * const SGOKMessage = @"okMessage";
         [self.serversGroupStore setObject:hostList forKey:group];
     }
     self.areAllHostsChecked = NO;
+    self.areAllGroupsChecked = NO;
 }
 - (NSString *) jsonString
 {
@@ -285,6 +286,8 @@ NSString * const SGOKMessage = @"okMessage";
 {
     return [[self.serversGroupStore objectForKey:groupName]copy] ;
 }
+
+
 -(BOOL) allHostsChecked
 {
     for (NSDictionary * dict in [self groupLabels]) {
@@ -300,6 +303,36 @@ NSString * const SGOKMessage = @"okMessage";
  
     return YES;
 }
+
+-(BOOL) allGroupsChecked
+{
+    BOOL allGroups = YES;
+
+    
+    for (NSDictionary * dict in [self groupLabels]) {
+        
+        allGroups = allGroups & [self connectedAnyWithinGroup:[dict objectForKey:SGJSONName]];
+        if(allGroups == NO) break;
+        
+    }
+    
+    return allGroups;
+}
+
+//return a BOOL if any host whithin the given group got thru the firewll
+-(BOOL) connectedAnyWithinGroup : (NSString *) groupname
+{
+    NSArray * hosts = [self.serversGroupStore objectForKey:groupname];
+    for (NSDictionary * host in hosts) {
+        if([[host objectForKey:kConnected] isEqualToString:@"YES"])
+        {
+            return YES;
+        }
+    }
+    return NO;
+    
+    
+}
 //set connected flag
 -(void) markConnectedStatusOfGroup : (NSString *) groupName hostURL:(NSString *)hosturl port:(NSString*) p flag:(BOOL) f
 {
@@ -313,6 +346,7 @@ NSString * const SGOKMessage = @"okMessage";
             [host setValue:f?@"YES":@"NO" forKey:kConnected];
             [host setValue:@"YES" forKey:kHostChecked];
             self.areAllHostsChecked = [self allHostsChecked];
+            self.areAllGroupsChecked = [self allGroupsChecked];
         }
     }
 }

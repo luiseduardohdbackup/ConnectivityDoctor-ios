@@ -49,33 +49,34 @@
 - (void)progressChange
 {
 
-    
     self.progressView.roundedCorners = YES;
- 
-   
     self.progressView.trackTintColor = [UIColor lightGrayColor];
     self.progressView.progressTintColor = [UIColor blackColor];
     self.progressView.backgroundColor = [UIColor clearColor];
     self.progressView.thicknessRatio = 0.1f;
     self.progressView.clockwiseProgress = YES;
-
     self.progressView.progress = self.hostConnectedCount/self.hostTotalCount;
     self.progressLabel.text = [NSString stringWithFormat:@"%2.0f%%", self.progressView.progress * 100];
     
     
-    if(self.hostTotalCount == self.hostCheckedSoFarCount)
+    if(self.hostConnectedCount)
     {
-        if(self.hostTotalCount == self.hostConnectedCount)
-        {
-            [self.finishedView setImage:[UIImage imageNamed:@"connected"]];
-        } else {
-            [self.finishedView setImage:[UIImage imageNamed:@"notConnected"]];
-            
-            
-        }
+        //One guy broke thru the FireWall ok, so finish up and cancel all others
+        [self.queue cancelAllOperations];
+        [self.finishedView setImage:[UIImage imageNamed:@"connected"]];
         self.finishedView.hidden = NO;
         self.progressView.hidden = YES;
         self.progressLabel.hidden = YES;
+
+    } else {
+        if(self.hostTotalCount == self.hostCheckedSoFarCount)
+        {
+            [self.finishedView setImage:[UIImage imageNamed:@"notConnected"]];
+            self.finishedView.hidden = NO;
+            self.progressView.hidden = YES;
+            self.progressLabel.hidden = YES;
+
+        }
     }
 
     
@@ -154,10 +155,7 @@
                 
                 [self.servers markConnectedStatusOfGroup:name hostURL:[host objectForKey:kURL]
                                                     port:[host objectForKey:kPort] flag:weakOperation.connected];
-               
-                
-                
-                
+  
                 if(weakOperation.connected) {
                   //  NSLog(@"ok  host = %@ port = %d protocol=%@", [host objectForKey:kURL],[[host objectForKey:kPort] intValue],[host objectForKey:kProtocol]);
 
@@ -171,7 +169,7 @@
                 });
                 
             } else {
-                NSLog(@"OPERATION +CANCELLED");
+               // NSLog(@"OPERATION +CANCELLED");
             }
             
         };

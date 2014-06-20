@@ -23,6 +23,7 @@ extern NSString * const SGOKMessage;
 
 // use this as a KVO to change UI elements
 @property (nonatomic) BOOL areAllHostsChecked;
+@property (nonatomic) BOOL areAllGroupsChecked;
 
 +(ServerGroups *) sharedInstance;
 
@@ -40,5 +41,7 @@ extern NSString * const SGOKMessage;
 -(NSArray *) hostsForGroup : (NSString *) groupName;
 //set connected flag.
 -(void) markConnectedStatusOfGroup : (NSString *) groupName hostURL:(NSString *)hosturl port:(NSString*) p flag:(BOOL) f;
+//return a BOOL if any host whithin the given group got thru the firewll
+-(BOOL) connectedAnyWithinGroup : (NSString *) groupname;
 
 @end

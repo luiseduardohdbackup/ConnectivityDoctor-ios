@@ -62,14 +62,10 @@
     [self.finishedView setImage:[UIImage imageNamed:@"connected"]];
     self.messageDetail.text = [dict objectForKey:SGOKMessage];
     
-    for (NSDictionary * d in [self.serverGroupStore hostsForGroup:[dict objectForKey:SGJSONName]]) {
-       
-        if([[d objectForKey:kConnected] isEqualToString:@"NO"])
-        {
-            [self.finishedView setImage:[UIImage imageNamed:@"notConnected"]];
-            self.messageDetail.text = [dict objectForKey:SGErrorMessage];
-            break;
-        }
+    if([self.serverGroupStore connectedAnyWithinGroup:[dict objectForKey:SGJSONName]] == NO)
+    {
+        [self.finishedView setImage:[UIImage imageNamed:@"notConnected"]];
+        self.messageDetail.text = [dict objectForKey:SGErrorMessage];
         
     }
     [self.messageDetail sizeToFit];
