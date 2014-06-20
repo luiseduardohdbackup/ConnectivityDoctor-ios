@@ -49,7 +49,6 @@
 		23A0205E18D3B09E00ADB7B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A0205D18D3B09E00ADB7B2 /* QuartzCore.framework */; };
 		23A16478191C3C9E0010DFAE /* OTHTTPOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A16477191C3C9E0010DFAE /* OTHTTPOperation.m */; };
 		23A348A818E5F4BA00B1587C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A348A718E5F4BA00B1587C /* MessageUI.framework */; };
-		23A348AB18E5F57600B1587C /* MailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A348AA18E5F57600B1587C /* MailViewController.m */; };
 		23A4103219464BA300CB4E19 /* ReportTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A4103119464BA300CB4E19 /* ReportTableViewCell.m */; };
 		23D0B1CE194F8AB400D69385 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D0B1CD194F8AB400D69385 /* Utils.m */; };
 /* End PBXBuildFile section */
@@ -126,8 +125,6 @@
 		23A16476191C3C9E0010DFAE /* OTHTTPOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTHTTPOperation.h; sourceTree = "<group>"; };
 		23A16477191C3C9E0010DFAE /* OTHTTPOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTHTTPOperation.m; sourceTree = "<group>"; };
 		23A348A718E5F4BA00B1587C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		23A348A918E5F57600B1587C /* MailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailViewController.h; sourceTree = "<group>"; };
-		23A348AA18E5F57600B1587C /* MailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailViewController.m; sourceTree = "<group>"; };
 		23A4103019464BA300CB4E19 /* ReportTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportTableViewCell.h; sourceTree = "<group>"; };
 		23A4103119464BA300CB4E19 /* ReportTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportTableViewCell.m; sourceTree = "<group>"; };
 		23D0B1CC194F8AB400D69385 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
@@ -210,6 +207,7 @@
 				23A3486818E2189A00B1587C /* Resources */,
 				2316ED3C18C52F6800A9577E /* AppDelegate.h */,
 				2316ED3D18C52F6800A9577E /* AppDelegate.m */,
+				237DD1C41954ED9F0007975F /* Utils */,
 				2316ED3418C52F6800A9577E /* Supporting Files */,
 			);
 			path = ConnectivityDoctor;
@@ -242,6 +240,15 @@
 				2316ED5F18C52F6800A9577E /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		237DD1C41954ED9F0007975F /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				23D0B1CC194F8AB400D69385 /* Utils.h */,
+				23D0B1CD194F8AB400D69385 /* Utils.m */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		2393458818DA45EE007EEAEE /* SocketsCode */ = {
@@ -314,12 +321,8 @@
 		23A0208618D767C100ADB7B2 /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
-				23D0B1CC194F8AB400D69385 /* Utils.h */,
-				23D0B1CD194F8AB400D69385 /* Utils.m */,
 				2316ED3F18C52F6800A9577E /* Main_iPhone.storyboard */,
 				239FF2471941154D008F212C /* Cells */,
-				23A348A918E5F57600B1587C /* MailViewController.h */,
-				23A348AA18E5F57600B1587C /* MailViewController.m */,
 				2393457A18D7BE7F007EEAEE /* ContainerViewController.h */,
 				2393457B18D7BE7F007EEAEE /* ContainerViewController.m */,
 				2316ED4818C52F6800A9577E /* MasterViewController.h */,
@@ -458,7 +461,6 @@
 				2316ED3E18C52F6800A9577E /* AppDelegate.m in Sources */,
 				2393459C18DA4605007EEAEE /* OTTCPOperation.m in Sources */,
 				23A16478191C3C9E0010DFAE /* OTHTTPOperation.m in Sources */,
-				23A348AB18E5F57600B1587C /* MailViewController.m in Sources */,
 				2393459918DA4605007EEAEE /* GCDAsyncUdpSocket.m in Sources */,
 				239345A618DA4674007EEAEE /* SRWebSocket.m in Sources */,
 				2393457C18D7BE7F007EEAEE /* ContainerViewController.m in Sources */,

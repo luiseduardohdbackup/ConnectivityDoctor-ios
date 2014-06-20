@@ -70,21 +70,6 @@
             </objects>
             <point key="canvasLocation" x="-615" y="-314"/>
         </scene>
-        <!--Mail View Controller - Send Report-->
-        <scene sceneID="NK9-1a-8aO">
-            <objects>
-                <viewController id="X8t-sG-pDd" customClass="MailViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="dMH-Je-u0p">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Send Report" id="aY5-vv-MFx"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yYu-Ws-i49" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-226" y="-871"/>
-        </scene>
         <!--Master View Controller - Master-->
         <scene sceneID="VgW-fR-Quf">
             <objects>
