@@ -9,6 +9,8 @@
 #import "ReportTableViewController.h"
 #import "ReportTableViewCell.h"
 #import "ServerGroups.h"
+#import "Utils.h"
+
 
 @interface ReportTableViewController ()
 @property (nonatomic) UIView * sectionView;
@@ -43,6 +45,44 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)shareReport:(id)sender {
+    NSMutableArray *sharingItems = [NSMutableArray new];
+  
+    self.serverGroupStore = [ServerGroups sharedInstance];
+    
+    [sharingItems addObject:kUtils_ReportHeaderText];
+    [sharingItems addObject:[Utils date_HH_AP_MM_DD_YYYY]];
+    [sharingItems addObject:@"\n"];
+    
+    for (NSDictionary * d in [self.serverGroupStore groupLabels]) {
+        [sharingItems addObject:[d objectForKey:SGName]];
+        [sharingItems addObject:[d objectForKey:SGDescription]];
+        [sharingItems addObject:@"Test Result:"];
+        [sharingItems addObject:@"Success"];
+        
+        for (NSDictionary * d1 in [self.serverGroupStore hostsForGroup:[d objectForKey:SGJSONName]])
+        {
+            
+            if([[d1 objectForKey:kConnected] isEqualToString:@"NO"])
+            {
+                sharingItems[sharingItems.count-1]= @"Failed";
+                [sharingItems addObject:[d objectForKey:SGErrorMessage]];
+                break;
+            }
+        }
+
+        
+        [sharingItems addObject:@"\n"];
+
+    }
+    [sharingItems addObject:@"------------------------------------"];
+    [sharingItems addObject:@"If you have any questions, please contact TokBox at support@tokbox.com."];
+  
+    
+    
+    UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:@[[sharingItems componentsJoinedByString:@"\n"]] applicationActivities:nil];
+    [self presentViewController:activityController animated:YES completion:nil];
 }
 
 #pragma mark - Table view data source

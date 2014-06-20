@@ -263,7 +263,7 @@
                     <navigationItem key="navigationItem" title="Connectivity Doctor" id="mbJ-6m-n2C">
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="9ux-kQ-sWC">
                             <connections>
-                                <segue destination="X8t-sG-pDd" kind="modal" id="g52-dV-dKi"/>
+                                <action selector="shareReport:" destination="cW3-bH-v1M" id="8B7-o1-IF1"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

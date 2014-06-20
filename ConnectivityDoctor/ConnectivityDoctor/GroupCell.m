@@ -17,7 +17,6 @@
 
 
 @interface GroupCell()
-@property (strong, nonatomic) NSTimer *timer;
 @property float progress;
 @property float hostTotalCount;
 @property float hostConnectedCount;
@@ -36,7 +35,7 @@
     self.finishedView.hidden = YES;
     
     //throttle so the user experience is slow
-    [self.queue setMaxConcurrentOperationCount:3];
+   // [self.queue setMaxConcurrentOperationCount:3];
     
     //fonts for labels
     [self.nameLabel setFont:[UIFont fontWithName:@"Muli"size:14.0f]];
@@ -46,13 +45,7 @@
 
 
 
-#pragma mark TimerChecks
--(void) incrementHostCheckedCount
-{
-    self.hostConnectedCount++;
-    [self progressChange];
-    
-}
+#pragma mark Progressing
 - (void)progressChange
 {
 
@@ -87,16 +80,6 @@
 
     
 }
-- (void)startAnimation
-{
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1
-                                                  target:self
-                                                selector:@selector(incrementHostCheckedCount)
-                                                userInfo:nil
-                                                 repeats:YES];
-    
-}
-
 
 
 - (OTConnectivityBaseOperation *) operationForProtocolList : (NSString *) protocol host:(NSString*) url port:(int) port
