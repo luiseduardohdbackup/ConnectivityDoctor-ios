@@ -9,6 +9,7 @@
 #import "ContainerViewController.h"
 #import "MasterViewController.h"
 #import "ServerGroups.h"
+#import "Utils.h"
 
 @interface ContainerViewController ()
 @property (nonatomic) ServerGroups * servers;
@@ -53,15 +54,26 @@
              
          }
          else if ([data length] == 0 && error == nil)
-             NSLog(@"NTWK:got no data");
+         {
+             [Utils showAlert:@"Could not fetch valid data"];
+         }
+             
          else if (error != nil && error.code == NSURLErrorTimedOut)
-             NSLog(@"NTWK:timeout");
+         {
+             [Utils showAlert:@"Could not fetch the list of servers.Try again after making sure that the network connection is present"];
+         }
          else if (error != nil)
-             NSLog(@"NTWK:error %@",error.description);
+         {
+            [Utils showAlert:@"Could not fetch the list of servers.Try again after making sure that the network connection is present"];
+            NSLog(@"Network error : %@", error.description);
+         }
+
      }];
     
  
 }
+
+
 -(MasterViewController *) masterController
 {
     if(_masterController == nil)
@@ -178,4 +190,6 @@
     
     
 }
+
+
 @end

@@ -23,6 +23,7 @@
 @property float hostCheckedSoFarCount;
 @property (nonatomic) ServerGroups * servers;
 @property (nonatomic, strong) NSOperationQueue * queue;
+@property BOOL checkAllHostsForConnected;
 @end
 
 @implementation GroupCell
@@ -33,7 +34,7 @@
     self.servers = [ServerGroups sharedInstance];
     self.queue = [NSOperationQueue new];
     self.finishedView.hidden = YES;
-    
+
     //throttle so the user experience is slow
    // [self.queue setMaxConcurrentOperationCount:3];
     
@@ -46,6 +47,15 @@
 
 
 #pragma mark Progressing
+-(void) showFinishedView : (UIImage *) img
+{
+    [self.finishedView setImage:img];
+    self.finishedView.hidden = NO;
+    self.progressView.hidden = YES;
+    self.progressLabel.hidden = YES;
+
+    
+}
 - (void)progressChange
 {
 
@@ -58,25 +68,41 @@
     self.progressView.progress = self.hostConnectedCount/self.hostTotalCount;
     self.progressLabel.text = [NSString stringWithFormat:@"%2.0f%%", self.progressView.progress * 100];
     
-    
-    if(self.hostConnectedCount)
+    if(self.checkAllHostsForConnected)
     {
-        //One guy broke thru the FireWall ok, so finish up and cancel all others
-        [self.queue cancelAllOperations];
-        [self.finishedView setImage:[UIImage imageNamed:@"connected"]];
-        self.finishedView.hidden = NO;
-        self.progressView.hidden = YES;
-        self.progressLabel.hidden = YES;
-
-    } else {
-        if(self.hostTotalCount == self.hostCheckedSoFarCount)
+        if(self.hostConnectedCount == self.hostTotalCount)
         {
-            [self.finishedView setImage:[UIImage imageNamed:@"notConnected"]];
-            self.finishedView.hidden = NO;
-            self.progressView.hidden = YES;
-            self.progressLabel.hidden = YES;
 
+            [self showFinishedView:[UIImage imageNamed:@"connected"]];
+            
+        } else {
+            if(self.hostTotalCount == self.hostCheckedSoFarCount)
+            {
+                if(self.hostConnectedCount == 0)
+                {
+                     [self showFinishedView:[UIImage imageNamed:@"notConnected"]];
+                } else {
+                     [self showFinishedView:[UIImage imageNamed:@"unknown"]];
+                }
+               
+            }
         }
+
+        
+    } else {
+        if(self.hostConnectedCount)
+        {
+            //One guy broke thru the FireWall ok, so finish up and cancel all others
+            [self.queue cancelAllOperations];
+            [self showFinishedView:[UIImage imageNamed:@"connected"]];
+            
+        } else {
+            if(self.hostTotalCount == self.hostCheckedSoFarCount)
+            {
+                [self showFinishedView:[UIImage imageNamed:@"notConnected"]];
+            }
+        }
+ 
     }
 
     
@@ -182,14 +208,18 @@
         
     }];
 }
+-(void) startDisplayAtPath : (NSIndexPath *) path
 
--(void) setPath: (NSIndexPath *)indexPath
 {
     NSArray * groupNames = [self.servers groupLabels];
     
-    NSDictionary * dict = groupNames[indexPath.row];
+    NSDictionary * dict = groupNames[path.row];
     NSString* groupName = [dict objectForKey:SGName];
     
+    if([groupName isEqualToString:@"anvil"] || [groupName isEqualToString:@"logging"])
+    {
+        self.checkAllHostsForConnected = YES;
+    }
     self.nameLabel.text = groupName;
     [self networkTestForGroup:[dict objectForKey:SGJSONName]];
     
@@ -198,7 +228,7 @@
     [self.nameDetailLabel sizeToFit];
 
     
-    if(indexPath.row % 2 == 0)
+    if(path.row % 2 == 0)
     {
         //even
         self.backgroundColor = [UIColor colorWithRed:242.0/255.0 green:242.0/255.0 blue:242.0/255.0 alpha:1];

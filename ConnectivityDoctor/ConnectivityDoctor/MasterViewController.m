@@ -61,7 +61,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    cell.path = indexPath;
+    [cell startDisplayAtPath:indexPath];
     return cell;
 }
 

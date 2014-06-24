@@ -15,8 +15,14 @@ extern NSString * const kProtocol ;
 extern NSString * const SGJSONName;
 extern NSString * const SGName;
 extern NSString * const SGDescription;
+extern NSString * const SGResultSuccess;
+extern NSString * const SGResultError;
+extern NSString * const SGResultWarning;
 extern NSString * const SGErrorMessage;
+extern NSString * const SGWarningSecure;
+extern NSString * const SGWarningNonSecure;
 extern NSString * const SGOKMessage;
+
 
 
 @interface ServerGroups : NSObject

@@ -53,7 +53,8 @@
     
     [sharingItems addObject:kUtils_ReportHeaderText];
     [sharingItems addObject:[Utils date_HH_AP_MM_DD_YYYY]];
-    [sharingItems addObject:@"\n"];
+    [sharingItems addObject:@"------------------------------------"];
+    
     
     for (NSDictionary * d in [self.serverGroupStore groupLabels]) {
         [sharingItems addObject:[d objectForKey:SGName]];

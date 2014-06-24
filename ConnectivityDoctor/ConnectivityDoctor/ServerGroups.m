@@ -20,12 +20,22 @@ static NSString * const kHostChecked = @"hostChecked";
 NSString * const SGJSONName = @"jsonName";
 NSString * const SGName = @"name";
 NSString * const SGDescription = @"description";
+NSString * const SGResultSuccess = @"results_success";
+NSString * const SGResultError = @"results_error";
+NSString * const SGResultWarning = @"results_warning";
 NSString * const SGErrorMessage = @"errorMessage";
+NSString * const SGWarningSecure = @"warning_secure";
+NSString * const SGWarningNonSecure = @"warning_non_secure";
 NSString * const SGOKMessage = @"okMessage";
 
 
+
 @interface ServerGroups()
-@property (nonatomic) NSMutableDictionary * serversGroupStore;
+// This contains all the hosts for a particular group. The host are massaged out of the
+@property (nonatomic) NSMutableDictionary * groupHosts;
+//This contains all the Display Strings for name, description,result,error and warnings of a group.
+@property (nonatomic) NSMutableDictionary * groupDisplays;
+
 @end
 
 @implementation ServerGroups
@@ -45,7 +55,8 @@ NSString * const SGOKMessage = @"okMessage";
 {
     self = [super init];
     if (self) {
-        self.serversGroupStore = [NSMutableDictionary new];
+        self.groupHosts = [NSMutableDictionary new];
+        self.groupDisplays = [NSMutableDictionary new];
     }
     return self;
 }
@@ -97,7 +108,8 @@ NSString * const SGOKMessage = @"okMessage";
 }
 -(void) initWithJSON : (NSData  *) data
 {
-    self.serversGroupStore = [NSMutableDictionary new];
+    self.groupHosts = [NSMutableDictionary new];
+    self.groupDisplays = [NSMutableDictionary new];
 
     NSMutableDictionary * info = [[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil] mutableCopy];
     NSMutableDictionary * groupsJSON = [[info objectForKey:@"servers"] mutableCopy];
@@ -114,9 +126,16 @@ NSString * const SGOKMessage = @"okMessage";
         //if([group isEqualToString:@"anvil"] == NO) continue;
         //end localized test
         
+        //get all the parts
         NSDictionary * groupInfo = [groupsJSON objectForKey:group];
         NSArray * tests = [groupInfo objectForKey:@"tests"];
         NSArray * urls = [groupInfo objectForKey:@"urls"];
+        NSArray * display = [groupInfo objectForKey:@"display"];
+        
+        //set display
+        [self.groupDisplays setObject:display[0] forKey:group];
+        
+        //set hosts, this is a combination of many fields. The code below is dense.
         NSMutableArray * hostList = [NSMutableArray new];
         NSString * genericURL = [groupInfo objectForKey:kGenericURL];
         BOOL avoidURLIfGenericURLPresent = NO;
@@ -147,8 +166,9 @@ NSString * const SGOKMessage = @"okMessage";
             avoidURLIfGenericURLPresent = (genericURL != nil);
         }
         avoidURLIfGenericURLPresent = NO;
-        [self.serversGroupStore setObject:hostList forKey:group];
+        [self.groupHosts setObject:hostList forKey:group];
     }
+    //properties resets
     self.areAllHostsChecked = NO;
     self.areAllGroupsChecked = NO;
 }
@@ -157,14 +177,14 @@ NSString * const SGOKMessage = @"okMessage";
     
     
     NSString * jsonString = @"{\"ConnectivityDoctorServerCheckedReport\":{\"servers\":{";
-    for (NSString * group in self.serversGroupStore) {
+    for (NSString * group in self.groupHosts) {
         jsonString = [[[jsonString  stringByAppendingString:@"\""]
                        stringByAppendingString:group]
                       stringByAppendingString:@"\":["];
         
         //protcol outer loop
         //protocols
-        NSArray * hostList = [self.serversGroupStore objectForKey:group];
+        NSArray * hostList = [self.groupHosts objectForKey:group];
         for(NSDictionary* host in hostList)
         {
             jsonString = [jsonString stringByAppendingString:@"{\"protocol\":\""];
@@ -229,51 +249,45 @@ NSString * const SGOKMessage = @"okMessage";
 {
     NSMutableArray *a = [[NSMutableArray alloc] init];
     
-    for (NSInteger i = 0; i < self.serversGroupStore.count; ++i)
+    for (NSInteger i = 0; i < self.groupDisplays.count; ++i)
     {
         [a addObject:[NSNull null]];
     }
 
  
-    for (NSString * group in self.serversGroupStore) {
+    for (NSString * group in self.groupDisplays) {
        
+        NSDictionary * dictDisplay = [self.groupDisplays valueForKeyPath:group];
+        NSDictionary * dictResult = [dictDisplay valueForKeyPath:@"result"];
+        NSDictionary * dictWarning = [dictDisplay valueForKeyPath:@"warning"];
+        NSDictionary * dictValues = @{SGJSONName:group,
+                                      SGName: [dictDisplay valueForKeyPath:@"name"],
+                                      SGDescription:[dictDisplay valueForKeyPath:@"description"],
+                                      SGResultSuccess:[dictResult valueForKeyPath:@"success"],
+                                      SGResultError:[dictResult valueForKeyPath:@"error"],
+                                      SGResultWarning:[dictResult valueForKeyPath:@"warning"],
+                                      SGErrorMessage:[dictDisplay valueForKeyPath:@"error"],
+                                      SGWarningNonSecure:[dictWarning valueForKeyPath:@"secure"],
+                                      SGWarningNonSecure:[dictWarning valueForKeyPath:@"nonSecure"],
+                                      SGOKMessage:@"Succesful."};
+        
         if([group isEqualToString:@"anvil"])
         {
  
-            a[0] = @{@"order":@"1",
-                     SGJSONName:group,
-                     SGName: @"API Server",
-                     SGDescription:@"Connect to the OpenTok API servers.",
-                     SGErrorMessage:@"Potential issues,info to fix. This is a big issue and you should contact your administrator and fix it otherwise unknown things will happen in your inbox.",
-                     SGOKMessage:@"Succesful."};
+            a[0] = dictValues;
         }
         else if([group isEqualToString:@"mantis"])
         {
             
-            a[1] = @{@"order":@"2",
-                     SGJSONName:group,
-                     SGName: @"Media Router",
-                     SGDescription:@"Verifying multi-party calls,messaging,and the ability to archive.",
-                     SGErrorMessage:@"Please contact your administrator to grant access to ports 3478,443 and UDP ports 1025-65535.",
-                     SGOKMessage:@"Succesful."};
+            a[1] = dictValues;
         } else if([group isEqualToString:@"turn"])
         {
             
-            a[2] = @{@"order":@"3",
-                     SGJSONName:group,
-                     SGName: @"Mesh TURN Server",
-                     SGDescription:@"Mesh calls with relay server fallback.",
-                     SGErrorMessage:@"Potential issues,info to fix. This is a big issue and you should contact your administrator and fix it otherwise unknown things will happen in your inbox.",
-                     SGOKMessage:@"Succesful."};
+            a[2] = dictValues;
         } else if([group isEqualToString:@"logging"])
         {
             
-            a[3] = @{@"order":@"4",
-                     SGJSONName:group,
-                     SGName: @"LoggingServer",
-                     SGDescription:@"Connect to the OpenTok API servers.",
-                     SGErrorMessage:@"Potential issues,info to fix. This is a big issue and you should contact your administrator and fix it otherwise unknown things will happen in your inbox.",
-                     SGOKMessage:@"Succesful."};
+            a[3] = dictValues;
         }
 
     }
@@ -284,7 +298,7 @@ NSString * const SGOKMessage = @"okMessage";
 //array of NSDictionary with host info
 -(NSArray *) hostsForGroup : (NSString *) groupName
 {
-    return [[self.serversGroupStore objectForKey:groupName]copy] ;
+    return [[self.groupHosts objectForKey:groupName]copy] ;
 }
 
 
@@ -292,7 +306,7 @@ NSString * const SGOKMessage = @"okMessage";
 {
     for (NSDictionary * dict in [self groupLabels]) {
         NSString * groupName = [dict objectForKey:SGJSONName];
-        NSArray * hosts = [self.serversGroupStore objectForKey:groupName];
+        NSArray * hosts = [self.groupHosts objectForKey:groupName];
         for (NSDictionary * host in hosts) {
             NSString * val = [host objectForKey:kHostChecked];
             
@@ -322,7 +336,7 @@ NSString * const SGOKMessage = @"okMessage";
 //return a BOOL if any host whithin the given group got thru the firewll
 -(BOOL) connectedAnyWithinGroup : (NSString *) groupname
 {
-    NSArray * hosts = [self.serversGroupStore objectForKey:groupname];
+    NSArray * hosts = [self.groupHosts objectForKey:groupname];
     for (NSDictionary * host in hosts) {
         if([[host objectForKey:kConnected] isEqualToString:@"YES"])
         {
@@ -337,7 +351,7 @@ NSString * const SGOKMessage = @"okMessage";
 -(void) markConnectedStatusOfGroup : (NSString *) groupName hostURL:(NSString *)hosturl port:(NSString*) p flag:(BOOL) f
 {
 
-    NSArray * hosts = [self.serversGroupStore objectForKey:groupName];
+    NSArray * hosts = [self.groupHosts objectForKey:groupName];
     for (NSDictionary * host in hosts) {
 
         if([[host objectForKey:kURL] isEqualToString:hosturl] && [[host objectForKey:kPort] isEqualToString:p])

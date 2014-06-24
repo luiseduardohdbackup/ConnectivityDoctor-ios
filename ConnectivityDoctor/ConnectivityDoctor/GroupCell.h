@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class DACircularProgressView;
-@class MKNumberBadgeView;
+
 
 
 @interface GroupCell : UITableViewCell
@@ -20,8 +20,8 @@
 
 
 
--(void) networkTestForGroup : (NSString *) name;
-@property (nonatomic) NSIndexPath * path;
+-(void) startDisplayAtPath : (NSIndexPath *) path;
+
 @end
 
 
