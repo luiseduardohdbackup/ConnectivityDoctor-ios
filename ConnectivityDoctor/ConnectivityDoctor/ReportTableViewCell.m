@@ -60,7 +60,7 @@
     [self.nameDetailLabel sizeToFit];
     
     
-    SGFinishedStatus status = [self.serverGroupStore groupStatus:[dict objectForKey:SGJSONName]];
+    SGFinishedStatus status = [self.serverGroupStore groupFinishedStatus:[dict objectForKey:SGJSONName]];
     
     if ((status == SGAllHostsConnected) || (status == SGSomeHostConnected))
     {

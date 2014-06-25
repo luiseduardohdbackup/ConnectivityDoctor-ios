@@ -57,7 +57,11 @@ typedef NS_ENUM(NSUInteger, SGFinishedStatus)
 //set connected flag.
 -(void) markConnectedStatusOfGroup : (NSString *) groupName hostURL:(NSString *)hosturl port:(NSString*) p flag:(BOOL) f;
 
+// return SGFinishedStatus
+-(SGFinishedStatus) groupFinishedStatus : (NSString *) groupName;
 
--(SGFinishedStatus) groupStatus : (NSString *) groupName;
+// a value between 0 and 1 indicating percentage of hosts checked.
+//The host can be connected or not.
+-(CGFloat) groupProgress : (NSString *) groupName;
 
 @end

@@ -199,7 +199,7 @@
         
         [self tearDown];
         
-        NSLog(@"socket error stun %@",self.host);
+        //NSLog(@"socket error stun %@",self.host);
     }
 
     

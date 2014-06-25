@@ -18,19 +18,14 @@
 
 @interface GroupCell()
 @property float progress;
-@property float hostTotalCount;
-@property float hostConnectedCount;
-@property float hostCheckedSoFarCount;
 @property (nonatomic) ServerGroups * servers;
 @property (nonatomic, strong) NSOperationQueue * queue;
-@property BOOL checkAllHostsForConnected;
+@property (nonatomic) NSDictionary * dictDisplay;
 @end
 
 @implementation GroupCell
 -(void) awakeFromNib
 {
-    self.hostConnectedCount = 0;
-    self.hostCheckedSoFarCount = 0;
     self.servers = [ServerGroups sharedInstance];
     self.queue = [NSOperationQueue new];
     self.finishedView.hidden = YES;
@@ -65,46 +60,25 @@
     self.progressView.backgroundColor = [UIColor clearColor];
     self.progressView.thicknessRatio = 0.1f;
     self.progressView.clockwiseProgress = YES;
-    self.progressView.progress = self.hostConnectedCount/self.hostTotalCount;
+    
+    self.progressView.progress = [self.servers groupProgress:[self.dictDisplay objectForKey:SGJSONName]];
     self.progressLabel.text = [NSString stringWithFormat:@"%2.0f%%", self.progressView.progress * 100];
     
+    SGFinishedStatus status = [self.servers groupFinishedStatus:[self.dictDisplay objectForKey:SGJSONName]];
     
-    
-    if(self.checkAllHostsForConnected)
+    if ((status == SGAllHostsConnected) || (status == SGSomeHostConnected))
     {
-        if(self.hostConnectedCount == self.hostTotalCount)
-        {
-
-            [self showFinishedView:[UIImage imageNamed:@"connected"]];
-            
-        } else {
-            if(self.hostTotalCount == self.hostCheckedSoFarCount)
-            {
-                if(self.hostConnectedCount == 0)
-                {
-                     [self showFinishedView:[UIImage imageNamed:@"notConnected"]];
-                } else {
-                     [self showFinishedView:[UIImage imageNamed:@"unknown"]];
-                }
-               
-            }
-        }
-
+       [self showFinishedView:[UIImage imageNamed:@"connected"]];
+        if(status == SGSomeHostConnected) [self.queue cancelAllOperations];
         
-    } else {
-        if(self.hostConnectedCount)
-        {
-            //One guy broke thru the FireWall ok, so finish up and cancel all others
-            [self.queue cancelAllOperations];
-            [self showFinishedView:[UIImage imageNamed:@"connected"]];
-            
-        } else {
-            if(self.hostTotalCount == self.hostCheckedSoFarCount)
-            {
-                [self showFinishedView:[UIImage imageNamed:@"notConnected"]];
-            }
-        }
- 
+    } else if(status == SGAllHostsFailed)
+    {
+         [self showFinishedView:[UIImage imageNamed:@"notConnected"]];
+    }
+    else if(status == SGAllHostsSomeConnectedAndSomeFailed)
+    {
+         [self showFinishedView:[UIImage imageNamed:@"unknown"]];
+
     }
 
     
@@ -159,9 +133,6 @@
     NSArray * hosts = [self.servers hostsForGroup:name];
     if(hosts.count == 0) return;
     
-    self.hostTotalCount = hosts.count;
-    self.hostConnectedCount = 0;
-    self.hostCheckedSoFarCount = 0;
     self.finishedView.hidden = YES;
     self.progressView.hidden = NO;
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -176,7 +147,7 @@
                                                                             port:[[host objectForKey:kPort] intValue]];
         __block __weak OTConnectivityBaseOperation * weakOperation = operation;
         operation.completionBlock = ^{
-            self.hostCheckedSoFarCount++;
+
             if(weakOperation.isCancelled == NO)
             {
 
@@ -187,7 +158,7 @@
                 if(weakOperation.connected) {
                   //  NSLog(@"ok  host = %@ port = %d protocol=%@", [host objectForKey:kURL],[[host objectForKey:kPort] intValue],[host objectForKey:kProtocol]);
 
-                    self.hostConnectedCount++;
+
                 } else {
                     // NSLog(@"NOT connected  host = %@ port = %d protocol=%@", [host objectForKey:kURL],[[host objectForKey:kPort] intValue],[host objectForKey:kProtocol]);
                 }
@@ -215,16 +186,11 @@
 {
     NSArray * groupNames = [self.servers groupLabels];
     
-    NSDictionary * dict = groupNames[path.row];
-    NSString* groupName = [dict objectForKey:SGName];
+    self.dictDisplay = groupNames[path.row];
+    NSString* groupName = [self.dictDisplay objectForKey:SGName];
     
-    if([groupName isEqualToString:@"anvil"] || [groupName isEqualToString:@"logging"])
-    {
-        self.checkAllHostsForConnected = YES;
-    }
     self.nameLabel.text = groupName;
-
-    self.nameDetailLabel.text = [dict objectForKey:SGDescription];
+    self.nameDetailLabel.text = [self.dictDisplay objectForKey:SGDescription];
     //make sure auto-layout is checked off in IB for this cell
     [self.nameDetailLabel sizeToFit];
     
@@ -240,14 +206,7 @@
     }
     
     //start the testing
-     [self networkTestForGroup:[dict objectForKey:SGJSONName]];
-    
-    //TEST
-    //    if([groupName isEqualToString:@"logging"]){
-    //        cell.nameLabel.text = groupName;
-    //        [cell networkTestForGroup:groupName];
-    //    }
-
+     [self networkTestForGroup:[self.dictDisplay objectForKey:SGJSONName]];
     
 }
 

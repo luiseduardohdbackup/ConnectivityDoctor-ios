@@ -127,7 +127,7 @@
 
         if(self.servers.areAllGroupsChecked)
         {
-            [self resultsPost];
+          //  [self resultsPost];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             if(self.servers.areAllGroupsChecked)

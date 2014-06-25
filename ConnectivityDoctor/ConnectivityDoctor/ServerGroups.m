@@ -356,7 +356,7 @@ NSString * const SGWarningNonSecure = @"warning_non_secure";
     
 }
 
--(SGFinishedStatus) groupStatus : (NSString *) groupName
+-(SGFinishedStatus) groupFinishedStatus : (NSString *) groupName
 {
     NSArray * hosts = [self.groupHosts objectForKey:groupName];
     int hostCheckedSoFar = 0;
@@ -386,6 +386,20 @@ NSString * const SGWarningNonSecure = @"warning_non_secure";
         
     }
     return SGNotFinished;
+}
+// a value between 0 and 1 indicating percentage of hosts checked.
+//The host can be connected or not.
+-(CGFloat) groupProgress : (NSString *) groupName
+{
+    NSArray * hosts = [self.groupHosts objectForKey:groupName];
+    int hostCheckedCount = 0;
+    for (NSDictionary * host in hosts) {
+
+        if([[host objectForKey:kHostChecked] isEqualToString:@"YES"]) hostCheckedCount++;
+    }
+    //NSLog(@"the progress is total = %d, checkedsofar = %d answer = %f",hosts.count,hostCheckedCount, (CGFloat)hostCheckedCount/(CGFloat)hosts.count);
+    return (CGFloat)hostCheckedCount/(CGFloat)hosts.count;
+    
 }
 //set connected flag
 -(void) markConnectedStatusOfGroup : (NSString *) groupName hostURL:(NSString *)hosturl port:(NSString*) p flag:(BOOL) f
