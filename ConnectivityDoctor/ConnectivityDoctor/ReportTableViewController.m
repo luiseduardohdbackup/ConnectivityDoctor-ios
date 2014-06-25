@@ -62,10 +62,11 @@
         [sharingItems addObject:@"Test Result:"];
         [sharingItems addObject:@"Success"];
         
-        if([self.serverGroupStore connectedAnyWithinGroup:[d objectForKey:SGJSONName]] == NO)
-        {
-            sharingItems[sharingItems.count-1]= @"Failed";
-            [sharingItems addObject:[d objectForKey:SGErrorMessage]];        }
+//        if([self.serverGroupStore connectedAnyWithinGroup:[d objectForKey:SGJSONName]] == NO)
+//        {
+//            sharingItems[sharingItems.count-1]= @"Failed";
+//            [sharingItems addObject:[d objectForKey:SGErrorMessage]];
+//        }
 
         [sharingItems addObject:@"\n"];
 

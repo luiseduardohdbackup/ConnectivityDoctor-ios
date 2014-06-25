@@ -26,7 +26,7 @@ NSString * const SGResultWarning = @"results_warning";
 NSString * const SGErrorMessage = @"errorMessage";
 NSString * const SGWarningSecure = @"warning_secure";
 NSString * const SGWarningNonSecure = @"warning_non_secure";
-NSString * const SGOKMessage = @"okMessage";
+
 
 
 
@@ -98,8 +98,7 @@ NSString * const SGOKMessage = @"okMessage";
 
     [groupsJSON setValue:groupInfo forKey:@"logging"];
     
-    //remove oscar
-    [groupsJSON removeObjectForKey:@"oscar"];
+
 
 
     //return
@@ -260,16 +259,25 @@ NSString * const SGOKMessage = @"okMessage";
         NSDictionary * dictDisplay = [self.groupDisplays valueForKeyPath:group];
         NSDictionary * dictResult = [dictDisplay valueForKeyPath:@"result"];
         NSDictionary * dictWarning = [dictDisplay valueForKeyPath:@"warning"];
-        NSDictionary * dictValues = @{SGJSONName:group,
-                                      SGName: [dictDisplay valueForKeyPath:@"name"],
-                                      SGDescription:[dictDisplay valueForKeyPath:@"description"],
-                                      SGResultSuccess:[dictResult valueForKeyPath:@"success"],
-                                      SGResultError:[dictResult valueForKeyPath:@"error"],
-                                      SGResultWarning:[dictResult valueForKeyPath:@"warning"],
-                                      SGErrorMessage:[dictDisplay valueForKeyPath:@"error"],
-                                      SGWarningNonSecure:[dictWarning valueForKeyPath:@"secure"],
-                                      SGWarningNonSecure:[dictWarning valueForKeyPath:@"nonSecure"],
-                                      SGOKMessage:@"Succesful."};
+        NSMutableDictionary * dictValues = [NSMutableDictionary new];
+        
+        [dictValues setValue:group forKey:SGJSONName];
+        [dictValues setValue:[dictDisplay valueForKeyPath:@"name"] forKey:SGName];
+        [dictValues setValue:[dictDisplay valueForKeyPath:@"description"] forKey:SGDescription];
+        //Results
+        [dictValues setValue:[dictResult valueForKeyPath:@"success"] forKey:SGResultSuccess];
+        [dictValues setValue:[dictResult valueForKeyPath:@"error"] forKey:SGResultError];
+        [dictValues setValue:[dictResult valueForKeyPath:@"warning"]?[dictResult valueForKeyPath:@"warning"]:@"" forKey:SGResultWarning];
+        //error
+        [dictValues setValue:[dictResult valueForKeyPath:@"error"] forKey:SGErrorMessage];
+        //warning for Secure/NonSecure
+        if (dictWarning) {
+            [dictValues setValue:[dictWarning valueForKeyPath:@"secure"] forKey:SGWarningSecure];
+            [dictValues setValue:[dictWarning valueForKeyPath:@"nonSecure"] forKey:SGWarningNonSecure];
+        } else {
+            [dictValues setValue:@"" forKey:SGWarningSecure];
+            [dictValues setValue:@"" forKey:SGWarningNonSecure];
+        }
         
         if([group isEqualToString:@"anvil"])
         {
@@ -346,6 +354,38 @@ NSString * const SGOKMessage = @"okMessage";
     return NO;
     
     
+}
+
+-(SGFinishedStatus) groupStatus : (NSString *) groupName
+{
+    NSArray * hosts = [self.groupHosts objectForKey:groupName];
+    int hostCheckedSoFar = 0;
+    int hostConnectedSoFar = 0;
+    int hostTotalCount = hosts.count;
+    
+    for (NSDictionary * host in hosts) {
+
+        BOOL checked = [[host objectForKey:kHostChecked] isEqualToString:@"YES"];
+        BOOL connected = [[host objectForKey:kConnected] isEqualToString:@"YES"];
+        if(checked) hostCheckedSoFar++;
+        if(connected) hostConnectedSoFar++;
+        
+        if([groupName isEqualToString:@"anvil"] || [groupName isEqualToString:@"logging"])
+        {
+            if((hostCheckedSoFar == hostTotalCount) && (hostConnectedSoFar == hostTotalCount))
+                return SGAllHostsConnected;
+            if((hostCheckedSoFar == hostTotalCount) && (hostConnectedSoFar == 0)) return SGAllHostsFailed;
+            if((hostCheckedSoFar == hostTotalCount) && (hostConnectedSoFar)) return SGAllHostsSomeConnectedAndSomeFailed;
+            
+        } else {
+      
+            if(checked && connected) return SGSomeHostConnected;
+            if((hostCheckedSoFar == hostTotalCount) && (hostConnectedSoFar == 0)) return SGAllHostsFailed;
+            
+        }
+        
+    }
+    return SGNotFinished;
 }
 //set connected flag
 -(void) markConnectedStatusOfGroup : (NSString *) groupName hostURL:(NSString *)hosturl port:(NSString*) p flag:(BOOL) f

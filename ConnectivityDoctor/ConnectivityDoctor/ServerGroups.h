@@ -21,9 +21,16 @@ extern NSString * const SGResultWarning;
 extern NSString * const SGErrorMessage;
 extern NSString * const SGWarningSecure;
 extern NSString * const SGWarningNonSecure;
-extern NSString * const SGOKMessage;
 
 
+typedef NS_ENUM(NSUInteger, SGFinishedStatus)
+{
+    SGNotFinished,
+    SGAllHostsConnected,
+    SGAllHostsFailed,
+    SGAllHostsSomeConnectedAndSomeFailed,  //some failed, some connected
+    SGSomeHostConnected,
+};
 
 @interface ServerGroups : NSObject
 
@@ -36,18 +43,21 @@ extern NSString * const SGOKMessage;
 //designated init.
 //If you want to retry , start with this method again , for now
 -(void) initWithJSON : (NSData  *) data;
-
+//the output json string which can be POSTed to a logging server.
 -(NSString *) jsonString;
 
 //Each element of the array is an NSDictionary with keys as follows:
 // name , description , errorMessage, okMessage
 // The display order is maintained in the NSArray
 -(NSArray *) groupLabels;
+
 //array of NSDictionary with host info
 -(NSArray *) hostsForGroup : (NSString *) groupName;
+
 //set connected flag.
 -(void) markConnectedStatusOfGroup : (NSString *) groupName hostURL:(NSString *)hosturl port:(NSString*) p flag:(BOOL) f;
-//return a BOOL if any host whithin the given group got thru the firewll
--(BOOL) connectedAnyWithinGroup : (NSString *) groupname;
+
+
+-(SGFinishedStatus) groupStatus : (NSString *) groupName;
 
 @end

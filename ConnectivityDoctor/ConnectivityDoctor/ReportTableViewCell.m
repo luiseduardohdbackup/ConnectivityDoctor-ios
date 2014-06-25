@@ -59,15 +59,27 @@
     self.nameDetailLabel.text = [dict objectForKey:SGDescription];
     [self.nameDetailLabel sizeToFit];
     
-    [self.finishedView setImage:[UIImage imageNamed:@"connected"]];
-    self.messageDetail.text = [dict objectForKey:SGOKMessage];
     
-    if([self.serverGroupStore connectedAnyWithinGroup:[dict objectForKey:SGJSONName]] == NO)
+    SGFinishedStatus status = [self.serverGroupStore groupStatus:[dict objectForKey:SGJSONName]];
+    
+    if ((status == SGAllHostsConnected) || (status == SGSomeHostConnected))
+    {
+        [self.finishedView setImage:[UIImage imageNamed:@"connected"]];
+        self.messageDetail.text = [dict objectForKey:SGResultSuccess];
+
+    } else if(status == SGAllHostsFailed)
     {
         [self.finishedView setImage:[UIImage imageNamed:@"notConnected"]];
         self.messageDetail.text = [dict objectForKey:SGErrorMessage];
         
     }
+    else if(status == SGAllHostsSomeConnectedAndSomeFailed)
+    {
+        [self.finishedView setImage:[UIImage imageNamed:@"unknown"]];
+        self.messageDetail.text = [dict objectForKey:SGWarningSecure];
+    }
+    
+    
     [self.messageDetail sizeToFit];
 
     

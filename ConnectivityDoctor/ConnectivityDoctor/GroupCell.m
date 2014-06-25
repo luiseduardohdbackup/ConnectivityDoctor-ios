@@ -68,6 +68,8 @@
     self.progressView.progress = self.hostConnectedCount/self.hostTotalCount;
     self.progressLabel.text = [NSString stringWithFormat:@"%2.0f%%", self.progressView.progress * 100];
     
+    
+    
     if(self.checkAllHostsForConnected)
     {
         if(self.hostConnectedCount == self.hostTotalCount)
@@ -221,13 +223,12 @@
         self.checkAllHostsForConnected = YES;
     }
     self.nameLabel.text = groupName;
-    [self networkTestForGroup:[dict objectForKey:SGJSONName]];
-    
+
     self.nameDetailLabel.text = [dict objectForKey:SGDescription];
     //make sure auto-layout is checked off in IB for this cell
     [self.nameDetailLabel sizeToFit];
-
     
+    //alternate bg color
     if(path.row % 2 == 0)
     {
         //even
@@ -237,6 +238,10 @@
         //odd
         self.backgroundColor = [UIColor colorWithRed:249.0/255.0 green:249.0/255.0 blue:249.0/255.0 alpha:1];
     }
+    
+    //start the testing
+     [self networkTestForGroup:[dict objectForKey:SGJSONName]];
+    
     //TEST
     //    if([groupName isEqualToString:@"logging"]){
     //        cell.nameLabel.text = groupName;
