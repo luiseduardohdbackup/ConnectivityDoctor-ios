@@ -31,7 +31,7 @@
     self.finishedView.hidden = YES;
 
     //throttle so the user experience is slow
-   // [self.queue setMaxConcurrentOperationCount:3];
+    [self.queue setMaxConcurrentOperationCount:3];
     
     //fonts for labels
     [self.nameLabel setFont:[UIFont fontWithName:@"Muli"size:14.0f]];
@@ -135,6 +135,7 @@
     
     self.finishedView.hidden = YES;
     self.progressView.hidden = NO;
+     self.progressLabel.hidden = NO;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self progressChange];
     });

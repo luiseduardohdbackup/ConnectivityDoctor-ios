@@ -397,7 +397,7 @@ NSString * const SGWarningNonSecure = @"warning_non_secure";
 
         if([[host objectForKey:kHostChecked] isEqualToString:@"YES"]) hostCheckedCount++;
     }
-    //NSLog(@"the progress is total = %d, checkedsofar = %d answer = %f",hosts.count,hostCheckedCount, (CGFloat)hostCheckedCount/(CGFloat)hosts.count);
+    NSLog(@"the progress is total = %d, checkedsofar = %d answer = %f",hosts.count,hostCheckedCount, (CGFloat)hostCheckedCount/(CGFloat)hosts.count);
     return (CGFloat)hostCheckedCount/(CGFloat)hosts.count;
     
 }
