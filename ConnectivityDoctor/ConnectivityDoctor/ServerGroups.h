@@ -36,7 +36,7 @@ typedef NS_ENUM(NSUInteger, SGFinishedStatus)
 
 // use this as a KVO to change UI elements
 @property (nonatomic) BOOL areAllHostsChecked;
-@property (nonatomic) BOOL areAllGroupsChecked;
+@property (nonatomic) BOOL areAllGroupsFinished;
 
 +(ServerGroups *) sharedInstance;
 

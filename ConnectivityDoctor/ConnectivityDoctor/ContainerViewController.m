@@ -106,31 +106,31 @@
 }
 -(void) viewDidDisappear:(BOOL)animated
 {
-    [self.servers removeObserver:self forKeyPath:@"areAllGroupsChecked"];
+    [self.servers removeObserver:self forKeyPath:@"areAllGroupsFinished"];
 }
 
 -(void) viewDidAppear:(BOOL)animated
 {
     [self.servers addObserver:self
-               forKeyPath:@"areAllGroupsChecked"
+               forKeyPath:@"areAllGroupsFinished"
                   options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
                   context:nil];
 }
 
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if([keyPath isEqualToString:@"areAllGroupsChecked"])
+    if([keyPath isEqualToString:@"areAllGroupsFinished"])
     {
         BOOL old = [[change objectForKey:NSKeyValueChangeOldKey] boolValue];
         BOOL new = [[change objectForKey:NSKeyValueChangeNewKey] boolValue];
         if(!(old == NO && new == YES)) return;
 
-        if(self.servers.areAllGroupsChecked)
+        if(self.servers.areAllGroupsFinished)
         {
           //  [self resultsPost];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            if(self.servers.areAllGroupsChecked)
+            if(self.servers.areAllGroupsFinished)
             {
                 self.runTestAgain.enabled = YES;
                 self.seeReport.enabled = YES;

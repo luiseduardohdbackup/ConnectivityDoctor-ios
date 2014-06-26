@@ -169,7 +169,7 @@ NSString * const SGWarningNonSecure = @"warning_non_secure";
     }
     //properties resets
     self.areAllHostsChecked = NO;
-    self.areAllGroupsChecked = NO;
+    self.areAllGroupsFinished = NO;
 }
 - (NSString *) jsonString
 {
@@ -269,7 +269,7 @@ NSString * const SGWarningNonSecure = @"warning_non_secure";
         [dictValues setValue:[dictResult valueForKeyPath:@"error"] forKey:SGResultError];
         [dictValues setValue:[dictResult valueForKeyPath:@"warning"]?[dictResult valueForKeyPath:@"warning"]:@"" forKey:SGResultWarning];
         //error
-        [dictValues setValue:[dictResult valueForKeyPath:@"error"] forKey:SGErrorMessage];
+        [dictValues setValue:[dictDisplay valueForKeyPath:@"error"] forKey:SGErrorMessage];
         //warning for Secure/NonSecure
         if (dictWarning) {
             [dictValues setValue:[dictWarning valueForKeyPath:@"secure"] forKey:SGWarningSecure];
@@ -326,35 +326,19 @@ NSString * const SGWarningNonSecure = @"warning_non_secure";
     return YES;
 }
 
--(BOOL) allGroupsChecked
+-(BOOL) allGroupsFinishedStatus
 {
-    BOOL allGroups = YES;
-
-    
-    for (NSDictionary * dict in [self groupLabels]) {
-        
-        allGroups = allGroups & [self connectedAnyWithinGroup:[dict objectForKey:SGJSONName]];
-        if(allGroups == NO) break;
-        
+   for (NSDictionary * dict in [self groupLabels]) {
+       if([self groupFinishedStatus:[dict objectForKey:SGJSONName]] == SGNotFinished)
+       {
+           
+           return NO;
+       }
     }
-    
-    return allGroups;
+   
+    return YES;
 }
 
-//return a BOOL if any host whithin the given group got thru the firewll
--(BOOL) connectedAnyWithinGroup : (NSString *) groupname
-{
-    NSArray * hosts = [self.groupHosts objectForKey:groupname];
-    for (NSDictionary * host in hosts) {
-        if([[host objectForKey:kConnected] isEqualToString:@"YES"])
-        {
-            return YES;
-        }
-    }
-    return NO;
-    
-    
-}
 
 -(SGFinishedStatus) groupFinishedStatus : (NSString *) groupName
 {
@@ -397,24 +381,23 @@ NSString * const SGWarningNonSecure = @"warning_non_secure";
 
         if([[host objectForKey:kHostChecked] isEqualToString:@"YES"]) hostCheckedCount++;
     }
-    NSLog(@"the progress is total = %d, checkedsofar = %d answer = %f",hosts.count,hostCheckedCount, (CGFloat)hostCheckedCount/(CGFloat)hosts.count);
+    //NSLog(@"the progress is total = %d, checkedsofar = %d answer = %f",hosts.count,hostCheckedCount, (CGFloat)hostCheckedCount/(CGFloat)hosts.count);
     return (CGFloat)hostCheckedCount/(CGFloat)hosts.count;
     
 }
 //set connected flag
 -(void) markConnectedStatusOfGroup : (NSString *) groupName hostURL:(NSString *)hosturl port:(NSString*) p flag:(BOOL) f
 {
-
+    
     NSArray * hosts = [self.groupHosts objectForKey:groupName];
     for (NSDictionary * host in hosts) {
 
         if([[host objectForKey:kURL] isEqualToString:hosturl] && [[host objectForKey:kPort] isEqualToString:p])
         {
-
             [host setValue:f?@"YES":@"NO" forKey:kConnected];
             [host setValue:@"YES" forKey:kHostChecked];
             self.areAllHostsChecked = [self allHostsChecked];
-            self.areAllGroupsChecked = [self allGroupsChecked];
+            self.areAllGroupsFinished = [self allGroupsFinishedStatus];
         }
     }
 }

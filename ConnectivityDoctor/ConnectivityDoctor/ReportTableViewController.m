@@ -59,14 +59,29 @@
     for (NSDictionary * d in [self.serverGroupStore groupLabels]) {
         [sharingItems addObject:[d objectForKey:SGName]];
         [sharingItems addObject:[d objectForKey:SGDescription]];
-        [sharingItems addObject:@"Test Result:"];
-        [sharingItems addObject:@"Success"];
-        
-//        if([self.serverGroupStore connectedAnyWithinGroup:[d objectForKey:SGJSONName]] == NO)
-//        {
-//            sharingItems[sharingItems.count-1]= @"Failed";
-//            [sharingItems addObject:[d objectForKey:SGErrorMessage]];
-//        }
+   
+        SGFinishedStatus status = [self.serverGroupStore groupFinishedStatus:[d objectForKey:SGJSONName]];
+        if ((status == SGAllHostsConnected) || (status == SGSomeHostConnected))
+        {
+            [sharingItems addObject:@"Test Result:"];
+            [sharingItems addObject:[d objectForKey:SGResultSuccess]];
+
+        } else if(status == SGAllHostsFailed)
+        {
+            [sharingItems addObject:@"Test Result:"];
+            [sharingItems addObject:[d objectForKey:SGResultError]];
+            [sharingItems addObject:@"Message:"];
+            [sharingItems addObject:[d objectForKey:SGErrorMessage]];
+
+        }
+        else if(status == SGAllHostsSomeConnectedAndSomeFailed)
+        {
+            [sharingItems addObject:@"Test Result:"];
+            [sharingItems addObject:[d objectForKey:SGResultWarning]];
+            [sharingItems addObject:@"Message:"];
+            [sharingItems addObject:[d objectForKey:SGWarningSecure]];
+
+        }
 
         [sharingItems addObject:@"\n"];
 

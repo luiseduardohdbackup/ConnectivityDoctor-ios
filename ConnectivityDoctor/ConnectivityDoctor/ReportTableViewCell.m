@@ -37,15 +37,6 @@
     [self.message setFont:[UIFont fontWithName:@"Muli"size:12.0f]];
     [self.messageDetail setFont:[UIFont fontWithName:@"Muli"size:12.0f]];
     
-    //default to non red
-    
-    [self.messageDetail setTextColor:[UIColor colorWithRed:178.0/255 green:89.0/255 blue:0.0/255 alpha:1 ]];
-    
-    //red color
-   // [self.testResult setTextColor:[UIColor colorWithRed:193.0/255 green:27.0/255 blue:23.0/255 alpha:1 ]];
-    
-
-    
 }
 
 -(void) setPath: (NSIndexPath *)indexPath
@@ -65,17 +56,20 @@
     if ((status == SGAllHostsConnected) || (status == SGSomeHostConnected))
     {
         [self.finishedView setImage:[UIImage imageNamed:@"connected"]];
+        // [self.messageDetail setTextColor:[UIColor colorWithRed:178.0/255 green:89.0/255 blue:0.0/255 alpha:1 ]];
         self.messageDetail.text = [dict objectForKey:SGResultSuccess];
 
     } else if(status == SGAllHostsFailed)
     {
         [self.finishedView setImage:[UIImage imageNamed:@"notConnected"]];
+        [self.messageDetail setTextColor:[UIColor colorWithRed:216.0/255 green:0/255 blue:0.0/255 alpha:1 ]];
         self.messageDetail.text = [dict objectForKey:SGErrorMessage];
         
     }
     else if(status == SGAllHostsSomeConnectedAndSomeFailed)
     {
         [self.finishedView setImage:[UIImage imageNamed:@"unknown"]];
+        [self.messageDetail setTextColor:[UIColor colorWithRed:178.0/255 green:89.0/255 blue:0.0/255 alpha:1 ]];
         self.messageDetail.text = [dict objectForKey:SGWarningSecure];
     }
     
