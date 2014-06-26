@@ -44,7 +44,6 @@
 		239FF246194103C6008F212C /* ReportTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 239FF244194103C6008F212C /* ReportTableViewController.m */; };
 		239FF24A19411575008F212C /* ReportSectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 239FF24919411575008F212C /* ReportSectionTableViewCell.m */; };
 		239FF24B19411575008F212C /* ReportSectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 239FF24919411575008F212C /* ReportSectionTableViewCell.m */; };
-		23A0205918D2673800ADB7B2 /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A0205818D2673800ADB7B2 /* DACircularProgressView.m */; };
 		23A0205C18D3938F00ADB7B2 /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A0205B18D3938F00ADB7B2 /* GroupCell.m */; };
 		23A0205E18D3B09E00ADB7B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A0205D18D3B09E00ADB7B2 /* QuartzCore.framework */; };
 		23A16478191C3C9E0010DFAE /* OTHTTPOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A16477191C3C9E0010DFAE /* OTHTTPOperation.m */; };
@@ -117,8 +116,6 @@
 		239FF244194103C6008F212C /* ReportTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportTableViewController.m; sourceTree = "<group>"; };
 		239FF24819411575008F212C /* ReportSectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportSectionTableViewCell.h; sourceTree = "<group>"; };
 		239FF24919411575008F212C /* ReportSectionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportSectionTableViewCell.m; sourceTree = "<group>"; };
-		23A0205718D2673800ADB7B2 /* DACircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DACircularProgressView.h; sourceTree = "<group>"; };
-		23A0205818D2673800ADB7B2 /* DACircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DACircularProgressView.m; sourceTree = "<group>"; };
 		23A0205A18D3938F00ADB7B2 /* GroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCell.h; sourceTree = "<group>"; };
 		23A0205B18D3938F00ADB7B2 /* GroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCell.m; sourceTree = "<group>"; };
 		23A0205D18D3B09E00ADB7B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -203,7 +200,6 @@
 				23A0208618D767C100ADB7B2 /* Storyboard */,
 				23A348B018E6226500B1587C /* Model */,
 				2393458818DA45EE007EEAEE /* SocketsCode */,
-				23A0205518D2671200ADB7B2 /* ThirdPartyUI */,
 				23A3486818E2189A00B1587C /* Resources */,
 				2316ED3C18C52F6800A9577E /* AppDelegate.h */,
 				2316ED3D18C52F6800A9577E /* AppDelegate.m */,
@@ -299,23 +295,6 @@
 				23A4103119464BA300CB4E19 /* ReportTableViewCell.m */,
 			);
 			name = Cells;
-			sourceTree = "<group>";
-		};
-		23A0205518D2671200ADB7B2 /* ThirdPartyUI */ = {
-			isa = PBXGroup;
-			children = (
-				23A0205618D2671E00ADB7B2 /* DACircular */,
-			);
-			name = ThirdPartyUI;
-			sourceTree = "<group>";
-		};
-		23A0205618D2671E00ADB7B2 /* DACircular */ = {
-			isa = PBXGroup;
-			children = (
-				23A0205718D2673800ADB7B2 /* DACircularProgressView.h */,
-				23A0205818D2673800ADB7B2 /* DACircularProgressView.m */,
-			);
-			name = DACircular;
 			sourceTree = "<group>";
 		};
 		23A0208618D767C100ADB7B2 /* Storyboard */ = {
@@ -466,7 +445,6 @@
 				2393457C18D7BE7F007EEAEE /* ContainerViewController.m in Sources */,
 				2316ED3A18C52F6800A9577E /* main.m in Sources */,
 				2393459718DA4605007EEAEE /* GCDAsyncSocket.m in Sources */,
-				23A0205918D2673800ADB7B2 /* DACircularProgressView.m in Sources */,
 				2393459A18DA4605007EEAEE /* STUNClient.m in Sources */,
 				239FF245194103C6008F212C /* ReportTableViewController.m in Sources */,
 				2393459818DA4605007EEAEE /* OTConnectivityBaseOperation.m in Sources */,

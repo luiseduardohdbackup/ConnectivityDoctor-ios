@@ -98,11 +98,6 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view contentMode="scaleToFill" id="6Y3-ye-Vrr" customClass="DACircularProgressView">
-                                            <rect key="frame" x="270" y="24" width="26" height="26"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </view>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="this is a line" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3fW-tB-2If">
                                             <rect key="frame" x="20" y="28" width="227" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -116,14 +111,18 @@
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" id="cbO-KU-kmZ">
+                                            <rect key="frame" x="270" y="24" width="20" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </activityIndicatorView>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="activityIndicator" destination="cbO-KU-kmZ" id="TKs-9I-Bvq"/>
                                     <outlet property="finishedView" destination="0SB-79-SJJ" id="xr1-K1-2yL"/>
                                     <outlet property="nameDetailLabel" destination="3fW-tB-2If" id="oDy-w8-hD6"/>
                                     <outlet property="nameLabel" destination="mTV-Uv-Im2" id="fB6-DW-Fho"/>
                                     <outlet property="progressLabel" destination="OUg-Mj-Egd" id="bEp-hv-y41"/>
-                                    <outlet property="progressView" destination="6Y3-ye-Vrr" id="oiQ-yO-Z0G"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

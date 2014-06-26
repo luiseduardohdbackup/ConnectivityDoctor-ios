@@ -7,17 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-@class DACircularProgressView;
+
 
 
 
 @interface GroupCell : UITableViewCell
 @property (nonatomic, weak) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameDetailLabel;
-@property (nonatomic, weak) IBOutlet DACircularProgressView *progressView;
 @property (nonatomic, weak) IBOutlet UILabel *progressLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *finishedView;
-
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 
 -(void) startDisplayAtPath : (NSIndexPath *) path;

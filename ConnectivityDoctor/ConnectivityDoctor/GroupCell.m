@@ -7,7 +7,6 @@
 //
 
 #import "GroupCell.h"
-#import "DACircularProgressView.h"
 #import "ServerGroups.h"
 #import "OTConnectivityBaseOperation.h"
 #import "OTTCPOperation.h"
@@ -46,7 +45,7 @@
 {
     [self.finishedView setImage:img];
     self.finishedView.hidden = NO;
-    self.progressView.hidden = YES;
+    [self.activityIndicator stopAnimating];
     self.progressLabel.hidden = YES;
 
     
@@ -54,15 +53,7 @@
 - (void)progressChange
 {
 
-    self.progressView.roundedCorners = YES;
-    self.progressView.trackTintColor = [UIColor lightGrayColor];
-    self.progressView.progressTintColor = [UIColor blackColor];
-    self.progressView.backgroundColor = [UIColor clearColor];
-    self.progressView.thicknessRatio = 0.1f;
-    self.progressView.clockwiseProgress = YES;
-    
-    self.progressView.progress = [self.servers groupProgress:[self.dictDisplay objectForKey:SGJSONName]];
-    self.progressLabel.text = [NSString stringWithFormat:@"%2.0f%%", self.progressView.progress * 100];
+    self.progressLabel.text = [NSString stringWithFormat:@"%2.0f%%", [self.servers groupProgress:[self.dictDisplay objectForKey:SGJSONName]]* 100];
     
     SGFinishedStatus status = [self.servers groupFinishedStatus:[self.dictDisplay objectForKey:SGJSONName]];
     
@@ -134,7 +125,7 @@
     if(hosts.count == 0) return;
     
     self.finishedView.hidden = YES;
-    self.progressView.hidden = NO;
+    [self.activityIndicator startAnimating];
      self.progressLabel.hidden = NO;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self progressChange];
