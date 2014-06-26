@@ -11,6 +11,8 @@ extern NSString * const kConnected ;
 extern NSString * const kURL ;
 extern NSString * const kPort ;
 extern NSString * const kProtocol ;
+extern NSString * const kSecured;
+extern NSString * const kHostChecked;
 
 extern NSString * const SGJSONName;
 extern NSString * const SGName;
@@ -55,7 +57,7 @@ typedef NS_ENUM(NSUInteger, SGFinishedStatus)
 -(NSArray *) hostsForGroup : (NSString *) groupName;
 
 //set connected flag.
--(void) markConnectedStatusOfGroup : (NSString *) groupName hostURL:(NSString *)hosturl port:(NSString*) p flag:(BOOL) f;
+-(void) markConnectedStatusOfGroup : (NSString *) groupName hostURL:(NSString *)hosturl port:(NSString*) p flag:(BOOL) f secured:(BOOL) secure;
 
 // return SGFinishedStatus
 -(SGFinishedStatus) groupFinishedStatus : (NSString *) groupName;

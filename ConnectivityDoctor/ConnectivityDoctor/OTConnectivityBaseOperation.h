@@ -12,6 +12,8 @@
 
 //On completion of the operation, this value can be tested to check if the connection was successful or not
 @property  BOOL connected;
+//If the operation is https this value is YES
+@property BOOL secured;
 
 
 @end

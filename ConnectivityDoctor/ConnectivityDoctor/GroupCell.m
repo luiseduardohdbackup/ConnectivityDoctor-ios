@@ -145,7 +145,7 @@
 
                 
                 [self.servers markConnectedStatusOfGroup:name hostURL:[host objectForKey:kURL]
-                                                    port:[host objectForKey:kPort] flag:weakOperation.connected];
+                                                    port:[host objectForKey:kPort] flag:weakOperation.connected secured:weakOperation.secured];
   
                 if(weakOperation.connected) {
                   //  NSLog(@"ok  host = %@ port = %d protocol=%@", [host objectForKey:kURL],[[host objectForKey:kPort] intValue],[host objectForKey:kProtocol]);

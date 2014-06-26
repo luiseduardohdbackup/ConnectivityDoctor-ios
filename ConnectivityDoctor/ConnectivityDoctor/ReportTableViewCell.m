@@ -69,8 +69,23 @@
     else if(status == SGAllHostsSomeConnectedAndSomeFailed)
     {
         [self.finishedView setImage:[UIImage imageNamed:@"unknown"]];
+        NSArray * hosts = [self.serverGroupStore hostsForGroup:[dict objectForKey:SGJSONName]];
+        NSString * message = @"";
+        for (NSDictionary * host in hosts) {
+            NSString * connected = [host objectForKey:kConnected];
+            NSString * checked = [host objectForKey:kHostChecked];
+            NSString * secured = [host objectForKey:kSecured];
+            if([connected isEqualToString:@"NO"] && [checked isEqualToString:@"YES"] && [secured isEqualToString:@"YES"])
+            {
+                message = [dict objectForKey:SGWarningNonSecure];
+            } else if([connected isEqualToString:@"NO"] && [checked isEqualToString:@"YES"] && [secured isEqualToString:@"NO"])
+            {
+                 message = [dict objectForKey:SGWarningSecure];
+            }
+            
+        }
         [self.messageDetail setTextColor:[UIColor colorWithRed:178.0/255 green:89.0/255 blue:0.0/255 alpha:1 ]];
-        self.messageDetail.text = [dict objectForKey:SGWarningSecure];
+        self.messageDetail.text = message;
     }
     
     

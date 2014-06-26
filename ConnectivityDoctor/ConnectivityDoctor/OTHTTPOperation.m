@@ -13,7 +13,6 @@
 @property (nonatomic,strong) NSString * host;
 @property NSUInteger port;
 @property NSTimeInterval timeout;
-@property BOOL isHttps;
 @property BOOL finished;
 @property BOOL executing;
 
@@ -38,8 +37,7 @@
         self.host = host;
         self.port = port;
         self.timeout = time;
-        self.isHttps = https;
-        
+        self.secured = https;
         
         self.finished = NO;
         self.executing = NO;
@@ -75,7 +73,7 @@
 {
     @try {
         @autoreleasepool {
-            NSString * protocol = [NSString stringWithFormat:@"%@",self.isHttps?@"https":@"http"];
+            NSString * protocol = [NSString stringWithFormat:@"%@",self.secured?@"https":@"http"];
             NSArray * a = [self.host componentsSeparatedByString:@".com"];
             NSString * s = [NSString stringWithFormat:@"%@://%@.com:%lu%@",protocol,a[0],(unsigned long)self.port,a[1]];
             self.request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:s]
@@ -162,6 +160,10 @@
     NSHTTPURLResponse * r =  (NSHTTPURLResponse*)response;
     
     self.connected = (r.statusCode == 200);
+    
+    //TESTING CODE BELOW - ONE LINER
+    //if(self.secured) self.connected = NO;
+    
     [self tearDown];
 
  

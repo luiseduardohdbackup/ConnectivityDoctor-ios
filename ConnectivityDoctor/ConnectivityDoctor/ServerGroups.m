@@ -12,10 +12,12 @@ NSString * const kConnected = @"connected";
 NSString * const kURL = @"url";
 NSString * const kPort = @"port";
 NSString * const kProtocol = @"protocol";
+NSString * const kSecured = @"secured";
+// YES if connectivity test was done. NO if no test were done
+NSString * const kHostChecked = @"hostChecked";
 
 static NSString * const kGenericURL = @"generic_url";
-// YES if connectivity test was done. NO if no test were done
-static NSString * const kHostChecked = @"hostChecked";
+
 
 NSString * const SGJSONName = @"jsonName";
 NSString * const SGName = @"name";
@@ -386,7 +388,7 @@ NSString * const SGWarningNonSecure = @"warning_non_secure";
     
 }
 //set connected flag
--(void) markConnectedStatusOfGroup : (NSString *) groupName hostURL:(NSString *)hosturl port:(NSString*) p flag:(BOOL) f
+-(void) markConnectedStatusOfGroup : (NSString *) groupName hostURL:(NSString *)hosturl port:(NSString*) p flag:(BOOL) f secured:(BOOL) secure
 {
     
     NSArray * hosts = [self.groupHosts objectForKey:groupName];
@@ -396,6 +398,7 @@ NSString * const SGWarningNonSecure = @"warning_non_secure";
         {
             [host setValue:f?@"YES":@"NO" forKey:kConnected];
             [host setValue:@"YES" forKey:kHostChecked];
+            [host setValue: secure?@"YES":@"NO" forKey:kSecured];
             self.areAllHostsChecked = [self allHostsChecked];
             self.areAllGroupsFinished = [self allGroupsFinishedStatus];
         }

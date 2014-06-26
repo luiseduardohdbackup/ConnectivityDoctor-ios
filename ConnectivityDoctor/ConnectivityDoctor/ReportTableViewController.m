@@ -79,7 +79,24 @@
             [sharingItems addObject:@"Test Result:"];
             [sharingItems addObject:[d objectForKey:SGResultWarning]];
             [sharingItems addObject:@"Message:"];
-            [sharingItems addObject:[d objectForKey:SGWarningSecure]];
+            
+            NSArray * hosts = [self.serverGroupStore hostsForGroup:[d objectForKey:SGJSONName]];
+            NSString * message = @"";
+            for (NSDictionary * host in hosts) {
+                NSString * connected = [host objectForKey:kConnected];
+                NSString * checked = [host objectForKey:kHostChecked];
+                NSString * secured = [host objectForKey:kSecured];
+                if([connected isEqualToString:@"NO"] && [checked isEqualToString:@"YES"] && [secured isEqualToString:@"YES"])
+                {
+                    message = [d objectForKey:SGWarningNonSecure];
+                } else if([connected isEqualToString:@"NO"] && [checked isEqualToString:@"YES"] && [secured isEqualToString:@"NO"])
+                {
+                    message = [d objectForKey:SGWarningSecure];
+                }
+                
+            }
+
+            [sharingItems addObject:message];
 
         }
 
