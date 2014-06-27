@@ -127,7 +127,7 @@
 
         if(self.servers.areAllGroupsFinished)
         {
-          //  [self resultsPost];
+            [self resultsPost];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             if(self.servers.areAllGroupsFinished)
@@ -155,11 +155,13 @@
     [self fetchServerListFromNetworkAndStore];
 }
 #pragma mark POST results
+//Right now we just send the date and device name to the logging data base .
+// We could send the hosts connected status later on by using ServerGroup jsonString
 -(void) resultsPost
 {
     // post string creation
     
-    NSString * data = [NSString stringWithFormat:@"report=%@",[self.servers jsonString]];
+    NSString * data = [NSString stringWithFormat:@"Connectivity Doctor [%@] device=%@",[NSDate date],[[UIDevice currentDevice] name]];
     
     data = (NSString *) CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL,
                                                                                   (CFStringRef) data,
@@ -169,7 +171,7 @@
     //printf("%s\n",[data UTF8String]);
     
     //url creation
-    NSURL *url = [NSURL URLWithString:@"https://dashboard-dev.tokbox.com/send_reports"];
+    NSURL *url = [NSURL URLWithString:@"http://hlg.tokbox.com/prod/logging/ClientEvent"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[url standardizedURL]];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -178,12 +180,12 @@
     
 
 
+    // just post , response check not needed
     [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
      {
-         NSHTTPURLResponse * r = (NSHTTPURLResponse*) response;
-         
-         NSLog(@"POST response=%ld",(long)r.statusCode);
-         //NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+//         NSHTTPURLResponse * r = (NSHTTPURLResponse*) response;
+//         NSLog(@"POST response=%ld",(long)r.statusCode);
+//         NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
      }];
      
 
