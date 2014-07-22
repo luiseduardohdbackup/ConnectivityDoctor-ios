@@ -76,6 +76,7 @@
 {
     @try {
         @autoreleasepool {
+//            NSLog(@"STUN operation will start");
             self.stunClient = [[STUNClient alloc] initWithHost:self.host port:self.port timeout:self.timeout];
 
             if(!self.isTCPProtocol)
@@ -184,10 +185,10 @@
 
     [self tearDown];
 
-//    NSLog(@"Public IP=%@, public Port=%@, NAT is Symmetric: %@", [data objectForKey:publicIPKey],
-//          [data objectForKey:publicPortKey], [data objectForKey:isPortRandomization]);
+//    NSLog(@"Public IP=%@, public Port=%@, NAT is Symmetric: %@ protocol=%d", [data objectForKey:publicIPKey],
+//          [data objectForKey:publicPortKey], [data objectForKey:isPortRandomization], self.isTCPProtocol);
 //    
-//    
+//
 //    [self.stunClient startSendIndicationMessage];
 }
 
