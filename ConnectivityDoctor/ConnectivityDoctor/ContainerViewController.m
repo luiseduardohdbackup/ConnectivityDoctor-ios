@@ -11,7 +11,8 @@
 #import "ServerGroups.h"
 #import "Utils.h"
 
-@interface ContainerViewController ()
+@interface ContainerViewController () <UIAlertViewDelegate>
+
 @property (nonatomic) ServerGroups * servers;
 @property (nonatomic) MasterViewController * masterController;
 @end
@@ -26,6 +27,14 @@
     }
     return self;
 }
+
+
+-(void) handleNetworkError: (NSString *) msg
+{
+    [self showAlert:msg];
+    NSLog(@"Network error");
+}
+
 // https://dashboard.tokbox.com/get_server_list
 // http://sup301-sat.tokbox.com/dynamicTestConfig.json
 
@@ -45,9 +54,15 @@
              
              //NSString* newStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
              [self.servers initWithJSON:data];
-             
+
              dispatch_async(dispatch_get_main_queue(), ^{
+                 
+                 //TODO - the network tests are embedded in GroupCell and this gets activated when the cell is visible.
+                 // This is bad design . Better to have all the tests done independently and have the UI pick them up
+                 // For now because we have 4 cells , the scroll to bottom works ok in older 3 inch devices. 
                  [self.masterController.tableView reloadData];
+                 [self.masterController.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+
                  [self.masterController.tableView setNeedsDisplay];
              });
 
@@ -55,17 +70,19 @@
          }
          else if ([data length] == 0 && error == nil)
          {
-             [Utils showAlert:@"Could not fetch valid data"];
+             [self handleNetworkError:@"Could not fetch valid data"];
+
          }
              
          else if (error != nil && error.code == NSURLErrorTimedOut)
          {
-             [Utils showAlert:@"Could not fetch the list of servers.Try again after making sure that the network connection is present"];
+             [self handleNetworkError:@"Could not fetch the list of servers.Try again after making sure that the network connection is present"];
+
          }
          else if (error != nil)
          {
-            [Utils showAlert:@"Could not fetch the list of servers.Try again after making sure that the network connection is present"];
-            NSLog(@"Network error : %@", error.description);
+             [self handleNetworkError:@"Could not fetch the list of servers.Try again after making sure that the network connection is present"];
+           
          }
 
      }];
@@ -95,14 +112,9 @@
 {
     [super viewDidLoad];
     
-
-    
     self.servers = [ServerGroups sharedInstance];
-
     [self refresh:nil];
-    
-   
-    
+
 }
 -(void) viewDidDisappear:(BOOL)animated
 {
@@ -111,10 +123,12 @@
 
 -(void) viewDidAppear:(BOOL)animated
 {
+ 
     [self.servers addObserver:self
                forKeyPath:@"areAllGroupsFinished"
                   options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
                   context:nil];
+  
 }
 
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -193,5 +207,21 @@
     
 }
 
+- (void)showAlert:(NSString *)string
+{
+    // show alertview on main UI
+	dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No network found"
+                                                        message:@"Enable network connection."
+                                                       delegate:self
+                                              cancelButtonTitle:@"Retry"
+                                              otherButtonTitles:nil] ;
+        [alert show];
+    });
+}
 
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self fetchServerListFromNetworkAndStore];
+}
 @end

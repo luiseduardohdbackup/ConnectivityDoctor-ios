@@ -21,10 +21,6 @@
 
 - (void)awakeFromNib
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        self.clearsSelectionOnViewWillAppear = NO;
-        self.preferredContentSize = CGSizeMake(320.0, 600.0);
-    }
     [super awakeFromNib];
 }
 
@@ -32,11 +28,8 @@
 {
     [super viewDidLoad];
     
-   
-
     self.serverGroupStore = [ServerGroups sharedInstance];
 
-    self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,7 +44,6 @@
 {
     return 1;
 }
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
@@ -64,24 +56,5 @@
     [cell startDisplayAtPath:indexPath];
     return cell;
 }
-
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-
-    }
-    
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
-       // NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-       
-       // [[segue destinationViewController] setDetailItem:[self.serverGroupStore groupLabels][indexPath.row]];
-    }
-}
-
 
 @end

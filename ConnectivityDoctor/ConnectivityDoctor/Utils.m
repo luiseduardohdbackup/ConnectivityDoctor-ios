@@ -46,18 +46,5 @@ NSString * const kUtils_ReportHeaderText = @"Network diagnostic report";
     return [NSString stringWithFormat:@"%@:%@ %@ %@ %@,%@",myHourString,myMinuteString,myAmPm,myMonthString,myDayString,myYearString];
 }
 
-+ (void)showAlert:(NSString *)string
-{
-    // show alertview on main UI
-	dispatch_async(dispatch_get_main_queue(), ^{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connectivity Doctor"
-                                                        message:string
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil] ;
-        [alert show];
-    });
-}
-
 
 @end
