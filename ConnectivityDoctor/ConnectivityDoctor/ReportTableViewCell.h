@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Jaideep Shah. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface ReportTableViewCell : UITableViewCell
 //cells
 @property (nonatomic, weak) IBOutlet UILabel *nameLabel;
@@ -19,7 +17,4 @@
 @property (weak, nonatomic) IBOutlet UILabel *message;
 
 @property (nonatomic) NSIndexPath * path;
-
-
-
 @end

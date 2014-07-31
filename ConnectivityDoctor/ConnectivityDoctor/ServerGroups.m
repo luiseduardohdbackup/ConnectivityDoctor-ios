@@ -107,6 +107,8 @@ NSString * const SGWarningNonSecure = @"warning_non_secure";
    
     return groupsJSON;
 }
+
+
 -(void) initWithJSON : (NSData  *) data
 {
     self.groupHosts = [NSMutableDictionary new];
@@ -173,6 +175,8 @@ NSString * const SGWarningNonSecure = @"warning_non_secure";
     self.areAllHostsChecked = NO;
     self.areAllGroupsFinished = NO;
 }
+
+
 - (NSString *) jsonString
 {
     

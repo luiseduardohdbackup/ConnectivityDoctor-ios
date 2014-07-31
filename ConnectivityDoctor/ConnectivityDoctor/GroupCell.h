@@ -6,11 +6,6 @@
 //  Copyright (c) 2014 Jaideep Shah. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-
-
-
 @interface GroupCell : UITableViewCell
 @property (nonatomic, weak) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameDetailLabel;
@@ -20,7 +15,6 @@
 
 
 -(void) startDisplayAtPath : (NSIndexPath *) path;
-
 @end
 
 

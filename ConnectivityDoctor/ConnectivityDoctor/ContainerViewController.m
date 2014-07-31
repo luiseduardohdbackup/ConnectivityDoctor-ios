@@ -12,7 +12,6 @@
 #import "Utils.h"
 
 @interface ContainerViewController () <UIAlertViewDelegate>
-
 @property (nonatomic) ServerGroups * servers;
 @property (nonatomic) MasterViewController * masterController;
 @end
@@ -29,11 +28,6 @@
 }
 
 
--(void) handleNetworkError: (NSString *) msg
-{
-    [self showAlert:msg];
-    NSLog(@"Network error");
-}
 
 // https://dashboard.tokbox.com/get_server_list
 // http://sup301-sat.tokbox.com/dynamicTestConfig.json
@@ -70,19 +64,17 @@
          }
          else if ([data length] == 0 && error == nil)
          {
-             [self handleNetworkError:@"Could not fetch valid data"];
-
+             [self showRetryAlertWithTitle:@"Tokbox server error" message:@"Please try after some time."];
          }
              
          else if (error != nil && error.code == NSURLErrorTimedOut)
          {
-             [self handleNetworkError:@"Could not fetch the list of servers.Try again after making sure that the network connection is present"];
+             [self showRetryAlertWithTitle:@"Network timed out" message:@"Please try after some time."];
 
          }
          else if (error != nil)
          {
-             [self handleNetworkError:@"Could not fetch the list of servers.Try again after making sure that the network connection is present"];
-           
+            [self showRetryAlertWithTitle:@"Network connection not found" message:@"Enable network connection."];
          }
 
      }];
@@ -168,9 +160,11 @@
    
     [self fetchServerListFromNetworkAndStore];
 }
+
 #pragma mark POST results
 //Right now we just send the date and device name to the logging data base .
 // We could send the hosts connected status later on by using ServerGroup jsonString
+
 -(void) resultsPost
 {
     // post string creation
@@ -207,12 +201,12 @@
     
 }
 
-- (void)showAlert:(NSString *)string
+- (void)showRetryAlertWithTitle:(NSString *)t message:(NSString *) m
 {
     // show alertview on main UI
 	dispatch_async(dispatch_get_main_queue(), ^{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No network found"
-                                                        message:@"Enable network connection."
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:t
+                                                        message:m
                                                        delegate:self
                                               cancelButtonTitle:@"Retry"
                                               otherButtonTitles:nil] ;

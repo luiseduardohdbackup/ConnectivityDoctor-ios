@@ -6,9 +6,5 @@
 //  Copyright (c) 2014 Jaideep Shah. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface ReportTableViewController : UITableViewController
-
-
 @end
