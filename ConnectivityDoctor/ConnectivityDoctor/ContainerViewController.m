@@ -28,6 +28,16 @@
 }
 
 
+-(NSData *) decodeFromJWT : (NSData *) data
+{
+    //NSString* s = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    NSString * s = @"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMjM1LCJmcmllbmRfaWQiOjIzNDM2fQ.aWGN2ahLSBlyAnnF-ChSYWDyVjg9J_t_bZhKm9MSPks";
+    NSString * decoded_s = [Utils decodeJWT:s withKey:@"im-a-teapot"];
+    NSData * newData = [decoded_s dataUsingEncoding:NSUTF8StringEncoding];
+    return data;
+    
+}
 
 // https://dashboard.tokbox.com/get_server_list
 // http://sup301-sat.tokbox.com/dynamicTestConfig.json
@@ -45,9 +55,9 @@
      {
          
          if ([data length] > 0 && error == nil) {
+
              
-             //NSString* newStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-             [self.servers initWithJSON:data];
+             [self.servers initWithJSON:[self decodeFromJWT:data]];
 
              dispatch_async(dispatch_get_main_queue(), ^{
                  

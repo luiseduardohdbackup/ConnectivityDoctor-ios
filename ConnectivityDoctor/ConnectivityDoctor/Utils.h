@@ -10,4 +10,5 @@ extern NSString * const kUtils_ReportHeaderText ;
 
 @interface Utils : NSObject
 + (NSString *) date_HH_AP_MM_DD_YYYY;
++ (NSString *) decodeJWT : (NSString *) jwt withKey : (NSString*) key;
 @end
